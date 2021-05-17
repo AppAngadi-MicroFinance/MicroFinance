@@ -4,6 +4,30 @@
              xmlns:local="clr-namespace:MicroFinance"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <Border>
+                                <AdornedElementPlaceholder 
+                            ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" >
+                                    
+                                </AdornedElementPlaceholder>
+                            </Border>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+
+
         <!--<Regular Font>-->
             <Style x:Key="Regular" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Roboto"/>
@@ -19,12 +43,35 @@
         </Style>
         <!--<Regular Input>-->
         <Style TargetType="TextBox" x:Key="InputBox">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <Border>
+                                <AdornedElementPlaceholder 
+                            ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" >
+
+                                </AdornedElementPlaceholder>
+                            </Border>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
             <Setter Property="FontSize" Value="16"></Setter>
             <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
             <Setter Property="FontFamily" Value="Roboto"></Setter>
             <Setter Property="Height" Value="40"></Setter>
-            
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" />
+                    <Setter Property="BorderThickness" Value="2"></Setter>
+                    <Setter Property="BorderBrush" Value="red"></Setter>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="Transparent"></Setter>
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <!--<Calander>-->
         <Style x:Key="DateSelecter" TargetType="DatePicker">

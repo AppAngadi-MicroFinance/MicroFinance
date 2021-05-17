@@ -32,31 +32,44 @@ namespace MicroFinance
             RegionBox.ItemsSource = Regionlist;
             Managerbox.ItemsSource = Managerlist;
             Accountantbox.ItemsSource = Accountantlist;
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             BranchAccountdetailsPanel.IsOpen = true;
+            MainGrid.Opacity = 0.4;
         }
 
         private void close_Click(object sender, RoutedEventArgs e)
         {
             BranchAccountdetailsPanel.IsOpen = false;
+            MainGrid.Opacity = 1.0;
         }
 
         private void Savebtn_Click(object sender, RoutedEventArgs e)
         {
             ConfirmPanel.IsOpen = true;
+            MainGrid.Opacity = 0.6;
+            MainGrid.IsEnabled = false;
         }
 
         private void Cancelbtn_Click(object sender, RoutedEventArgs e)
         {
             ConfirmPanel.IsOpen = false;
+            MainGrid.Opacity = 1.0;
+           // MainGrid.IsEnabled = true;
         }
 
         private void PanelCloseBtn_Click(object sender, RoutedEventArgs e)
         {
             BranchAccountdetailsPanel.IsOpen = false;
+            MainGrid.Opacity = 1.0;
+        }
+
+        private void CreateBr_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(CB.ToString());
         }
     }
 }
