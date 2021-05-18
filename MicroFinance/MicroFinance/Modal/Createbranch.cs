@@ -12,10 +12,76 @@ namespace MicroFinance.Modal
         {
            
         }
-        public string RegionName { get; set; }
-        public string BranchName { get; set; }
-        public string BranchAddress { get; set; }
-        public string LandlineNumber { get; set; }
+        private string _regionName;
+        public string RegionName
+        {
+            get
+            {
+                return _regionName;
+            }
+            set
+            {
+                _regionName = value;
+                RaisedPropertyChanged("RegionName");
+            }
+        }
+        private string _branchname;
+        public string BranchName
+        {
+            get
+            {
+                return _branchname;
+            }
+            set
+            {
+                _branchname = value;
+                RaisedPropertyChanged("BranchName");
+            }
+        }
+        private string _branchaddress;
+        public string BranchAddress
+        {
+            get
+            {
+                return _branchaddress;
+            }
+            set
+            {
+                _branchaddress = value;
+                RaisedPropertyChanged("BranchAddress");
+            }
+        }
+        private string _landlinenumber;
+        public string LandlineNumber
+        {
+            get
+            {
+                return _landlinenumber;
+            }
+            set
+            {
+              
+               
+                    if(IsLandline(value)==true)
+                    {
+                        if(value.Length<=12)
+                        {
+                            _landlinenumber = value;
+                            RaisedPropertyChanged("LandlineNumber");
+                        }
+                        else
+                        {
+                            throw new ArgumentException("Enter Correct Landline Number");
+                        }
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Invalid LandLine Number");
+                    }
+            }
+
+            
+        }
         int _costpermonth;
         public int CostPerMonth
         {
@@ -45,8 +111,35 @@ namespace MicroFinance.Modal
                 }
             } 
         }
-        public string ManagerName { get; set; }
-        public string AccountantName { get; set; }
+        private string _managername;
+        public string ManagerName
+        {
+            get
+            {
+                return _managername;
+            }
+            set
+            {
+                if(value!=_managername)
+                {
+                    _managername = value;
+                    RaisedPropertyChanged("ManagerName");
+                }
+            }
+        }
+        private string _accoutantname;
+        public string AccountantName
+        {
+            get
+            {
+                return _accoutantname;
+            }
+            set
+            {
+                _accoutantname = value;
+                RaisedPropertyChanged("AccountantName");
+            }
+        }
         public DateTime OpeningDate { get; set; }
         public string EBConnectionName { get; set; }
         private string _ebconnectionnubmer;
@@ -89,17 +182,29 @@ namespace MicroFinance.Modal
         }
         public string InternetConnectionName { get; set; }
         private int _internetconnectioncost;
-        public int InternetConnectionCost
+        public string InternetConnectionCost
         {
             get
             {
-                return _internetconnectioncost;
+                return _internetconnectioncost.ToString();
             }
             set
             {
-                if(value!=_internetconnectioncost)
+                if (string.IsNullOrEmpty(_internetconnectioncost.ToString())==false)
                 {
-                    _internetconnectioncost = value;
+                    if (value != _internetconnectioncost.ToString())
+                    {
+                        if(IsAmount(value)==true)
+                        {
+                            _internetconnectioncost =int.Parse(value);
+                            RaisedPropertyChanged("InternetConnectionCost");
+                        }
+                        else
+                        {
+                            throw new ArgumentException("Invalid Amount");
+                        }
+                       
+                    }
                 }
             }
         }
@@ -252,6 +357,17 @@ namespace MicroFinance.Modal
             }
             return true;
             
+        }
+
+        public bool IsLandline(string value)
+        {
+            double v;
+            bool result = double.TryParse(value, out v);
+            if(result==true)
+            {
+                return true;
+            }
+            return false;
         }
         public override string ToString()
         {

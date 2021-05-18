@@ -8,18 +8,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="660" d:DesignWidth="1366"
       Title="CreateBranch" Background="White">
-    <Page.Resources>
-        <Style x:Key="priceValidate" TargetType="TextBox">
-            <Style.Triggers>
-                <Trigger Property="Validation.HasError" Value="True">
-                    <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self},Path=(Validation.Errors)[0].ErrorContent}"></Setter>
-                </Trigger>
+    
 
-            </Style.Triggers>
-        </Style>
-    </Page.Resources>
-
-    <Grid Height="660" Width="1366" ShowGridLines="False" Background="#FEF2E4" x:Name="MainGrid">
+    <Grid Height="660" Width="1366" ShowGridLines="False" Background="#FEF2E4" x:Name="MainGrid" Margin="0,5,0.4,-5">
         <Grid.RowDefinitions>
             <RowDefinition Height="630"/>
             <RowDefinition Height="30"/>
@@ -51,7 +42,7 @@
             <TextBlock Style="{StaticResource Regular}" Text="Address" Grid.Row="2" VerticalAlignment="Center"></TextBlock>
             <TextBox Style="{StaticResource InputBox}" Width="250" Height="40" Grid.Row="2" Grid.Column="2" Text="{Binding BranchAddress,Mode=OneWayToSource}"></TextBox>
             <TextBlock Style="{StaticResource Regular}" Text="Landline Number" Grid.Row="3" VerticalAlignment="Center"></TextBlock>
-            <TextBox Style="{StaticResource InputBox}" Width="250" Height="40" Grid.Row="3" Grid.Column="3" Text="{Binding LandlineNumber,Mode=OneWayToSource}"></TextBox>
+            <TextBox Style="{StaticResource InputBox}" Width="250" Height="40" Grid.Row="3" Grid.Column="3" Text="{Binding LandlineNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnExceptions=True,ValidatesOnDataErrors=True}"></TextBox>
             <TextBlock Style="{StaticResource Regular}" Text="Cost per Month" Grid.Row="4" VerticalAlignment="Center"></TextBlock>
             <TextBox Style="{StaticResource InputBox}" Width="250" Height="40" Grid.Row="4" Grid.Column="4" Text="{Binding CostPerMonth,Mode=TwoWay,ValidatesOnDataErrors=True,NotifyOnValidationError=True,UpdateSourceTrigger=PropertyChanged}">
                
@@ -87,7 +78,7 @@
             <TextBlock Text="Internet Connection (if required)" Grid.Row="2" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
             <TextBox Style="{StaticResource InputBox}" Text="{Binding InternetConnectionName,ValidatesOnExceptions=True,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}" Width="250" Height="40" Grid.Column="1" Grid.Row="2"></TextBox>
             <TextBlock TextWrapping="Wrap" Text="Internet Connection cost per Month (if required)" Grid.Row="3" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
-            <TextBox Style="{StaticResource InputBox}" Text="{Binding InternetConnectionCost,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged,ValidatesOnExceptions=True}" Width="250" Height="40" Grid.Column="1" Grid.Row="3"></TextBox>
+            <TextBox Style="{StaticResource InputBox}" Text="{Binding InternetConnectionCost,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnExceptions=True}" Width="250" Height="40" Grid.Column="1" Grid.Row="3"></TextBox>
             <TextBlock Text="Building Owner Name" Grid.Row="4" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
             <TextBox Style="{StaticResource InputBox}" Text="{Binding BuildingOwnerName,Mode=OneWayToSource,ValidatesOnExceptions=True}" Width="250" Height="40" Grid.Column="1" Grid.Row="4"></TextBox>
             <TextBlock Text="Contact Number" Grid.Row="5" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
@@ -145,17 +136,17 @@
             </Border>
             
         </Popup>
-        <Popup PlacementTarget="{Binding ElementName=MainGrid}" Placement="Center" Height="400" Width="600" x:Name="ConfirmPanel" IsOpen="False">
-            <Border Background="Blue" BorderThickness="3" CornerRadius="10" >
-                <Border.Effect>
-                    <DropShadowEffect/>
-                </Border.Effect>
+        <Popup PopupAnimation="Fade" PlacementTarget="{Binding ElementName=MainGrid}" Placement="Center" Height="400" Width="600" x:Name="ConfirmPanel" IsOpen="False">
+            <Border BorderBrush="Blue" BorderThickness="2" >
+               
             <Grid Background="White" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="10*"/>
                     <RowDefinition Height="70*"/>
                     <RowDefinition Height="20*"/>
                 </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Confirmation" Style="{StaticResource Title}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <Separator VerticalAlignment="Bottom" BorderThickness="4" Grid.Row="0" BorderBrush="Black"></Separator>
                 <Grid Grid.Row="1" Width="500">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="40*"/>
@@ -170,7 +161,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <TextBlock Style="{StaticResource Regular}" Text="Region Name" VerticalAlignment="Center"></TextBlock>
-                    <TextBlock Style="{StaticResource Regular}" Text="{Binding RegionName,Mode=OneWay}"  Grid.Column="1" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Style="{StaticResource Regular}" Text="{Binding CostPerMonth,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"  Grid.Column="1" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Style="{StaticResource Regular}" Grid.Row="1" Text="Branch Name" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Style="{StaticResource Regular}" Grid.Row="1" Grid.Column="1" Text="{Binding BranchName,Mode=OneWay}" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Style="{StaticResource Regular}" Grid.Row="2" Text="Branch Address" VerticalAlignment="Center"></TextBlock>
@@ -178,9 +169,9 @@
                     <TextBlock Style="{StaticResource Regular}" Grid.Row="3" Text="Landline Number" VerticalAlignment="Center"></TextBlock>
                         <TextBlock Style="{StaticResource Regular}" Grid.Row="3" Grid.Column="1" Text="{Binding LandlineNumber,Mode=OneWay}" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Style="{StaticResource Regular}" Grid.Row="4" Text="Manager Name" VerticalAlignment="Center"></TextBlock>
-                    <TextBlock Style="{StaticResource Regular}" Grid.Row="4" Grid.Column="1" Text="{Binding ManagerName,Mode=OneWay}" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Style="{StaticResource Regular}" Grid.Row="4" Grid.Column="1" Text="{Binding ManagerName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Style="{StaticResource Regular}" Grid.Row="5" Text="Accountant Name" VerticalAlignment="Center"></TextBlock>
-                    <TextBlock Style="{StaticResource Regular}" Grid.Row="5" Grid.Column="1" Text="{Binding AccountantName,Mode=OneWay}" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Style="{StaticResource Regular}" Grid.Row="5" Grid.Column="1" Text="{Binding AccountantName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"></TextBlock>
                 </Grid>
                 <StackPanel Orientation="Horizontal" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Button Content="Create Branch" Height="40" Width="250" x:Name="CreateBr" Click="CreateBr_Click"></Button>

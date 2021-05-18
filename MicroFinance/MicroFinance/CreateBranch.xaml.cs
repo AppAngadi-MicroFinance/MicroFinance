@@ -38,6 +38,7 @@ namespace MicroFinance
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             BranchAccountdetailsPanel.IsOpen = true;
+            MainGrid.IsEnabled = false;
             MainGrid.Opacity = 0.4;
         }
 
@@ -50,7 +51,7 @@ namespace MicroFinance
         private void Savebtn_Click(object sender, RoutedEventArgs e)
         {
             ConfirmPanel.IsOpen = true;
-            MainGrid.Opacity = 0.6;
+            MainGrid.Opacity = 0.4;
             MainGrid.IsEnabled = false;
         }
 
@@ -58,12 +59,13 @@ namespace MicroFinance
         {
             ConfirmPanel.IsOpen = false;
             MainGrid.Opacity = 1.0;
-           // MainGrid.IsEnabled = true;
+            MainGrid.IsEnabled = true;
         }
 
         private void PanelCloseBtn_Click(object sender, RoutedEventArgs e)
         {
             BranchAccountdetailsPanel.IsOpen = false;
+            MainGrid.IsEnabled = true;
             MainGrid.Opacity = 1.0;
         }
 
