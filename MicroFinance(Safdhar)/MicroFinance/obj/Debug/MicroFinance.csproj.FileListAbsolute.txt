@@ -53,3 +53,4 @@ C:\Users\exams\Desktop\MIFOS\MicroFinance\MicroFinance(Safdhar)\MicroFinance\obj
 C:\Users\exams\Desktop\MIFOS\MicroFinance\MicroFinance(Safdhar)\MicroFinance\obj\Debug\MainWindow.baml
 C:\Users\exams\Desktop\MIFOS\MicroFinance\MicroFinance(Safdhar)\MicroFinance\obj\Debug\MicroFinance.exe
 C:\Users\exams\Desktop\MIFOS\MicroFinance\MicroFinance(Safdhar)\MicroFinance\obj\Debug\MicroFinance.pdb
+C:\Users\exams\Desktop\MIFOS\MicroFinance\MicroFinance(Safdhar)\MicroFinance\obj\Debug\MicroFinance.csprojAssemblyReference.cache
