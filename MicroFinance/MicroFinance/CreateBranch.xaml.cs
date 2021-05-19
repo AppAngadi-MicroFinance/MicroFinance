@@ -50,9 +50,17 @@ namespace MicroFinance
 
         private void Savebtn_Click(object sender, RoutedEventArgs e)
         {
-            ConfirmPanel.IsOpen = true;
-            MainGrid.Opacity = 0.4;
-            MainGrid.IsEnabled = false;
+            if(IsemptyCheck()==true)
+            {
+                ConfirmPanel.IsOpen = true;
+                MainGrid.Opacity = 0.4;
+                MainGrid.IsEnabled = false;
+            }
+            else
+            {
+                MessageBox.Show("Please Enter All the Required Fields", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            
         }
 
         private void Cancelbtn_Click(object sender, RoutedEventArgs e)
@@ -72,6 +80,14 @@ namespace MicroFinance
         private void CreateBr_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show(CB.ToString());
+        }
+        public bool IsemptyCheck()
+        {
+            if(string.IsNullOrEmpty(RegionBox.Text)&& string.IsNullOrEmpty(BranchnameBox.Text)&& string.IsNullOrEmpty(AddressBox.Text)&& string.IsNullOrEmpty(LandlineBox.Text)&&double.Parse(LandlineBox.Text)==0&& string.IsNullOrEmpty(Managerbox.Text)&& string.IsNullOrEmpty(Accountantbox.Text))
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

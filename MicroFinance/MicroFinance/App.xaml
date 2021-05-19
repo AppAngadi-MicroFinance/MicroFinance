@@ -4,7 +4,19 @@
              xmlns:local="clr-namespace:MicroFinance"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        
+        <!--<Primary BackGround>-->
+        <Style x:Key="PrimaryBackground" TargetType="Page">
+            <Setter Property="Background" Value="#FEF2E4"></Setter>
+            <Setter Property="Height" Value="660"></Setter>
+            <Setter Property="Width" Value="1366"></Setter>
+        </Style>
+        <!--<Primary BackGround>-->
+        <Style x:Key="PrimaryGrid" TargetType="Grid">
+            <Setter Property="Background" Value="#FEF2E4"></Setter>
+            <Setter Property="Height" Value="660"></Setter>
+            <Setter Property="Width" Value="1366"></Setter>
+        </Style>
+
         <!--<Regular Font>-->
             <Style x:Key="Regular" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Roboto"/>
@@ -12,11 +24,22 @@
             <Setter Property="Foreground" Value="#2D1414"/>
         </Style>
 
+        
+        <!--Defalult textBoxSize-->
+        <Style x:Key="TextBoxSizeDefault" TargetType="TextBox">
+            <Setter Property="Width" Value="250"></Setter>
+        </Style>
         <!--for title text style-->
         <Style x:Key="Title" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Roboto"/>
             <Setter Property="FontSize" Value="24"/>
             <Setter Property="Foreground" Value="#433B65"/>
+        </Style>
+        <!--for Subtitle text style-->
+        <Style x:Key="SubTitle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Roboto"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Foreground" Value="#781F9F"/>
         </Style>
         <!--<Regular Input>-->
         <Style TargetType="TextBox" x:Key="InputBox">

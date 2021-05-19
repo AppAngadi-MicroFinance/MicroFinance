@@ -34,3 +34,5 @@ C:\Users\AshrafAli-AppAngadi\source\repos\MicroFinanceApp\MicroFinance\MicroFina
 C:\Users\AshrafAli-AppAngadi\source\repos\MicroFinanceApp\MicroFinance\MicroFinance\obj\Debug\MicroFinance.exe
 C:\Users\AshrafAli-AppAngadi\source\repos\MicroFinanceApp\MicroFinance\MicroFinance\obj\Debug\MicroFinance.pdb
 C:\Users\AshrafAli-AppAngadi\source\repos\MicroFinanceApp\MicroFinance\MicroFinance\obj\Debug\MicroFinance.csprojAssemblyReference.cache
+C:\Users\AshrafAli-AppAngadi\source\repos\MicroFinanceApp\MicroFinance\MicroFinance\obj\Debug\AddEmployee.g.cs
+C:\Users\AshrafAli-AppAngadi\source\repos\MicroFinanceApp\MicroFinance\MicroFinance\obj\Debug\AddEmployee.baml
