@@ -119,18 +119,18 @@ namespace MicroFinance.Modal
             }
             set
             {
-               try
-                {
-                    if(IsAmount(value.ToString())==value)
-                    {
+               //try
+               // {
+               //     if(IsAmount(value.ToString())==value)
+               //     {
                         _costpermonth = value;
                         RaisedPropertyChanged("CostPerMonth");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new ArgumentException(ex.Message);
-                }
+               //     }
+               // }
+               // catch (Exception ex)
+               // {
+               //     throw new ArgumentException(ex.Message);
+               // }
             } 
         }
         private string _managername;

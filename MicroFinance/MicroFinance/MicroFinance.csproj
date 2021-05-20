@@ -55,6 +55,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Validations\AadharValidation.cs" />
+    <Compile Include="Validations\AccountNumberValidation.cs" />
+    <Compile Include="Validations\EbNumberValidation.cs" />
+    <Compile Include="Validations\EmailValidation.cs" />
+    <Compile Include="Validations\LandlineValidation.cs" />
+    <Compile Include="Validations\NameValidation.cs" />
+    <Compile Include="Validations\PhoneNumberValidation.cs" />
+    <Compile Include="Validations\PriceValidation.cs" />
     <Page Include="AddEmployee.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -83,8 +91,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Modal\Addemployee.cs" />
     <Compile Include="Modal\BindableBase.cs" />
     <Compile Include="Modal\Createbranch.cs" />
+    <Compile Include="Modal\Validation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

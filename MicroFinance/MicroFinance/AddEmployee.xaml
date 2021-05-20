@@ -62,7 +62,7 @@
                         <TextBlock Grid.Row="2" Text="Contact Number" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                         <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource InputBox}" Width="250"></TextBox>
                         <TextBlock Grid.Row="3" Text="Email" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                        <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource InputBox}" Width="250"></TextBox>
+                        <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource InputBox}" Width="250" IsTabStop="False"></TextBox>
                         <TextBlock Text="Aadhar Number" Grid.Row="4" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                         <TextBox Grid.Row="4" Grid.Column="1" Style="{StaticResource InputBox}" Width="250"></TextBox>
                         <TextBlock Text="Religion" Grid.Row="5" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
@@ -70,7 +70,7 @@
                         <TextBlock Grid.Row="6" Text="Education" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                         <TextBox Grid.Row="6" Grid.Column="1" Style="{StaticResource InputBox}" Width="250"></TextBox>
                         <TextBlock Grid.Row="7" Text="Date of Joining" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                        <TextBox Grid.Row="7" Grid.Column="1" Style="{StaticResource InputBox}" Width="250"></TextBox>
+                        <DatePicker Grid.Row="7" Grid.Column="1" Style="{StaticResource DateSelecter}" SelectedDateFormat="Long"  Width="250"></DatePicker>
                     </Grid>
                 </Grid>
             </Grid>
