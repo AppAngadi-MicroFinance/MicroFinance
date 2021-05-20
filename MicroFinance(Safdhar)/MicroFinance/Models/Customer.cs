@@ -44,6 +44,7 @@ namespace MicroFinance.Models
             set
             {
                 _dateofBirth = value;
+                RaisePropertyChanged("DateofBirth");
             }
         }
         private int _age;

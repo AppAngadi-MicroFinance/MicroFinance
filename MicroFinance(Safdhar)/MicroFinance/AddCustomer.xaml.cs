@@ -37,6 +37,7 @@ namespace MicroFinance
             GuarantorAddressDetails.DataContext = guarantor;
             GuarnatorDetails.DataContext = guarantor;
 
+
             //   SelectReligion.ItemsSource = cs.Religion;
         }
         void IsEligible()
@@ -74,6 +75,7 @@ namespace MicroFinance
 
         private void SaveCustomer_Click(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("SUccess");
         }
 
         private void SelectReligion_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -90,6 +92,42 @@ namespace MicroFinance
         {
             AddGuarantorPopopup.IsOpen = false;
             guarantor.IsGuarantorNull = true;
+
+            if(guarantor.IsNominee)
+            {
+                nominee.NomineeName = guarantor.GuarantorName;
+                nominee.DateofBirth = guarantor.DateofBirth;
+                nominee.Age = guarantor.Age;
+                nominee.ContactNumber = guarantor.ContactNumber;
+                nominee.Occupation = guarantor.Occupation;
+                nominee.RelationShip = guarantor.RelationShip;
+                nominee.DoorNumber = guarantor.DoorNumber;
+                nominee.StreetName = guarantor.StreetName;
+                nominee.LocalityTown = guarantor.LocalityTown;
+                nominee.Pincode = guarantor.Pincode;
+                nominee.City = guarantor.City;
+                nominee.State = guarantor.State;
+                nominee.IsNomineeNull = true;
+            }
+        }
+
+        private void NomineeSaveGuarantor_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void NomineeCancel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ViewGaurantor_Click(object sender, RoutedEventArgs e)
+        {
+            ViewGuarantorPopopup.IsOpen = true;
+            string name = guarantor.GuarantorName;
+            ViewGuarnatorDetails.DataContext = guarantor;
+            ViewGuarantorAddressDetails.DataContext = guarantor;
+            
         }
     }
 }
