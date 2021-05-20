@@ -243,7 +243,7 @@
                         <TextBlock Text="Guarantor" Style="{StaticResource Regular}" Grid.Column="1" Grid.Row="1" />
                         <TextBox x:Name="GuarantorBox" Style="{StaticResource Textbox}" Grid.Column="2" Grid.Row="1" Width="140" HorizontalAlignment="Left" Text="{Binding GuarantorName, UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" IsReadOnly="True">
                         </TextBox>
-                        <Button x:Name="AddGaurantor" Click="AddGaurantor_Click" Style="{StaticResource Add}" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" Visibility="{Binding IsGuarantorNull, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleConverter}}"/>
+                        <Button x:Name="AddGaurantor" Click="AddGaurantor_Click" Style="{StaticResource Add}" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" Visibility="{Binding IsGuarantorNull,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleConverter}}"/>
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" x:Name="GuarantorViewEditPanel" Visibility="{Binding IsGuarantorNull,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleConverter}}">
                             <Button x:Name="ViewGaurantor" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0"/>
                             <Button x:Name="EditGaurantor" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" />
@@ -347,7 +347,7 @@
                         <TextBlock Text="Add Guarantor" Style="{StaticResource SubTitle}" HorizontalAlignment="Right" Margin="0,0,10,0"/>
                     </Border>
                     <Border Grid.Row="1" Grid.Column="1" BorderThickness="0,0,1,0" BorderBrush="Black" />
-                    <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid Grid.Row="1" Grid.Column="1" x:Name="GuarnatorDetails">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="180"/>
                             <ColumnDefinition Width="*"/>
@@ -367,33 +367,33 @@
                             <RowDefinition Height="40"/>
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Text="Customer Name" Style="{StaticResource Regular}" />
-                        <TextBox x:Name="GuarantorNameBox" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Width="290" Style="{StaticResource Textbox}" Text="{Binding CustomerName,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+                        <TextBox x:Name="GuarantorNameBox" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Width="290" Style="{StaticResource Textbox}" Text="{Binding GuarantorName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
                         <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
                             <TextBlock Text="DOB" Style="{StaticResource Regular}" />
-                            <DatePicker x:Name="GuarantorSelectDOB" Width="250" Height="30" VerticalContentAlignment="Center" Margin="25,0,20,0" SelectedDate="{Binding DateofBirth,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                            <DatePicker x:Name="GuarantorSelectDOB" Width="250" Height="30" VerticalContentAlignment="Center" Margin="25,0,20,0" SelectedDate="{Binding DateofBirth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                             <TextBlock Text="Age" Style="{StaticResource Regular}"/>
                             <TextBlock x:Name="GuarantorAge" Text="{Binding Age,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumberRegular}" Margin="20,5,0,0"/>
                         </StackPanel>
                         <TextBlock Text="Contact Number" Grid.Column="0" Grid.Row="5" Style="{StaticResource Regular}"/>
-                        <TextBox x:Name="GuarantorContactBox" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Width="250" Style="{StaticResource Textbox}" HorizontalAlignment="Left">
+                        <TextBox x:Name="GuarantorContactBox" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Width="250" Style="{StaticResource Textbox}" HorizontalAlignment="Left" >
                             <TextBox.Text>
-                                <Binding Path="Price">
+                                <Binding Path="ContactNumber">
                                     <Binding.ValidationRules>
                                     </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
                         <TextBlock Text="Occupation" Grid.Column="0" Grid.Row="7" Style="{StaticResource Regular}"/>
-                        <TextBox x:Name="GuarantorOccupationBox" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" Width="250" Style="{StaticResource Textbox}" HorizontalAlignment="Left" Text="{Binding Occupation,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="GuarantorOccupationBox" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" Width="250" Style="{StaticResource Textbox}" HorizontalAlignment="Left" Text="{Binding Occupation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock Text="Relationship" Grid.Column="0" Grid.Row="9" Style="{StaticResource Regular}"/>
-                        <TextBox x:Name="GuarantorRelationshipBox" Grid.Row="9" Grid.Column="1" VerticalAlignment="Center" Width="250" Style="{StaticResource Textbox}" HorizontalAlignment="Left" Text="{Binding Occupation,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
-                        <CheckBox x:Name="IsNominee" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2" Content="Make As Nominee" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,10" IsChecked="{Binding IsLeader,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox x:Name="GuarantorRelationshipBox" Grid.Row="9" Grid.Column="1" VerticalAlignment="Center" Width="250" Style="{StaticResource Textbox}" HorizontalAlignment="Left" Text="{Binding RelationShip,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        <CheckBox x:Name="IsNominee" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2" Content="Make As Nominee" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,10" IsChecked="{Binding IsNominee,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                             <CheckBox.LayoutTransform>
                                 <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
                             </CheckBox.LayoutTransform>
                         </CheckBox>
                     </Grid>
-                    <Grid Grid.Row="1" Grid.Column="2">
+                    <Grid Grid.Row="1" Grid.Column="2" x:Name="GuarantorAddressDetails">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="270"/>
                             <RowDefinition Height="*"/>
@@ -473,7 +473,7 @@
                     <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Button x:Name="GuarantorCancel" Style="{StaticResource Gray}" Margin="0,0,20,0"/>
-                            <Button x:Name="AddGuarantor" Click="AddGaurantor_Click" Style="{StaticResource OrangeButton}" Content="Add" FontSize="16"/>
+                            <Button x:Name="SaveGuarantor" Click="SaveGuarantor_Click" Style="{StaticResource OrangeButton}" Content="Add" FontSize="16"/>
                         </StackPanel>
                     </Grid>
                 </Grid>

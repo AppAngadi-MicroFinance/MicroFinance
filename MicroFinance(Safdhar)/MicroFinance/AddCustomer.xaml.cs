@@ -34,6 +34,9 @@ namespace MicroFinance
             AddressGrid.DataContext = customer;
             GurantorGrid.DataContext = guarantor;
             NomineeGrid.DataContext = nominee;
+            GuarantorAddressDetails.DataContext = guarantor;
+            GuarnatorDetails.DataContext = guarantor;
+
             //   SelectReligion.ItemsSource = cs.Religion;
         }
         void IsEligible()
@@ -83,9 +86,10 @@ namespace MicroFinance
             AddGuarantorPopopup.IsOpen = true;
         }
 
-        private void AddGuarantor_Click(object sender, RoutedEventArgs e)
+        private void SaveGuarantor_Click(object sender, RoutedEventArgs e)
         {
-
+            AddGuarantorPopopup.IsOpen = false;
+            guarantor.IsGuarantorNull = true;
         }
     }
 }
