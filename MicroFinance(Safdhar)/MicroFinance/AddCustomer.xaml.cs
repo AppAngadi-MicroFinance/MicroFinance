@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MicroFinance.Models;
 
 namespace MicroFinance
 {
@@ -20,19 +21,32 @@ namespace MicroFinance
     /// </summary>
     public partial class AddCustomer : Page
     {
+
+        Customer customer = new Customer();
+        Guarantor guarantor = new Guarantor();
+        Nominee nominee = new Nominee();
         public AddCustomer()
         {
             InitializeComponent();
             IsEligible();
+
+            CustomerGrid.DataContext = customer;
+            AddressGrid.DataContext = customer;
+            GurantorGrid.DataContext = guarantor;
+            NomineeGrid.DataContext = nominee;
+            GuarantorAddressDetails.DataContext = guarantor;
+            GuarnatorDetails.DataContext = guarantor;
+
+            //   SelectReligion.ItemsSource = cs.Religion;
         }
         void IsEligible()
         {
-            if(MainWindow.LoginDesignation=="FO")
+            if (MainWindow.LoginDesignation == "FO")
             {
                 SelectBranch.IsEnabled = false;
                 SelectFO.IsEnabled = false;
             }
-            else if(MainWindow.LoginDesignation=="RM")
+            else if (MainWindow.LoginDesignation == "RM")
             {
                 SelectBranch.IsEnabled = true;
                 SelectFO.IsEnabled = true;
@@ -50,7 +64,7 @@ namespace MicroFinance
             // NavigationService.GetNavigationService(this).Navigate(new AddPg());
             AddPg APG = new AddPg();
             APG.ShowDialog();
-            
+
 
         }
 
@@ -60,7 +74,22 @@ namespace MicroFinance
 
         private void SaveCustomer_Click(object sender, RoutedEventArgs e)
         {
+        }
 
+        private void SelectReligion_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CommunityBox.IsEnabled = true;
+        }
+
+        private void AddGaurantor_Click(object sender, RoutedEventArgs e)
+        {
+            AddGuarantorPopopup.IsOpen = true;
+        }
+
+        private void SaveGuarantor_Click(object sender, RoutedEventArgs e)
+        {
+            AddGuarantorPopopup.IsOpen = false;
+            guarantor.IsGuarantorNull = true;
         }
     }
 }

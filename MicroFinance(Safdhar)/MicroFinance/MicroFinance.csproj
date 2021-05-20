@@ -55,6 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Guarantor.cs" />
+    <Compile Include="Models\Nominee.cs" />
+    <Compile Include="Validation\BindableBase.cs" />
     <Page Include="AddCustomer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -78,6 +82,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Converters\ComboEnableDisable.cs" />
+    <Compile Include="Converters\InverseVisible.cs" />
+    <Compile Include="Converters\VisibilityConverter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
