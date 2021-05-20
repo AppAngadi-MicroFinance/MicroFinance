@@ -4,7 +4,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:MicroFinance"
+      xmlns:local="clr-namespace:MicroFinance" xmlns:validation="clr-namespace:MicroFinance.Validations"
       mc:Ignorable="d" 
       d:DesignHeight="660" d:DesignWidth="1366"
       Title="CreateBranch" Background="White">
@@ -19,20 +19,20 @@
             <Image x:Name="NotifyImage" Height="30" Width="30" Margin="10,0,0,0"></Image>
             <TextBlock x:Name="NotifyText" Style="{StaticResource Regular}" Margin="10,0,0,0"></TextBlock>
         </StackPanel>
-        <Grid ShowGridLines="False" Height="400" Width="600" HorizontalAlignment="Left" Margin="20,50,0,0" VerticalAlignment="Top">
+        <Grid ShowGridLines="False" Height="500" Width="600" HorizontalAlignment="Left" Margin="20,50,0,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="40*"/>
                 <ColumnDefinition Width="60*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="50px"/>
+                <RowDefinition Height="50px"/>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="50px"/>
+                <RowDefinition Height="50px"/>
+                <RowDefinition Height="50px"/>
+                <RowDefinition Height="50px"/>
+                <RowDefinition Height="50px"/>
    
             </Grid.RowDefinitions>
             <TextBlock Style="{StaticResource Regular}" Text="Branch Region" VerticalAlignment="Center"></TextBlock>
@@ -40,12 +40,21 @@
             <TextBlock Style="{StaticResource Regular}" Text="Name" Grid.Row="1" VerticalAlignment="Center"></TextBlock>
             <TextBox x:Name="BranchnameBox" Style="{StaticResource InputBox}" Width="250" Grid.Row="1" Grid.Column="1" Text="{Binding BranchName,Mode=TwoWay,ValidatesOnExceptions=True,ValidatesOnDataErrors=True,UpdateSourceTrigger=LostFocus,NotifyOnValidationError=True,ValidatesOnNotifyDataErrors=True}"></TextBox>
             <TextBlock  Style="{StaticResource Regular}" Text="Address" Grid.Row="2" VerticalAlignment="Center"></TextBlock>
-            <TextBox x:Name="AddressBox" Style="{StaticResource InputBox}" Width="250" Height="40" Grid.Row="2" Grid.Column="2" Text="{Binding BranchAddress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox x:Name="AddressBox" Style="{StaticResource InputBox}" Width="250" Height="130" TextWrapping="Wrap" VerticalContentAlignment="Top" AcceptsReturn="True"  Grid.Row="2" Grid.Column="2" Text="{Binding BranchAddress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <TextBlock Style="{StaticResource Regular}" Text="Landline Number" Grid.Row="3" VerticalAlignment="Center"></TextBlock>
             <TextBox x:Name="LandlineBox" Style="{StaticResource InputBox}" Width="250" Height="40" Grid.Row="3" Grid.Column="3" Text="{Binding LandlineNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnExceptions=True,ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True}"></TextBox>
             <TextBlock Style="{StaticResource Regular}" Text="Cost per Month" Grid.Row="4" VerticalAlignment="Center"></TextBlock>
-            <TextBox x:Name="CostpermonthBox" Style="{StaticResource InputBox}" Width="250" Height="40" Grid.Row="4" Grid.Column="4" Text="{Binding CostPerMonth,Mode=TwoWay,ValidatesOnDataErrors=True,NotifyOnValidationError=True,UpdateSourceTrigger=PropertyChanged}">
+            <!--<TextBox x:Name="CostpermonthBox" Style="{StaticResource InputBox}" Width="250" Height="40" Grid.Row="4" Grid.Column="4" Text="{Binding CostPerMonth,Mode=TwoWay,ValidatesOnDataErrors=True,NotifyOnValidationError=True,UpdateSourceTrigger=PropertyChanged}">
                
+            </TextBox>-->
+            <TextBox x:Name="CostpermonthBox" Style="{StaticResource InputBox}" Width="250" Grid.Row="4" Grid.Column="4">
+                <TextBox.Text>
+                    <Binding Path="CostPerMonth">
+                        <Binding.ValidationRules>
+                            <validation:PriceValidation/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
             </TextBox>
             <TextBlock Style="{StaticResource Regular}" Text="Manager" Grid.Row="5" VerticalAlignment="Center"></TextBlock>
             <ComboBox x:Name="Managerbox" Style="{StaticResource combo}" Grid.Row="5" Grid.Column="5" Text="{Binding ManagerName,Mode=OneWayToSource}"></ComboBox>

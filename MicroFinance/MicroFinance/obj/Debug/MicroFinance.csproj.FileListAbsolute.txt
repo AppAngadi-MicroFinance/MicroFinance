@@ -36,6 +36,9 @@ C:\Users\AshrafAli-AppAngadi\source\repos\MicroFinanceApp\MicroFinance\MicroFina
 C:\Users\AshrafAli-AppAngadi\source\repos\MicroFinanceApp\MicroFinance\MicroFinance\obj\Debug\MicroFinance.csprojAssemblyReference.cache
 C:\Users\AshrafAli-AppAngadi\source\repos\MicroFinanceApp\MicroFinance\MicroFinance\obj\Debug\AddEmployee.g.cs
 C:\Users\AshrafAli-AppAngadi\source\repos\MicroFinanceApp\MicroFinance\MicroFinance\obj\Debug\AddEmployee.baml
+<<<<<<< HEAD
+C:\Users\AshrafAli-AppAngadi\source\repos\MicroFinanceApp\MicroFinance\MicroFinance\obj\Debug\GeneratedInternalTypeHelper.g.cs
+=======
 C:\Users\exams\Desktop\MIFOS\MicroFinance\MicroFinance\MicroFinance\bin\Debug\MicroFinance.exe.config
 C:\Users\exams\Desktop\MIFOS\MicroFinance\MicroFinance\MicroFinance\bin\Debug\MicroFinance.exe
 C:\Users\exams\Desktop\MIFOS\MicroFinance\MicroFinance\MicroFinance\bin\Debug\MicroFinance.pdb
@@ -55,3 +58,4 @@ C:\Users\exams\Desktop\MIFOS\MicroFinance\MicroFinance\MicroFinance\obj\Debug\Mi
 C:\Users\exams\Desktop\MIFOS\MicroFinance\MicroFinance\MicroFinance\obj\Debug\MicroFinance.csproj.GenerateResource.cache
 C:\Users\exams\Desktop\MIFOS\MicroFinance\MicroFinance\MicroFinance\obj\Debug\MicroFinance.exe
 C:\Users\exams\Desktop\MIFOS\MicroFinance\MicroFinance\MicroFinance\obj\Debug\MicroFinance.pdb
+>>>>>>> d72addcf6385a90cb267e06651338710985102b8
