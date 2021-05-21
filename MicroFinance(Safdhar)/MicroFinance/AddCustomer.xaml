@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MicroFinance"
-      xmlns:validate="clr-namespace:MicroFinance.Validation"
+      xmlns:validate="clr-namespace:MicroFinance.Validations"
       mc:Ignorable="d" 
       d:DesignHeight="630" d:DesignWidth="1368" Background="#FEF2E4"
       xmlns:convert="clr-namespace:MicroFinance.Converters"
@@ -17,6 +17,8 @@
         <convert:VisibilityConverter x:Key="VisibleConverter"/>
         <convert:InverseVisible x:Key="InverseVisibleConverter"/>
         <convert:AgeConverter x:Key="AgeConvert"/>
+
+        <validate:NameValidation x:Key="NameValidate"/>
     </Page.Resources>
 
     <Grid x:Name="MainGrid">
@@ -98,7 +100,16 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Text="Customer Name" Style="{StaticResource Regular}" />
-                    <TextBox x:Name="CustomerNameBox"  Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Width="350" Style="{StaticResource Textbox}"  Text="{Binding CustomerName,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="CustomerNameBox"  Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Width="350" Style="{StaticResource Textbox}">
+                        <TextBox.Text>
+                            <Binding Path="CustomerName" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validate:EmptyValidation/>
+                                    <validate:NameValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
                         <TextBlock Text="DOB" Style="{StaticResource Regular}" />
                         <DatePicker x:Name="SelectDOB" Width="250" Height="30" VerticalContentAlignment="Center" Margin="25,0,20,0" SelectedDate="{Binding DateofBirth,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
@@ -108,8 +119,9 @@
                     <TextBlock Text="Contact Number" Grid.Column="1" Grid.Row="5" Style="{StaticResource Regular}"/>
                     <TextBox x:Name="ContactBox" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left">
                         <TextBox.Text>
-                            <Binding Path="Price">
+                            <Binding Path="ContactNumber" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
+                                    <validate:PhoneNumberValidation/>
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>
@@ -124,19 +136,63 @@
 
 
                     <TextBlock Text="Education" Grid.Column="1" Grid.Row="11" Style="{StaticResource Regular}"/>
-                    <TextBox x:Name="EducatinBox" Grid.Row="11" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left" Text="{Binding Education,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="EducatinBox" Grid.Row="11" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left">
+                        <TextBox.Text>
+                            <Binding Path="Education" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validate:EmptyValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
 
                     <TextBlock Text="Family Members" Grid.Column="1" Grid.Row="13" Style="{StaticResource Regular}"/>
-                    <TextBox x:Name="FamilyMemberBox" Grid.Row="13" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left" Text="{Binding FamilyMembers,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="FamilyMemberBox" Grid.Row="13" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left" >
+                        <TextBox.Text>
+                            <Binding Path="FamilyMembers" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                <Binding.ValidationRules>
+                                    <validate:NumberValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
 
                     <TextBlock Text="Earning Members" Grid.Column="1" Grid.Row="15" Style="{StaticResource Regular}"/>
-                    <TextBox x:Name="EarningMemberBox" Grid.Row="15" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left" Text="{Binding EarningMembers,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="EarningMemberBox" Grid.Row="15" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left">
+                        <TextBox.Text>
+                            <Binding Path="EarningMembers" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                <Binding.ValidationRules>
+                                    <validate:NumberValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
 
                     <TextBlock Text="Occupation" Grid.Column="1" Grid.Row="17" Style="{StaticResource Regular}"/>
-                    <TextBox x:Name="OccupationBox" Grid.Row="17" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left" Text="{Binding Occupation,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="OccupationBox" Grid.Row="17" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left" >
+                        <TextBox.Text>
+                            <Binding Path="Occupation" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                <Binding.ValidationRules>
+                                    <validate:EmptyValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
 
                     <TextBlock Text="Montyly Income" Grid.Column="1" Grid.Row="19" Style="{StaticResource Regular}"/>
-                    <TextBox x:Name="MonthlyIncomeBox" Grid.Row="19" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left" Text="{Binding MonthlyIncome,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="MonthlyIncomeBox" Grid.Row="19" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left">
+                        <TextBox.Text>
+                            <Binding Path="MonthlyIncome" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                <Binding.ValidationRules>
+                                    <validate:NumberValidation/>
+                                </Binding.ValidationRules>
+                                <Binding.Converter>
+                                    
+                                </Binding.Converter>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+
                 </Grid>
             </Border>
         </Grid>

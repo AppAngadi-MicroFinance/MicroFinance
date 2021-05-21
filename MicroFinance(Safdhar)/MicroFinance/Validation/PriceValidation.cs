@@ -15,7 +15,7 @@ namespace MicroFinance.Validations
             try
             {
                 long Price = Convert.ToInt64(value);
-                if (Price > 0 && Price <= long.MaxValue)
+                if (Price > 0 && Price <= 9600630212)
                 {
                     return ValidationResult.ValidResult;
                 }

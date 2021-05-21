@@ -13,7 +13,7 @@ namespace MicroFinance.Validations
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             string Phonenumber = (string)value;
-            if(Phonenumber.Length!=10)
+            if(Phonenumber.Length==10)
             {
                 for (int i = 0; i < Phonenumber.Length; i++)
                 {

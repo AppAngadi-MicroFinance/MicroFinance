@@ -75,7 +75,7 @@ namespace MicroFinance
 
         private void SaveCustomer_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("SUccess");
+            MessageBox.Show(customer.CustomerName);
         }
 
         private void SelectReligion_SelectionChanged(object sender, SelectionChangedEventArgs e)

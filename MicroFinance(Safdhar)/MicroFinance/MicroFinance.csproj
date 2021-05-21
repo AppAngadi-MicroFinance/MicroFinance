@@ -56,6 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\AgeConverter.cs" />
+    <Compile Include="Converters\MoneyConverter.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Guarantor.cs" />
     <Compile Include="Models\Nominee.cs" />
@@ -64,8 +65,10 @@
     <Compile Include="Validation\BindableBase.cs" />
     <Compile Include="Validation\EbNumberValidation.cs" />
     <Compile Include="Validation\EmailValidation.cs" />
+    <Compile Include="Validation\EmptyValidation.cs" />
     <Compile Include="Validation\LandlineValidation.cs" />
     <Compile Include="Validation\NameValidation.cs" />
+    <Compile Include="Validation\NumberValidation.cs" />
     <Compile Include="Validation\PhoneNumberValidation.cs" />
     <Compile Include="Validation\PriceValidation.cs" />
     <Page Include="AddCustomer.xaml">

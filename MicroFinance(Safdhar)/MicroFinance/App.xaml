@@ -480,6 +480,20 @@
             <Setter Property="Foreground" Value="#2D1414"/>
         </Style>
         <!--<Regular Input>-->
+        <ControlTemplate x:Key="TextBoxErrorTemplate">
+            <DockPanel>
+                <Ellipse DockPanel.Dock="Right" 
+                         Margin="2,0" ToolTip="Invalid Data" Width="10" Height="10">
+                    <Ellipse.Fill>
+                        <LinearGradientBrush>
+                            <GradientStop Color="#11ff1111" Offset="0"/>
+                            <GradientStop Color="#ffff0000" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <AdornedElementPlaceholder/>
+            </DockPanel>
+        </ControlTemplate>
         <Style TargetType="TextBox" x:Key="Textbox">
             <Setter Property="Validation.ErrorTemplate">
                 <Setter.Value>
@@ -503,7 +517,7 @@
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="True">
                     <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" />
-                    <Setter Property="BorderThickness" Value="2"></Setter>
+                    <Setter Property="BorderThickness" Value="1"></Setter>
                     <Setter Property="BorderBrush" Value="red"></Setter>
                 </Trigger>
                 <Trigger Property="IsMouseOver" Value="True">
