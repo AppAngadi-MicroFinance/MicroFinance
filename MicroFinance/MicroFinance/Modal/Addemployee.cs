@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace MicroFinance.Modal
 {
     class Addemployee:BindableBase
     {
-        private const string Format = "dd-mm-yyyy";
         Validation validation = new Validation();
         private string _branchname;
         public string BranchName
@@ -72,21 +73,10 @@ namespace MicroFinance.Modal
             }
             set
             {
-               if(value!=_employeename)
-                {
-                    try
-                    {
-                        if(validation.IsString(value))
-                        {
-                            _employeename = value;
-                            RaisedPropertyChanged("EmployeeName");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new ArgumentException(ex.Message);
-                    }
-                }
+               
+               _employeename = value;
+               RaisedPropertyChanged("EmployeeName");
+               
             }
            
         }
@@ -115,7 +105,8 @@ namespace MicroFinance.Modal
             }
             set
             {
-                _age = CalculateAge(_dob);
+                _age = value;
+                RaisedPropertyChanged("Age");
             }
         }
         private string _contactnumber;
@@ -129,18 +120,9 @@ namespace MicroFinance.Modal
             {
                 if(value!=_contactnumber)
                 {
-                    try
-                    {
-                        if(validation.IsPhoneNumber(value))
-                        {
-                            _contactnumber = value;
-                            RaisedPropertyChanged("ContactNumber");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new ArgumentException(ex.Message);
-                    }
+                   
+                   _contactnumber = value;
+                   RaisedPropertyChanged("ContactNumber");
                 }
             }
         }
@@ -155,21 +137,38 @@ namespace MicroFinance.Modal
             {
                 if(value!=_email)
                 {
-                    try
-                    {
-                        if(validation.IsEmail(value))
-                        {
-                            _email = value;
-                            RaisedPropertyChanged("Email");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new ArgumentException(ex.Message);
-                    }
+                  _email = value;
+                   RaisedPropertyChanged("Email");
                 }
             }
         }
+
+        //private Address _employeeAddress;
+        //public Address EmployeeAddress
+        //{
+        //    get
+        //    {
+        //        return _employeeAddress;
+        //    }
+        //    set
+        //    {
+        //        _employeeAddress = value;
+        //        RaisedPropertyChanged("EmployeeAddress");
+        //    }
+        //}
+
+
+
+
+
+
+        //
+        public string HouseNo { get; set; }
+        public string TownName { get; set; }
+        public string District { get; set; }
+        public string Pincode { get; set; }
+        //
+
         private string _aadharnumber;
         public string AadharNumber
         {
@@ -181,21 +180,194 @@ namespace MicroFinance.Modal
             {
                 if(value!=_aadharnumber)
                 {
-                    try
-                    {
-                        if(validation.IsAadhar(value))
-                        {
+                    _aadharnumber = value;
+                    RaisedPropertyChanged("Aadharnumber");
+                }
+            }
+        }
+        private string _religion;
+        public string Religion
+        {
+            get
+            {
+                return _religion;
+            }
+            set
+            {
+                _religion = value;
+                RaisedPropertyChanged("Religion");
+            }
+        }
+        private string _education;
+        public string Education
+        {
+            get
+            {
+                return _education;
+            }
+            set
+            {
+                _education = value;
+                RaisedPropertyChanged("Education");
+            }
+        }
+        private string _addressproofName;
+        public string AddressProofName
+        {
+            get
+            {
+                return _addressproofName;
+            }
+            set
+            {
+                _addressproofName = value;
+                RaisedPropertyChanged("AddressProofName");
+            }
+        }
+        private BitmapImage _addressproofimage;
+        public BitmapImage AddressProofImage
+        {
+            get
+            {
+                return _addressproofimage;
+            }
+            set
+            {
+                _addressproofimage = value;
+                RaisedPropertyChanged("AddressProofImage");
+            }
+        }
 
-                        }
-                    }
-                    catch
-                    {
+        private string _photoproofname;
+        public string PhotoProofName
+        {
+            get
+            {
+                return _photoproofname;
+            }
+            set
+            {
+                _photoproofname = value;
+                RaisedPropertyChanged("PhotoProofName");
+            }
+        }
+        private BitmapImage _photoproofimage;
+        public BitmapImage PhotoProofImage
+        {
+            get
+            {
+                return _photoproofimage;
+            }
+            set
+            {
+                _photoproofimage = value;
+                RaisedPropertyChanged("PhotoProofImage");
+            }
+        }
+        private BitmapImage _profileimage;
+        public BitmapImage ProfileImage
+        {
+            get
+            {
+                return _profileimage;
+            }
+            set
+            {
+                _profileimage = value;
+                RaisedPropertyChanged("ProfileImage");
+            }
+        }
 
-                    }
+        private string _accountholdername;
+        public string AccountHolderName
+        {
+            get
+            {
+                return _accountholdername;
+            }
+            set
+            {
+                
+               _accountholdername = value;
+              RaisedPropertyChanged("AccountHolderName");
+                 
+            }
+        }
+        private string _accountnumber;
+        public string AccountNumber
+        {
+            get
+            {
+                return _accountnumber;
+            }
+            set
+            {
+              _accountnumber = value;
+              RaisedPropertyChanged("Account Number");
+            }
+        }
+        private string _bankname;
+        public string BankName
+        {
+            get
+            {
+                return _bankname;
+            }
+            set
+            {
+              _bankname = value;
+              RaisedPropertyChanged("BankName");
+            }
+        }
+        private string _bankbranchname;
+        public string BankBranchName
+        {
+            get
+            {
+                return _bankbranchname;
+            }
+            set
+            {
+                _bankbranchname = value;
+                RaisedPropertyChanged("BankBranchName"); 
+            }
+        }
+        private string _ifsccode;
+        public string IFSCCode
+        {
+            get
+            {
+                return _ifsccode;
+            }
+            set
+            {
+                if (value != _ifsccode)
+                {
+                    _ifsccode = value.ToUpper();
+                    RaisedPropertyChanged("IFSCCODE");
+                }
+            }
+        }
+        private string _micrcode;
+        public string MICRCode
+        {
+            get
+            {
+                return _micrcode;
+            }
+            set
+            {
+                if (value != _micrcode)
+                {
+                    _micrcode = value.ToUpper();
+                    RaisedPropertyChanged("MICRCode");
                 }
             }
         }
 
+        
+        
+        
         public int CalculateAge(DateTime date)
         {
             int age = 0;
@@ -207,6 +379,18 @@ namespace MicroFinance.Modal
                 age -= 1;
             }
             return age;
+        }
+    }
+    public class Address
+    {
+        public string HouseNo { get; set; }
+        public string TownName { get; set; }
+        public string District { get; set; }
+        public string Pincode { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("{0},\n{1},\n{2},\n{3}." + HouseNo, TownName, District, Pincode);
         }
     }
 }

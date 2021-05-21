@@ -21,9 +21,11 @@ namespace MicroFinance
     /// </summary>
     public partial class AddEmployee : Page
     {
+        Addemployee addemployee = new Addemployee();
         public AddEmployee()
         {
             InitializeComponent();
+            EmployeeMainGrid.DataContext = addemployee;
         }
 
         private void BankDetails_Click(object sender, RoutedEventArgs e)
@@ -31,6 +33,12 @@ namespace MicroFinance
             EmployeeAccountdetailsPanel.IsOpen = true;
             EmployeeMainGrid.IsEnabled = false;
 
+        }
+
+        private void PanelCloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            EmployeeAccountdetailsPanel.IsOpen = false;
+            EmployeeMainGrid.IsEnabled = true;
         }
     }
 }

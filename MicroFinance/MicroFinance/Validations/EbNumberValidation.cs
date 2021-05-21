@@ -13,7 +13,7 @@ namespace MicroFinance.Validations
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             string Ebnumber = (string)value;
-            if(Ebnumber.Length!=12)
+            if(Ebnumber.Length==12)
             {
                 for(int i=0;i<Ebnumber.Length;i++)
                 {
@@ -22,12 +22,13 @@ namespace MicroFinance.Validations
                         return new ValidationResult(false, "Eb Number only Allows 0-9");
                     }
                 }
+                return ValidationResult.ValidResult;
             }
             else
             {
                 return new ValidationResult(false, "Eb Number is Invalid");
             }
-            return ValidationResult.ValidResult;
+            
         }
     }
 }

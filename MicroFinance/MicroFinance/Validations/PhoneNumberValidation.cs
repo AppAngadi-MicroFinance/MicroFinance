@@ -13,7 +13,7 @@ namespace MicroFinance.Validations
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             string Phonenumber = (string)value;
-            if(Phonenumber.Length!=10)
+            if(Phonenumber.Length<=10)
             {
                 for (int i = 0; i < Phonenumber.Length; i++)
                 {
@@ -22,12 +22,21 @@ namespace MicroFinance.Validations
                         return new ValidationResult(false, "Phone Number not Allowed Characters");
                     }
                 }
+                if(Phonenumber.Length==10)
+                {
+                    return ValidationResult.ValidResult;
+                }
+                else
+                {
+                    return new ValidationResult(false, "Invalid PhoneNumber");
+                }
+
             }
             else
             {
-                return new ValidationResult(false, "Invalid PhoneNumber");
+                return new ValidationResult(false, "PhoneNumber Must be 10 Digits");
             }
-            return ValidationResult.ValidResult;
+            
             
         }
     }

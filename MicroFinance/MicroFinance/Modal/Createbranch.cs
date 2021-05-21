@@ -23,18 +23,9 @@ namespace MicroFinance.Modal
             {
                 if (value != _regionName)
                 {
-                   try
-                    {
-                        if(IsString(value)==value)
-                        {
-                            _regionName = value;
-                            RaisedPropertyChanged("RegionName");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new ArgumentException(ex.Message);
-                    }
+                   _regionName = value;
+                   RaisedPropertyChanged("RegionName");
+                     
                 }
                   
             }
@@ -48,22 +39,10 @@ namespace MicroFinance.Modal
             }
             set
             {
-                if (value != _regionName)
-                {
-                    try
-                    {
-                        if(IsString(value)==value)
-                        {
-                            _branchname = value;
-                            RaisedPropertyChanged("BranchName");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new ArgumentException(ex.Message);
-                    }
-                }
-                
+               
+             _branchname = value;
+              RaisedPropertyChanged("BranchName");
+              
             }
         }
         private string _branchaddress;
@@ -88,24 +67,8 @@ namespace MicroFinance.Modal
             }
             set
             {
-              
-               
-                    if(IsLandline(value)==true)
-                    {
-                        if(value.Length<=12)
-                        {
-                            _landlinenumber = value;
-                            RaisedPropertyChanged("LandlineNumber");
-                        }
-                        else
-                        {
-                            throw new ArgumentException("Enter Correct Landline Number");
-                        }
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Invalid LandLine Number");
-                    }
+                _landlinenumber = value;
+                 RaisedPropertyChanged("LandlineNumber"); 
             }
 
             
@@ -119,18 +82,10 @@ namespace MicroFinance.Modal
             }
             set
             {
-               //try
-               // {
-               //     if(IsAmount(value.ToString())==value)
-               //     {
+              
                         _costpermonth = value;
                         RaisedPropertyChanged("CostPerMonth");
-               //     }
-               // }
-               // catch (Exception ex)
-               // {
-               //     throw new ArgumentException(ex.Message);
-               // }
+              
             } 
         }
         private string _managername;
@@ -172,18 +127,9 @@ namespace MicroFinance.Modal
             }
             set
             {
-                try
-                {
-                    if(IsString(value)==value)
-                    {
-                        _ebconnectionname = value;
-                        RaisedPropertyChanged("EbConnectionName");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new ArgumentException(ex.Message);
-                }
+               
+                 _ebconnectionname = value;
+                  RaisedPropertyChanged("EbConnectionName");
             }
         }
         private string _ebconnectionnubmer;
@@ -195,24 +141,9 @@ namespace MicroFinance.Modal
             }
             set
             {
-                if(!string.IsNullOrEmpty(value))
-                {
-                   
-                        try
-                        {
-                            if(IsEBNumber(value)==value)
-                            {
-                                _ebconnectionnubmer = value;
-                                RaisedPropertyChanged("EBConnectionNumber");
-                            }
-
-                        }
-                        catch (Exception ex)
-                        {
-                            throw new ArgumentException(ex.Message);
-                        }
-                        
-                }
+               
+                _ebconnectionnubmer = value;
+                  RaisedPropertyChanged("EBConnectionNumber");
             }
         }
         public string InternetConnectionName { get; set; }
@@ -227,16 +158,10 @@ namespace MicroFinance.Modal
             {
                     if (value != _internetconnectioncost)
                     {
-                        try
-                        {
-                            IsAmount(value.ToString());
-                            _internetconnectioncost = value;
-                            RaisedPropertyChanged("InternetConnectionCost");
-                        }
-                        catch (Exception)
-                        {
-                            throw new ArgumentException("Invalid Amount");
-                        }
+                     
+                         _internetconnectioncost = value;
+                         RaisedPropertyChanged("InternetConnectionCost");
+                       
                         
                     }
                
@@ -255,18 +180,10 @@ namespace MicroFinance.Modal
 
                if(value!=OwnerContactNumber)
                 {
-                    try
-                    {
-                        if(IsPhoneNumber(value)==value)
-                        {
-                            _ownercontactnumber = value;
-                            RaisedPropertyChanged("OwnerContactNumber");
-                        }    
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new ArgumentException(ex.Message);
-                    }
+                   
+                     _ownercontactnumber = value;
+                      RaisedPropertyChanged("OwnerContactNumber");
+                      
                 }
 
             }
@@ -298,17 +215,10 @@ namespace MicroFinance.Modal
             }
             set
             {
-                try
-                {
-                    IsAmount(value.ToString());
+               
                     _rentpermonth = value;
                     RaisedPropertyChanged("RentPerMonth");
-                }
-                catch
-                {
-                    throw new Exception("Invalid Amount");
-                }
-
+               
             }
         }
         private string _accountholdername;
@@ -320,18 +230,9 @@ namespace MicroFinance.Modal
             }
             set
             {
-                try
-                {
-                    if(IsString(value)==value)
-                    {
-                        _accountholdername = value;
-                        RaisedPropertyChanged("AccountHolderName");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new ArgumentException(ex.Message);
-                }
+               
+                 _accountholdername = value;
+                  RaisedPropertyChanged("AccountHolderName");
             }
         }
         private string _accountnumber;
@@ -345,18 +246,10 @@ namespace MicroFinance.Modal
             {
                 if(value!=_accountnumber)
                 {
-                    try
-                    {
-                        if(IsAccountNumber(value)==value)
-                        {
-                            _accountnumber = value;
-                            RaisedPropertyChanged("Account Number");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new ArgumentException(ex.Message);
-                    }
+                   
+                   _accountnumber = value;
+                   RaisedPropertyChanged("Account Number");
+                      
                 }
             }
         }
@@ -369,18 +262,10 @@ namespace MicroFinance.Modal
             }
             set
             {
-                try
-                {
-                    if (IsString(value) == value)
-                    {
-                        _bankname = value;
-                        RaisedPropertyChanged("BankName");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new ArgumentException(ex.Message);
-                }
+              
+               _bankname = value;
+                RaisedPropertyChanged("BankName");
+                    
             }
         }
         private string _bankbranchname;
@@ -392,18 +277,9 @@ namespace MicroFinance.Modal
             }
             set
             {
-                try
-                {
-                    if (IsString(value) == value)
-                    {
-                        _bankbranchname = value;
-                        RaisedPropertyChanged("BankBranchName");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new ArgumentException(ex.Message);
-                }
+               
+                 _bankbranchname = value;
+                 RaisedPropertyChanged("BankBranchName");
             }
         }
         private string _ifsccode;
@@ -449,145 +325,6 @@ namespace MicroFinance.Modal
             return a;
             
         }
-        public bool IsLandline(string value)
-        {
-            double v;
-            bool result = double.TryParse(value, out v);
-            if(result==true)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public string IsString(string value)
-        {
-           for(int i=0;i<value.Length;i++)
-            {
-                if(char.IsDigit(value[i])==true)
-                {
-                    throw new ArgumentException("Numbers Not Allowed");
-                }
-            }
-            return value;
-        }
-
-        public string IsEBNumber(string value)
-        {
-            for(int i=0;i<value.Length;i++)
-            {
-                if(char.IsDigit(value[i])==false)
-                {
-                    throw new ArgumentException("The Eb Number is Invalid");
-                }
-            }
-            string temp = value;
-                if(temp.Length<=12)
-                {
-                if (temp.Length != 12)
-                {
-                    throw new ArgumentException("The Eb Number is Invalid,Number Must Be 12 Digit");
-                }
-                }
-                else
-                {
-                    throw new ArgumentException("EB Number is Too Long");
-                }
-            
-            return value;
-
-        }
-        public string IsAadhar(string value)
-        {
-            string AadharNumber;
-            double a;
-            bool res = double.TryParse(value, out a);
-            if (res == true)
-            {
-                string temp = a.ToString();
-                if (temp.Length <= 12)
-                {
-                    if (temp.Length == 12)
-                    {
-                        AadharNumber = a.ToString();
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Aadhar Number Must Be 12 Digit");
-                    }
-
-                }
-                else
-                {
-                    throw new ArgumentException("Aadhar Number is Too Long");
-                }
-            }
-            else
-            {
-                throw new ArgumentException("Aadhar Number is Invalid");
-            }
-            return AadharNumber;
-
-        }
-
-        public string IsAccountNumber(string value)
-        {
-            string AccNumber;
-            double a;
-            bool res = double.TryParse(value, out a);
-            if (res == true)
-            {
-                string temp = a.ToString();
-                if (temp.Length <= 15)
-                {
-                   
-                        AccNumber = a.ToString();
-                }
-                else
-                {
-                    throw new ArgumentException("Account Number is Invalid,Account Number length must be Less than or Equal to 15");
-                }
-            }
-            else
-            {
-                throw new ArgumentException("Account Number is Invalid");
-            }
-            return AccNumber;
-
-        }
-        public string IsPhoneNumber(string value)
-        {
-            string Phnumber;
-            bool res;
-            double number;
-            res = double.TryParse(value, out number);
-
-            if (res == true)
-            {
-                double digit = Math.Floor(Math.Log10(number) + 1);
-                if (digit <= 10)
-                {
-                    if(digit==10)
-                    {
-                        Phnumber = number.ToString();
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Phone Number is Invalid,Phone Number Must be 10 digit");
-                    }
-                   
-                }
-                else
-                {
-                    throw new ArgumentException("The PhoneNumber is Too Long");
-                }
-
-            }
-            else
-            {
-                throw new ArgumentException("Phone Number is Invalid");
-            }
-            return Phnumber;
-        }
+       
     }
 }

@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MicroFinance"
+      xmlns:validation="clr-namespace:MicroFinance.Validations"
       mc:Ignorable="d" 
       d:DesignHeight="660" d:DesignWidth="1366"
       Title="AddEmployee">
@@ -51,20 +52,52 @@
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
                             <TextBlock Text="Name" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                            <TextBox Style="{StaticResource InputBox}" Width="415" Margin="10,0,0,0"></TextBox>
+                            <TextBox Style="{StaticResource InputBox}" Width="415" Margin="10,0,0,0">
+                                <TextBox.Text>
+                                    <Binding Path="EmployeeName" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validation:NameValidation/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                         </StackPanel>
                         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
                             <TextBlock Text="DOB" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                            <DatePicker Style="{StaticResource DateSelecter}" Width="250" Margin="19,0,0,0" SelectedDateFormat="Long"></DatePicker>
+                            <DatePicker Style="{StaticResource DateSelecter}" Width="250" Margin="19,0,0,0" SelectedDateFormat="Long" Text="{Binding DOB,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
                             <TextBlock Text="Age" VerticalAlignment="Center" Style="{StaticResource Regular}" Margin="50,0,0,0"></TextBlock>
-                            <TextBox Style="{StaticResource InputBox}" Width="80" Margin="10,0,0,0"></TextBox>
+                            <TextBox Style="{StaticResource InputBox}" Width="80" Margin="10,0,0,0" Text="{Binding Age,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         </StackPanel>
                         <TextBlock Grid.Row="2" Text="Contact Number" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                        <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource InputBox}" Width="250"></TextBox>
+                        <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource InputBox}" Width="250">
+                            <TextBox.Text>
+                                <Binding Path="ContactNumber" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validation:PhoneNumberValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                         <TextBlock Grid.Row="3" Text="Email" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                        <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource InputBox}" Width="250" IsTabStop="False"></TextBox>
+                        <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource InputBox}" Width="250">
+                            <TextBox.Text>
+                                <Binding Path="Email" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validation:EmailValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                         <TextBlock Text="Aadhar Number" Grid.Row="4" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                        <TextBox Grid.Row="4" Grid.Column="1" Style="{StaticResource InputBox}" Width="250"></TextBox>
+                        <TextBox Grid.Row="4" Grid.Column="1" Style="{StaticResource InputBox}" Width="250">
+                            <TextBox.Text>
+                                <Binding Path="AadharNumber">
+                                    <Binding.ValidationRules>
+                                        <validation:AadharValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                         <TextBlock Text="Religion" Grid.Row="5" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                         <ComboBox Grid.Row="5" Grid.Column="1" Style="{StaticResource combo}" Width="250"></ComboBox>
                         <TextBlock Grid.Row="6" Text="Education" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
@@ -94,13 +127,43 @@
                     </Grid.RowDefinitions>
                     <TextBlock Text="Address Details*" Style="{StaticResource SubTitle}" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Text="House No,Street" Style="{StaticResource Regular}" Grid.Row="1" VerticalAlignment="Center"></TextBlock>
-                    <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource InputBox}" Width="250"></TextBox>
-                    <TextBlock Grid.Row="2" Text="Locality/Town Name" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                    <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource InputBox}" Width="250"></TextBox>
-                    <TextBlock Grid.Row="3" Text="District" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                    <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource InputBox}" Width="250"></TextBox>
+                    <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource InputBox}" Width="250">
+                        <TextBox.Text>
+                            <Binding Path="HouseNo" Mode="OneWayToSource">
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <TextBlock Grid.Row="2" Text="Locality/Town Name" Style="{StaticResource Regular}" VerticalAlignment="Center">
+                        
+                    </TextBlock>
+                    <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource InputBox}" Width="250">
+                        <TextBox.Text>
+                            <Binding Path="TownName" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validation:NameValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <TextBlock Grid.Row="3" Text="District" Style="{StaticResource Regular}" VerticalAlignment="Center">
+                       
+                    </TextBlock>
+                    <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource InputBox}" Width="250">
+                        <TextBox.Text>
+                            <Binding Path="District" Mode="TwoWay">
+                                <Binding.ValidationRules>
+                                    <validation:NameValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <TextBlock Grid.Row="4" Text="Pincode" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                    <TextBox Grid.Row="4" Grid.Column="1" Style="{StaticResource InputBox}" Width="250"></TextBox>
+                    <TextBox Grid.Row="4" Grid.Column="1" Style="{StaticResource InputBox}" Width="250" Margin="25,14.4,25,6">
+                        <TextBox.Text>
+                            <Binding Path="Pincode" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <TextBlock Text="Other Details*" Style="{StaticResource SubTitle}" Grid.Row="5" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Text="Address Proof" Grid.Row="6" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="6" Grid.Column="1">
@@ -124,8 +187,8 @@
                 </StackPanel>
             </Border>
             <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Style="{StaticResource CancelBtn}"></Button>
-                <Button Style="{StaticResource PrimaryActionBtn}" Margin="20,0,0,0"></Button>
+                <Button Style="{StaticResource Gray}"></Button>
+                <Button Style="{StaticResource orange}" Margin="20,0,0,0"></Button>
             </StackPanel>
         </Grid>
         <Popup  Height="400" Width="500" x:Name="EmployeeAccountdetailsPanel" IsOpen="False" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center">
@@ -138,7 +201,7 @@
                         <RowDefinition Height="20*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Text="Add BankDetails" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource Title}"></TextBlock>
-                    <Button Style="{StaticResource ModalClose}" HorizontalAlignment="Right" Margin="0,0,10,0" x:Name="PanelCloseBtn" ></Button>
+                    <Button Click="PanelCloseBtn_Click" Style="{StaticResource ModalClose}" HorizontalAlignment="Right" Margin="0,0,10,0" x:Name="PanelCloseBtn" ></Button>
                     <Separator BorderThickness="5" BorderBrush="Black" VerticalAlignment="Bottom"></Separator>
                     <Grid Grid.Row="1" Width="480">
                         <Grid.ColumnDefinitions>
@@ -154,17 +217,60 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBlock Text="Account Holder Name" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                        <TextBox Grid.Column="1" Style="{StaticResource InputBox}"  Width="250"></TextBox>
+                        <TextBox Grid.Column="1" Style="{StaticResource InputBox}"  Width="250">
+                            <TextBox.Text>
+                                <Binding Path="AccountHolderName" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validation:NameValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                         <TextBlock Text="Account number" Style="{StaticResource Regular}" Grid.Row="1" VerticalAlignment="Center"></TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="1" Style="{StaticResource InputBox}"  Width="250"></TextBox>
+                        <TextBox Grid.Column="1" Grid.Row="1" Style="{StaticResource InputBox}"  Width="250">
+                            <TextBox.Text>
+                                <Binding Path="AccountNumber" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validation:AccountNumberValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                         <TextBlock Text="Bank Name" Style="{StaticResource Regular}" Grid.Row="2" VerticalAlignment="Center"></TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource InputBox}"  Width="250"></TextBox>
+                        <TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource InputBox}"  Width="250">
+                            <TextBox.Text>
+                                <Binding Path="BankName" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validation:NameValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                         <TextBlock Text="Branch Name" Style="{StaticResource Regular}" Grid.Row="3" VerticalAlignment="Center"></TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="3" Style="{StaticResource InputBox}" Width="250"></TextBox>
+                        <TextBox Grid.Column="1" Grid.Row="3" Style="{StaticResource InputBox}" Width="250">
+                            <TextBox.Text>
+                                <Binding Path="BankBranchName" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validation:NameValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                         <TextBlock Text="IFSC Code" Style="{StaticResource Regular}" Grid.Row="4" VerticalAlignment="Center"></TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="4" Style="{StaticResource InputBox}"  Width="250"></TextBox>
+                        <TextBox Grid.Column="1" Grid.Row="4" Style="{StaticResource InputBox}"  Width="250">
+                            <TextBox.Text>
+                                <Binding Path="IFSCCode" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                   
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                         <TextBlock Text="MICR Code" Style="{StaticResource Regular}" Grid.Row="5" VerticalAlignment="Center"></TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="5" Style="{StaticResource InputBox}"  Width="250"></TextBox>
+                        <TextBox Grid.Column="1" Grid.Row="5" Style="{StaticResource InputBox}"  Width="250">
+                            <TextBox.Text>
+                                <Binding Path="MICRCode" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                     </Grid>
                     <Button Grid.Row="2" Height="40" Width="150" Content="Add"></Button>
                 </Grid>
