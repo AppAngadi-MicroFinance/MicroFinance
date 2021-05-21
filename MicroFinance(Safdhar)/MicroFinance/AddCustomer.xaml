@@ -182,13 +182,14 @@
                     <TextBlock Text="Montyly Income" Grid.Column="1" Grid.Row="19" Style="{StaticResource Regular}"/>
                     <TextBox x:Name="MonthlyIncomeBox" Grid.Row="19" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left">
                         <TextBox.Text>
-                            <Binding Path="MonthlyIncome" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
-                                <Binding.ValidationRules>
-                                    <validate:NumberValidation/>
-                                </Binding.ValidationRules>
+                            <Binding Path="MonthlyIncome" UpdateSourceTrigger="LostFocus" Mode="TwoWay">
+                                
                                 <Binding.Converter>
-                                    
+                                    <convert:MoneyConverter/>
                                 </Binding.Converter>
+                                <Binding.ValidationRules>
+                                    <validate:MoneyValidation/>
+                                </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
@@ -227,21 +228,85 @@
                         <RowDefinition Height="10"/>
                     </Grid.RowDefinitions>
                     <TextBlock Text="Door Number" Style="{StaticResource Regular}" Grid.Row="1" Grid.Column="1"/>
-                    <TextBox x:Name="HouseNOBox" Style="{StaticResource Textbox}" Grid.Row="1" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding DoorNumber,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="HouseNOBox" Style="{StaticResource Textbox}" Grid.Row="1" Grid.Column="2" Width="250" HorizontalAlignment="Left" >
+                        <TextBox.Text>
+                            <Binding Path="DoorNumber" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validate:EmptyValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <TextBlock Text="Street Name" Style="{StaticResource Regular}" Grid.Row="2" Grid.Column="1"/>
-                    <TextBox x:Name="StreetNameBox" Style="{StaticResource Textbox}" Grid.Row="2" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding StreetName,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="StreetNameBox" Style="{StaticResource Textbox}" Grid.Row="2" Grid.Column="2" Width="250" HorizontalAlignment="Left">
+                        <TextBox.Text>
+                            <Binding Path="StreetName" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validate:EmptyValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <TextBlock Text="Locality/Town" Style="{StaticResource Regular}" Grid.Row="3" Grid.Column="1"/>
-                    <TextBox x:Name="LocalityBox" Style="{StaticResource Textbox}" Grid.Row="3" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding LocalityTown,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="LocalityBox" Style="{StaticResource Textbox}" Grid.Row="3" Grid.Column="2" Width="250" HorizontalAlignment="Left">
+                        <TextBox.Text>
+                            <Binding Path="LocalityTown" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validate:EmptyValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <TextBlock Text="Pincode" Style="{StaticResource Regular}" Grid.Row="4" Grid.Column="1"/>
-                    <TextBox x:Name="PincodeBox" Style="{StaticResource Textbox}" Grid.Row="4" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding Pincode,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="PincodeBox" Style="{StaticResource Textbox}" Grid.Row="4" Grid.Column="2" Width="250" HorizontalAlignment="Left">
+                        <TextBox.Text>
+                            <Binding Path="Pincode" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validate:EmptyValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <TextBlock Text="City" Style="{StaticResource Regular}" Grid.Row="5" Grid.Column="1"/>
-                    <TextBox x:Name="CityBox" Style="{StaticResource Textbox}" Grid.Row="5" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding City,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="CityBox" Style="{StaticResource Textbox}" Grid.Row="5" Grid.Column="2" Width="250" HorizontalAlignment="Left">
+                        <TextBox.Text>
+                            <Binding Path="City" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validate:EmptyValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <TextBlock Text="State" Style="{StaticResource Regular}" Grid.Row="6" Grid.Column="1"/>
-                    <TextBox x:Name="StateBox" Style="{StaticResource Textbox}" Grid.Row="6" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding State,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="StateBox" Style="{StaticResource Textbox}" Grid.Row="6" Grid.Column="2" Width="250" HorizontalAlignment="Left" >
+                        <TextBox.Text>
+                            <Binding Path="State" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validate:EmptyValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <TextBlock Text="Housing Type" Style="{StaticResource Regular}" Grid.Row="8" Grid.Column="1" />
-                    <TextBox x:Name="HouseTypeBox" Style="{StaticResource Textbox}" Grid.Row="8" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding HousingType,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="HouseTypeBox" Style="{StaticResource Textbox}" Grid.Row="8" Grid.Column="2" Width="250" HorizontalAlignment="Left">
+                        <TextBox.Text>
+                            <Binding Path="HousingType" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validate:EmptyValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <TextBlock Text="Housing Index" Style="{StaticResource Regular}" Grid.Row="10" Grid.Column="1" />
-                    <TextBox x:Name="HouseIndexBox" Style="{StaticResource Textbox}" Grid.Row="10" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding HousingIndex,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="HouseIndexBox" Style="{StaticResource Textbox}" Grid.Row="10" Grid.Column="2" Width="250" HorizontalAlignment="Left" >
+                        <TextBox.Text>
+                            <Binding Path="HousingIndex" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validate:EmptyValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
 
                 </Grid>
             </Border>

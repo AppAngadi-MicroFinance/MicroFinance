@@ -133,8 +133,8 @@ namespace MicroFinance.Models
                 _occupation = value;
             }
         }
-        private string _monthlyIncome;
-        public string MonthlyIncome
+        private int _monthlyIncome;
+        public int MonthlyIncome
         {
             get
             {
