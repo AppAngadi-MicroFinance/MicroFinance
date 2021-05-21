@@ -71,6 +71,7 @@ namespace MicroFinance
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
         {
+
         }
 
         private void SaveCustomer_Click(object sender, RoutedEventArgs e)
@@ -128,6 +129,21 @@ namespace MicroFinance
             ViewGuarnatorDetails.DataContext = guarantor;
             ViewGuarantorAddressDetails.DataContext = guarantor;
             
+        }
+
+        private void UpdateGuarantor_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EditGaurantor_Click(object sender, RoutedEventArgs e)
+        {
+            EditGuarantorPopopup.IsOpen = true;
+        }
+
+        private void UpdateNominee_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
