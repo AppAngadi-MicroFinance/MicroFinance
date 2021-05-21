@@ -79,7 +79,7 @@
             <Setter Property="Template" >
                 <Setter.Value>
                     <ControlTemplate>
-                        <Border Width="40" Height="40"  Background="White">
+                        <Border Width="30" Height="30"  Background="Transparent">
                             <Grid>
                                 <Image Source="Symbols\Data-Edit.png"></Image>
                             </Grid>
@@ -247,7 +247,7 @@
             <Setter Property="Template" >
                 <Setter.Value>
                     <ControlTemplate>
-                        <Border Width="40" Height="40"  Background="White">
+                        <Border Width="30" Height="30"  Background="Transparent">
                             <Grid>
                                 <Image Source="Symbols\Show-01-WF.png"></Image>
                             </Grid>
@@ -479,7 +479,39 @@
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="Foreground" Value="#2D1414"/>
         </Style>
-        <!--Text Box-->
+        <!--<Regular Input>-->
+        <Style TargetType="TextBox" x:Key="Textbox">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <Border>
+                                <AdornedElementPlaceholder 
+                            ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" >
+
+                                </AdornedElementPlaceholder>
+                            </Border>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            <Setter Property="FontFamily" Value="Roboto"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" />
+                    <Setter Property="BorderThickness" Value="2"></Setter>
+                    <Setter Property="BorderBrush" Value="red"></Setter>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="Transparent"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--Text Box--><!--
         <Style x:Key="Textbox" TargetType="TextBox">
             <Setter Property="FontFamily" Value="Roboto"/>
             <Setter Property="FontSize" Value="16"/>
@@ -487,7 +519,7 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="BorderBrush" Value="Black"/>
             
-        </Style>
+        </Style>-->
 
         <!-- button style two-->
         <Style x:Key="widthandheight" TargetType="Button">

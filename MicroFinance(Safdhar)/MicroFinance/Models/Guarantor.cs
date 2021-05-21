@@ -31,6 +31,7 @@ namespace MicroFinance.Models
             set
             {
                 _dateofBirth = value;
+                RaisePropertyChanged("DateofBirth");
             }
         }
         private string _age;
@@ -103,9 +104,7 @@ namespace MicroFinance.Models
             set
             {
                 _isGuarantorNull = value;
-                RaisePropertyChanged("AddGaurantor");
-                RaisePropertyChanged("GuarantorViewEditPanel");
-               
+                RaisePropertyChanged("IsGuarantorNull");
             }
         }
         private string _doorNumber;

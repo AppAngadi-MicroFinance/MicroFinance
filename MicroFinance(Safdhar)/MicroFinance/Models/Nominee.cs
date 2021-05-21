@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MicroFinance.Validation;
 
 namespace MicroFinance.Models
 {
-    class Nominee
+    class Nominee:BindableBase
     {
         private string _nomineeName;
         public string NomineeName
@@ -30,6 +31,7 @@ namespace MicroFinance.Models
             set
             {
                 _dateofBirth = value;
+                RaisePropertyChanged("DateofBirth");
             }
         }
         private string _age;
@@ -90,6 +92,80 @@ namespace MicroFinance.Models
             set
             {
                 _isNomineeNull = value;
+                RaisePropertyChanged("IsNomineeNull");
+            }
+        }
+        private string _doorNumber;
+        public string DoorNumber
+        {
+            get
+            {
+                return _doorNumber;
+            }
+            set
+            {
+                _doorNumber = value;
+            }
+        }
+        private string _streetName;
+        public string StreetName
+        {
+            get
+            {
+                return _streetName;
+            }
+            set
+            {
+                _streetName = value;
+            }
+        }
+        private string _localityTown;
+        public string LocalityTown
+        {
+            get
+            {
+                return _localityTown;
+            }
+            set
+            {
+                _localityTown = value;
+            }
+        }
+        private int _pincode;
+        public int Pincode
+        {
+            get
+            {
+                return _pincode;
+            }
+            set
+            {
+                _pincode = value;
+            }
+        }
+
+        private string _city;
+        public string City
+        {
+            get
+            {
+                return _city;
+            }
+            set
+            {
+                _city = value;
+            }
+        }
+        private string _state;
+        public string State
+        {
+            get
+            {
+                return _state;
+            }
+            set
+            {
+                _state = value;
             }
         }
     }
