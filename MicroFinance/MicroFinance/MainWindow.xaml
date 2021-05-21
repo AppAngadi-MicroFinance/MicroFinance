@@ -14,8 +14,15 @@
             <RowDefinition Height="38"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Background="Black"></Border>
-        <Border Grid.Row="1" Background="AliceBlue"></Border>
-        <Frame Grid.Row="2" x:Name="mainframe"></Frame>
+        <Border Grid.Row="1" Background="AliceBlue">
+            <Menu VerticalAlignment="Center">
+                <MenuItem  Header="Create Branch" FontSize="20" Name="CrBranch" Click="CrBranch_Click">
+                </MenuItem>
+                <MenuItem Header="Add Employee" FontSize="20" x:Name="CreEmployee" Click="CreEmployee_Click"></MenuItem>
+            </Menu>
+            
+        </Border>
+        <Frame Grid.Row="2" x:Name="mainframe" NavigationUIVisibility="Hidden"></Frame>
         <Border Grid.Row="3" Background="AliceBlue"></Border>
         
     </Grid>

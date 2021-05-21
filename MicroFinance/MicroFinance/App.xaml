@@ -62,7 +62,7 @@
             <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
             <Setter Property="FontFamily" Value="Roboto"></Setter>
-            <Setter Property="Height" Value="40"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="True">
                     <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" />
@@ -79,7 +79,7 @@
             <Setter Property="FontFamily" Value="roboto"></Setter>
             <Setter Property="FontSize" Value="16"></Setter>
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
-            <Setter Property="Height" Value="40"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
         </Style>
         
         <!--<Buttons>-->
@@ -88,7 +88,7 @@
             <Setter Property="Template" >
                 <Setter.Value>
                     <ControlTemplate>
-                        <Border x:Name="addborder" Width="40" Height="40"  Background="White">
+                        <Border x:Name="addborder" Width="30" Height="30"  Background="Transparent">
                             <Grid>
                                 <Image Source="Asserts\Icons\Add.png"></Image>
                             </Grid>
@@ -99,7 +99,7 @@
         </Style>
         <!--For Primary Action Buttons-->
         <ControlTemplate x:Key="orangebutton" TargetType="{x:Type Button}">
-            <Grid x:Name="mygrid" Width="250" Height="40" Background="#F77604">
+            <Grid x:Name="mygrid" Width="120" Height="40" Background="#F77604">
                 <TextBlock Text="Save" Foreground="White" FontFamily="Roboto" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
             </Grid>
             <ControlTemplate.Triggers>
@@ -108,14 +108,14 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
-        <Style TargetType="{x:Type Button}" x:Key="PrimaryActionBtn">
+        <Style TargetType="{x:Type Button}" x:Key="orange">
             <Setter Property="Template" Value="{StaticResource orangebutton}">
             </Setter>
         </Style>
 
         <!--for combo box-->
         <Style x:Key="combo" TargetType="ComboBox" >
-            <Setter Property="Height" Value="40"/>
+            <Setter Property="Height" Value="30"/>
             <Setter Property="Width" Value="250"/>
             <Setter Property="FontFamily" Value="Roboto"/>
             <Setter Property="FontSize" Value="16"/>
@@ -156,8 +156,23 @@
         </Style>
 
         <!--For Cancel -->
+        <ControlTemplate x:Key="Bluebutton" TargetType="{x:Type Button}">
+            <Grid x:Name="mygrid" Width="250" Height="40" Background="#0EABF2">
+                <TextBlock Text="Edit" Foreground="White" FontFamily="Roboto" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="mygrid" Value="#68cbf7" Property="Background" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <Style TargetType="{x:Type Button}" x:Key="Blue">
+            <Setter Property="Template" Value="{StaticResource Bluebutton}">
+            </Setter>
+        </Style>
+        <!--For Cancel -->
         <ControlTemplate x:Key="Graybutton" TargetType="{x:Type Button}">
-            <Grid x:Name="mygrid" Width="250" Height="40" Background="#7F7F7F">
+            <Grid x:Name="mygrid" Width="120" Height="40" Background="#7F7F7F">
                 <TextBlock Text="Cancel" Foreground="White" FontFamily="Roboto" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
             </Grid>
             <ControlTemplate.Triggers>
@@ -166,7 +181,7 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
-        <Style TargetType="{x:Type Button}" x:Key="CancelBtn">
+        <Style TargetType="{x:Type Button}" x:Key="Gray">
             <Setter Property="Template" Value="{StaticResource Graybutton}">
             </Setter>
         </Style>

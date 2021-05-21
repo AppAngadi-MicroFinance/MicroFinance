@@ -13,7 +13,7 @@ namespace MicroFinance.Validations
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             string Landlinenumber = (string)value;
-            if(Landlinenumber.Length==12||Landlinenumber.Length==6)
+            if(Landlinenumber.Length==11||Landlinenumber.Length==6)
             {
                 for(int i=0;i<Landlinenumber.Length;i++)
                 {
@@ -22,13 +22,14 @@ namespace MicroFinance.Validations
                         return new ValidationResult(false, "Invalid LandLine Number,");
                     }
                 }
-                
+                return ValidationResult.ValidResult;
+
             }
             else
             {
                 return new ValidationResult(false, "Invalid LandlineNumber");
             }
-            return ValidationResult.ValidResult;
+           
         }
     }
 }

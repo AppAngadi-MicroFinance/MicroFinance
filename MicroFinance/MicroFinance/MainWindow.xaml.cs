@@ -23,6 +23,17 @@ namespace MicroFinance
         public MainWindow()
         {
             InitializeComponent();
+            
+           
+        }
+
+        private void CreEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            mainframe.NavigationService.Navigate(new AddEmployee());
+        }
+
+        private void CrBranch_Click(object sender, RoutedEventArgs e)
+        {
             mainframe.NavigationService.Navigate(new CreateBranch());
         }
     }

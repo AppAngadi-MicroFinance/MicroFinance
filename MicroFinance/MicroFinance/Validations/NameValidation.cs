@@ -13,14 +13,25 @@ namespace MicroFinance.Validations
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             string Word =(string)value;
-            for(int i=0;i<Word.Length;i++)
+            if(string.IsNullOrEmpty(Word)==false)
             {
-                if(char.IsLetter(Word[i])==false)
+                for (int i = 0; i < Word.Length; i++)
                 {
-                    return new ValidationResult(false, "Name is Invalid,It allows a-z and A-Z");
+                    if (Word[i] != ' ')
+                    {
+                        if (char.IsLetter(Word[i]) == false)
+                        {
+                            return new ValidationResult(false, "Name is Invalid,It allows a-z and A-Z");
+                        }
+                    }
                 }
+                return ValidationResult.ValidResult;
             }
-            return ValidationResult.ValidResult;
+            else
+            {
+                return new ValidationResult(false, "This Field is Required");
+            }
+           
         }
     }
 }

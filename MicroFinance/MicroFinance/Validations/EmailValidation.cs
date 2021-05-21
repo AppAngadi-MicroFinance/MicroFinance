@@ -43,7 +43,7 @@ namespace MicroFinance.Validations
             }
             else
             {
-                throw new ArgumentException("Email is Invalid");
+                return new ValidationResult(false,"Email is Invalid");
             }
         }
     }
