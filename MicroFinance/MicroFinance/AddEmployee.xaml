@@ -168,7 +168,7 @@
                     <TextBlock Text="Address Proof" Grid.Row="6" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="6" Grid.Column="1">
                         <ComboBox Style="{StaticResource combo}"></ComboBox>
-                        <Button Style="{StaticResource Add}"></Button>
+                        <Button Style="{StaticResource Add}" x:Name="AddressproofBtn" Click="AddressproofBtn_Click"></Button>
                     </StackPanel>
                     <TextBlock Text="Photo Proof" Grid.Row="7" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="7" Grid.Column="1">
@@ -276,6 +276,20 @@
                 </Grid>
             </Border>
 
+        </Popup>
+        <Popup Height="450" Width="800" x:Name="capturepanel" Placement="Center" PlacementTarget="{Binding ElementName=EmployeeMainGrid}">
+            <Grid Height="450" Width="800" Background="White" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Button Grid.Row="3" Style="{StaticResource Gray}" Name="closesample"></Button>
+                
+                <Frame x:Name="Captureframe" Grid.Row="1">
+                    
+                </Frame>
+            </Grid>
         </Popup>
     </Grid>
 </Page>

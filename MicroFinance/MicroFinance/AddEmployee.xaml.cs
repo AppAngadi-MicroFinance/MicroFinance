@@ -1,4 +1,5 @@
 ﻿using MicroFinance.Modal;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,7 @@ namespace MicroFinance
         {
             InitializeComponent();
             EmployeeMainGrid.DataContext = addemployee;
+            Captureframe.NavigationService.Navigate(new Capture());
         }
 
         private void BankDetails_Click(object sender, RoutedEventArgs e)
@@ -40,5 +42,13 @@ namespace MicroFinance
             EmployeeAccountdetailsPanel.IsOpen = false;
             EmployeeMainGrid.IsEnabled = true;
         }
+
+        private void AddressproofBtn_Click(object sender, RoutedEventArgs e)
+        {
+            capturepanel.IsOpen = true;
+            EmployeeMainGrid.IsEnabled = false;
+           
+        }
+
     }
 }
