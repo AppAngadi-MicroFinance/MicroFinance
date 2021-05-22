@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MicroFinance.Validation
+namespace MicroFinance.Validations
 {
     public class BindableBase : INotifyPropertyChanged
     {

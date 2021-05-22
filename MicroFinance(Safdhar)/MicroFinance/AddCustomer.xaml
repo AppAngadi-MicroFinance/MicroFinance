@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MicroFinance"
-      xmlns:validate="clr-namespace:MicroFinance.Validation"
+      xmlns:validate="clr-namespace:MicroFinance.Validations"
       mc:Ignorable="d" 
       d:DesignHeight="630" d:DesignWidth="1368" Background="#FEF2E4"
       xmlns:convert="clr-namespace:MicroFinance.Converters"
@@ -17,6 +17,8 @@
         <convert:VisibilityConverter x:Key="VisibleConverter"/>
         <convert:InverseVisible x:Key="InverseVisibleConverter"/>
         <convert:AgeConverter x:Key="AgeConvert"/>
+
+        <validate:NameValidation x:Key="NameValidate"/>
     </Page.Resources>
 
     <Grid x:Name="MainGrid">
@@ -98,7 +100,16 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Text="Customer Name" Style="{StaticResource Regular}" />
-                    <TextBox x:Name="CustomerNameBox"  Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Width="350" Style="{StaticResource Textbox}"  Text="{Binding CustomerName,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="CustomerNameBox"  Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Width="350" Style="{StaticResource Textbox}">
+                        <TextBox.Text>
+                            <Binding Path="CustomerName" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validate:EmptyValidation/>
+                                    <validate:NameValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
                         <TextBlock Text="DOB" Style="{StaticResource Regular}" />
                         <DatePicker x:Name="SelectDOB" Width="250" Height="30" VerticalContentAlignment="Center" Margin="25,0,20,0" SelectedDate="{Binding DateofBirth,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
@@ -108,8 +119,9 @@
                     <TextBlock Text="Contact Number" Grid.Column="1" Grid.Row="5" Style="{StaticResource Regular}"/>
                     <TextBox x:Name="ContactBox" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left">
                         <TextBox.Text>
-                            <Binding Path="Price">
+                            <Binding Path="ContactNumber" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
+                                    <validate:PhoneNumberValidation/>
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>
@@ -124,19 +136,64 @@
 
 
                     <TextBlock Text="Education" Grid.Column="1" Grid.Row="11" Style="{StaticResource Regular}"/>
-                    <TextBox x:Name="EducatinBox" Grid.Row="11" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left" Text="{Binding Education,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="EducatinBox" Grid.Row="11" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left">
+                        <TextBox.Text>
+                            <Binding Path="Education" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validate:EmptyValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
 
                     <TextBlock Text="Family Members" Grid.Column="1" Grid.Row="13" Style="{StaticResource Regular}"/>
-                    <TextBox x:Name="FamilyMemberBox" Grid.Row="13" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left" Text="{Binding FamilyMembers,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="FamilyMemberBox" Grid.Row="13" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left" >
+                        <TextBox.Text>
+                            <Binding Path="FamilyMembers" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                <Binding.ValidationRules>
+                                    <validate:NumberValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
 
                     <TextBlock Text="Earning Members" Grid.Column="1" Grid.Row="15" Style="{StaticResource Regular}"/>
-                    <TextBox x:Name="EarningMemberBox" Grid.Row="15" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left" Text="{Binding EarningMembers,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="EarningMemberBox" Grid.Row="15" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left">
+                        <TextBox.Text>
+                            <Binding Path="EarningMembers" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                <Binding.ValidationRules>
+                                    <validate:NumberValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
 
                     <TextBlock Text="Occupation" Grid.Column="1" Grid.Row="17" Style="{StaticResource Regular}"/>
-                    <TextBox x:Name="OccupationBox" Grid.Row="17" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left" Text="{Binding Occupation,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="OccupationBox" Grid.Row="17" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left" >
+                        <TextBox.Text>
+                            <Binding Path="Occupation" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                <Binding.ValidationRules>
+                                    <validate:EmptyValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
 
                     <TextBlock Text="Montyly Income" Grid.Column="1" Grid.Row="19" Style="{StaticResource Regular}"/>
-                    <TextBox x:Name="MonthlyIncomeBox" Grid.Row="19" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left" Text="{Binding MonthlyIncome,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="MonthlyIncomeBox" Grid.Row="19" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left">
+                        <TextBox.Text>
+                            <Binding Path="MonthlyIncome" UpdateSourceTrigger="LostFocus" Mode="TwoWay">
+                                
+                                <Binding.Converter>
+                                    <convert:MoneyConverter/>
+                                </Binding.Converter>
+                                <Binding.ValidationRules>
+                                    <validate:MoneyValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+
                 </Grid>
             </Border>
         </Grid>
@@ -171,21 +228,85 @@
                         <RowDefinition Height="10"/>
                     </Grid.RowDefinitions>
                     <TextBlock Text="Door Number" Style="{StaticResource Regular}" Grid.Row="1" Grid.Column="1"/>
-                    <TextBox x:Name="HouseNOBox" Style="{StaticResource Textbox}" Grid.Row="1" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding DoorNumber,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="HouseNOBox" Style="{StaticResource Textbox}" Grid.Row="1" Grid.Column="2" Width="250" HorizontalAlignment="Left" >
+                        <TextBox.Text>
+                            <Binding Path="DoorNumber" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validate:EmptyValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <TextBlock Text="Street Name" Style="{StaticResource Regular}" Grid.Row="2" Grid.Column="1"/>
-                    <TextBox x:Name="StreetNameBox" Style="{StaticResource Textbox}" Grid.Row="2" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding StreetName,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="StreetNameBox" Style="{StaticResource Textbox}" Grid.Row="2" Grid.Column="2" Width="250" HorizontalAlignment="Left">
+                        <TextBox.Text>
+                            <Binding Path="StreetName" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validate:EmptyValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <TextBlock Text="Locality/Town" Style="{StaticResource Regular}" Grid.Row="3" Grid.Column="1"/>
-                    <TextBox x:Name="LocalityBox" Style="{StaticResource Textbox}" Grid.Row="3" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding LocalityTown,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="LocalityBox" Style="{StaticResource Textbox}" Grid.Row="3" Grid.Column="2" Width="250" HorizontalAlignment="Left">
+                        <TextBox.Text>
+                            <Binding Path="LocalityTown" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validate:EmptyValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <TextBlock Text="Pincode" Style="{StaticResource Regular}" Grid.Row="4" Grid.Column="1"/>
-                    <TextBox x:Name="PincodeBox" Style="{StaticResource Textbox}" Grid.Row="4" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding Pincode,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="PincodeBox" Style="{StaticResource Textbox}" Grid.Row="4" Grid.Column="2" Width="250" HorizontalAlignment="Left">
+                        <TextBox.Text>
+                            <Binding Path="Pincode" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validate:EmptyValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <TextBlock Text="City" Style="{StaticResource Regular}" Grid.Row="5" Grid.Column="1"/>
-                    <TextBox x:Name="CityBox" Style="{StaticResource Textbox}" Grid.Row="5" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding City,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="CityBox" Style="{StaticResource Textbox}" Grid.Row="5" Grid.Column="2" Width="250" HorizontalAlignment="Left">
+                        <TextBox.Text>
+                            <Binding Path="City" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validate:EmptyValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <TextBlock Text="State" Style="{StaticResource Regular}" Grid.Row="6" Grid.Column="1"/>
-                    <TextBox x:Name="StateBox" Style="{StaticResource Textbox}" Grid.Row="6" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding State,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="StateBox" Style="{StaticResource Textbox}" Grid.Row="6" Grid.Column="2" Width="250" HorizontalAlignment="Left" >
+                        <TextBox.Text>
+                            <Binding Path="State" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validate:EmptyValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <TextBlock Text="Housing Type" Style="{StaticResource Regular}" Grid.Row="8" Grid.Column="1" />
-                    <TextBox x:Name="HouseTypeBox" Style="{StaticResource Textbox}" Grid.Row="8" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding HousingType,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="HouseTypeBox" Style="{StaticResource Textbox}" Grid.Row="8" Grid.Column="2" Width="250" HorizontalAlignment="Left">
+                        <TextBox.Text>
+                            <Binding Path="HousingType" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validate:EmptyValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <TextBlock Text="Housing Index" Style="{StaticResource Regular}" Grid.Row="10" Grid.Column="1" />
-                    <TextBox x:Name="HouseIndexBox" Style="{StaticResource Textbox}" Grid.Row="10" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding HousingIndex,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox x:Name="HouseIndexBox" Style="{StaticResource Textbox}" Grid.Row="10" Grid.Column="2" Width="250" HorizontalAlignment="Left" >
+                        <TextBox.Text>
+                            <Binding Path="HousingIndex" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validate:EmptyValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
 
                 </Grid>
             </Border>
@@ -247,7 +368,7 @@
                         <Button x:Name="AddGaurantor" Click="AddGaurantor_Click" Style="{StaticResource Add}" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" Visibility="{Binding IsGuarantorNull,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleConverter}}"/>
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" x:Name="GuarantorViewEditPanel" Visibility="{Binding IsGuarantorNull,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleConverter}}">
                             <Button x:Name="ViewGaurantor" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" Click="ViewGaurantor_Click"/>
-                            <Button x:Name="EditGaurantor" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" />
+                            <Button x:Name="EditGaurantor" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" Click="EditGaurantor_Click" />
                         </StackPanel>
                     </Grid>
                     <Grid x:Name="NomineeGrid" Grid.Row="3">
@@ -258,7 +379,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Nominee" Style="{StaticResource Regular}" Grid.Column="1" />
-                        <TextBox x:Name="NomineeBpx" Style="{StaticResource Textbox}" Grid.Column="2" Width="140" HorizontalAlignment="Left"/>
+                        <TextBox x:Name="NomineeBox" Style="{StaticResource Textbox}" Grid.Column="2" Width="140" HorizontalAlignment="Left" Text="{Binding NomineeName, UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" IsReadOnly="True"/>
                         <Button x:Name="AddNominee" Style="{StaticResource Add}"  Grid.Column="3" HorizontalAlignment="Left" Visibility="{Binding IsNomineeNull,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleConverter}}"/>
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" x:Name="NomineeViewEditPanel" Visibility="{Binding IsNomineeNull,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleConverter}}">
                             <Button x:Name="ViewNominee" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0"/>
@@ -371,8 +492,17 @@
                             <RowDefinition Height="10"/>
                             <RowDefinition Height="40"/>
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Text="Customer Name" Style="{StaticResource Regular}" />
-                        <TextBox x:Name="GuarantorNameBox" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Width="290" Style="{StaticResource Textbox}" Text="{Binding GuarantorName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+                        <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Text="Guarantor Name" Style="{StaticResource Regular}" />
+                        <TextBox x:Name="GuarantorNameBox" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Width="290" Style="{StaticResource Textbox}" HorizontalAlignment="Left">
+                            <TextBox.Text>
+                                <Binding Path="GuarantorName" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validate:EmptyValidation/>
+                                        <validate:NameValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                         <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
                             <TextBlock Text="DOB" Style="{StaticResource Regular}" />
                             <DatePicker x:Name="GuarantorSelectDOB" Width="250" Height="30" VerticalContentAlignment="Center" Margin="25,0,20,0" SelectedDate="{Binding DateofBirth,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}" SelectedDateFormat="Short"/>
@@ -382,16 +512,33 @@
                         <TextBlock Text="Contact Number" Grid.Column="0" Grid.Row="5" Style="{StaticResource Regular}"/>
                         <TextBox x:Name="GuarantorContactBox" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Width="250" Style="{StaticResource Textbox}" HorizontalAlignment="Left" >
                             <TextBox.Text>
-                                <Binding Path="ContactNumber">
+                                <Binding Path="ContactNumber" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
+                                        <validate:PhoneNumberValidation/>
                                     </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
                         <TextBlock Text="Occupation" Grid.Column="0" Grid.Row="7" Style="{StaticResource Regular}"/>
-                        <TextBox x:Name="GuarantorOccupationBox" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" Width="250" Style="{StaticResource Textbox}" HorizontalAlignment="Left" Text="{Binding Occupation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="GuarantorOccupationBox" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" Width="250" Style="{StaticResource Textbox}" HorizontalAlignment="Left">
+                            <TextBox.Text>
+                                <Binding Path="Occupation" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                    <Binding.ValidationRules>
+                                        <validate:EmptyValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                         <TextBlock Text="Relationship" Grid.Column="0" Grid.Row="9" Style="{StaticResource Regular}"/>
-                        <TextBox x:Name="GuarantorRelationshipBox" Grid.Row="9" Grid.Column="1" VerticalAlignment="Center" Width="250" Style="{StaticResource Textbox}" HorizontalAlignment="Left" Text="{Binding RelationShip,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="GuarantorRelationshipBox" Grid.Row="9" Grid.Column="1" VerticalAlignment="Center" Width="250" Style="{StaticResource Textbox}" HorizontalAlignment="Left" >
+                            <TextBox.Text>
+                                <Binding Path="Relationship" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                    <Binding.ValidationRules>
+                                        <validate:EmptyValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                         <CheckBox x:Name="IsNominee" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2" Content="Make As Nominee" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,10" IsChecked="{Binding IsNominee,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                             <CheckBox.LayoutTransform>
                                 <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
@@ -420,17 +567,65 @@
                                 <RowDefinition Height="40"/>
                             </Grid.RowDefinitions>
                             <TextBlock Text="Door Number" Style="{StaticResource Regular}" Grid.Row="1" Grid.Column="1"/>
-                            <TextBox x:Name="GuarantorHouseNOBox" Style="{StaticResource Textbox}" Grid.Row="1" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding DoorNumber,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox x:Name="GuarantorHouseNOBox" Style="{StaticResource Textbox}" Grid.Row="1" Grid.Column="2" Width="250" HorizontalAlignment="Left">
+                                <TextBox.Text>
+                                    <Binding Path="DoorNumber" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validate:EmptyValidation/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                             <TextBlock Text="Street Name" Style="{StaticResource Regular}" Grid.Row="2" Grid.Column="1"/>
-                            <TextBox x:Name="GuarantorStreetNameBox" Style="{StaticResource Textbox}" Grid.Row="2" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding StreetName,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox x:Name="GuarantorStreetNameBox" Style="{StaticResource Textbox}" Grid.Row="2" Grid.Column="2" Width="250" HorizontalAlignment="Left" >
+                                <TextBox.Text>
+                                    <Binding Path="StreetName" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validate:EmptyValidation/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                             <TextBlock Text="Locality/Town" Style="{StaticResource Regular}" Grid.Row="3" Grid.Column="1"/>
-                            <TextBox x:Name="GuarantorLocalityBox" Style="{StaticResource Textbox}" Grid.Row="3" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding LocalityTown,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox x:Name="GuarantorLocalityBox" Style="{StaticResource Textbox}" Grid.Row="3" Grid.Column="2" Width="250" HorizontalAlignment="Left" >
+                                <TextBox.Text>
+                                    <Binding Path="LocalityTown" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validate:EmptyValidation/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                             <TextBlock Text="Pincode" Style="{StaticResource Regular}" Grid.Row="4" Grid.Column="1"/>
-                            <TextBox x:Name="GuarantorPincodeBox" Style="{StaticResource Textbox}" Grid.Row="4" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding Pincode,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox x:Name="GuarantorPincodeBox" Style="{StaticResource Textbox}" Grid.Row="4" Grid.Column="2" Width="250" HorizontalAlignment="Left" >
+                                <TextBox.Text>
+                                    <Binding Path="Pincode" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validate:EmptyValidation/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                             <TextBlock Text="City" Style="{StaticResource Regular}" Grid.Row="5" Grid.Column="1"/>
-                            <TextBox x:Name="GuarantorCityBox" Style="{StaticResource Textbox}" Grid.Row="5" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding City,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox x:Name="GuarantorCityBox" Style="{StaticResource Textbox}" Grid.Row="5" Grid.Column="2" Width="250" HorizontalAlignment="Left" >
+                                <TextBox.Text>
+                                    <Binding Path="City" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validate:EmptyValidation/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                             <TextBlock Text="State" Style="{StaticResource Regular}" Grid.Row="6" Grid.Column="1"/>
-                            <TextBox x:Name="GuarantorStateBox" Style="{StaticResource Textbox}" Grid.Row="6" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding State,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox x:Name="GuarantorStateBox" Style="{StaticResource Textbox}" Grid.Row="6" Grid.Column="2" Width="250" HorizontalAlignment="Left">
+                                <TextBox.Text>
+                                    <Binding Path="State" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validate:EmptyValidation/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                         </Grid>
                         <Grid Grid.Row="1">
                             <Grid.RowDefinitions>
@@ -624,12 +819,239 @@
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button x:Name="ViewGuarantorCancel" Style="{StaticResource Gray}" Margin="0,0,20,0"/>
+                            <Button x:Name="ViewGuarantorCancel" Style="{StaticResource  BlueButton}" Content="OK" Margin="0,0,20,0"/>
                         </StackPanel>
                     </Grid>
                 </Grid>
             </Border>
         </Popup>
+
+
+        <!--Edit Guarantor Popup-->
+        <Popup PopupAnimation="Fade" PlacementTarget="{Binding ElementName=MainGrid}" x:Name="EditGuarantorPopopup" Placement="Center" >
+            <Border Width="980" Height="520" BorderThickness="2" BorderBrush="Black">
+                <Grid Background="#e8fff2" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="480"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="400"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1">
+                        <TextBlock Text="Add Guarantor" Style="{StaticResource SubTitle}" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="1" BorderThickness="0,0,1,0" BorderBrush="Black" />
+                    <Grid Grid.Row="1" Grid.Column="1" x:Name="EditGuarnatorDetails">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="180"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Text="Guarantor Name" Style="{StaticResource Regular}" />
+                        <TextBox x:Name="EditGuarantorNameBox" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Width="290" Style="{StaticResource Textbox}" HorizontalAlignment="Left">
+                            <TextBox.Text>
+                                <Binding Path="GuarantorName" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validate:EmptyValidation/>
+                                        <validate:NameValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                            <TextBlock Text="DOB" Style="{StaticResource Regular}" />
+                            <DatePicker x:Name="EditGuarantorSelectDOB" Width="250" Height="30" VerticalContentAlignment="Center" Margin="25,0,20,0" SelectedDate="{Binding DateofBirth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedDateFormat="Short"/>
+                            <TextBlock Text="Age" Style="{StaticResource Regular}"/>
+                            <TextBlock x:Name="EditGuarantorAge" Text="{Binding Age,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumberRegular}" Margin="20,5,0,0"/>
+                        </StackPanel>
+                        <TextBlock Text="Contact Number" Grid.Column="0" Grid.Row="5" Style="{StaticResource Regular}"/>
+                        <TextBox x:Name="EditGuarantorContactBox" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Width="250" Style="{StaticResource Textbox}" HorizontalAlignment="Left" >
+                            <TextBox.Text>
+                                <Binding Path="ContactNumber" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validate:PhoneNumberValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBlock Text="Occupation" Grid.Column="0" Grid.Row="7" Style="{StaticResource Regular}"/>
+                        <TextBox x:Name="EditGuarantorOccupationBox" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" Width="250" Style="{StaticResource Textbox}" HorizontalAlignment="Left">
+                            <TextBox.Text>
+                                <Binding Path="Occupation" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validate:EmptyValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBlock Text="Relationship" Grid.Column="0" Grid.Row="9" Style="{StaticResource Regular}"/>
+                        <TextBox x:Name="EditGuarantorRelationshipBox" Grid.Row="9" Grid.Column="1" VerticalAlignment="Center" Width="250" Style="{StaticResource Textbox}" HorizontalAlignment="Left" >
+                            <TextBox.Text>
+                                <Binding Path="Relationship" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validate:EmptyValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <CheckBox x:Name="EditIsNominee" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2" Content="Make As Nominee" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,10" IsChecked="{Binding IsNominee,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                            <CheckBox.LayoutTransform>
+                                <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                            </CheckBox.LayoutTransform>
+                        </CheckBox>
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="2" x:Name="EditGuarantorAddressDetails">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="270"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border BorderBrush="Black" BorderThickness="0,0,0,1" Grid.Row="0"/>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Door Number" Style="{StaticResource Regular}" Grid.Row="1" Grid.Column="1"/>
+                            <TextBox x:Name="EditGuarantorHouseNOBox" Style="{StaticResource Textbox}" Grid.Row="1" Grid.Column="2" Width="250" HorizontalAlignment="Left">
+                                <TextBox.Text>
+                                    <Binding Path="DoorNumber" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validate:EmptyValidation/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBlock Text="Street Name" Style="{StaticResource Regular}" Grid.Row="2" Grid.Column="1"/>
+                            <TextBox x:Name="EditGuarantorStreetNameBox" Style="{StaticResource Textbox}" Grid.Row="2" Grid.Column="2" Width="250" HorizontalAlignment="Left" >
+                                <TextBox.Text>
+                                    <Binding Path="StreetName" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validate:EmptyValidation/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBlock Text="Locality/Town" Style="{StaticResource Regular}" Grid.Row="3" Grid.Column="1"/>
+                            <TextBox x:Name="EditGuarantorLocalityBox" Style="{StaticResource Textbox}" Grid.Row="3" Grid.Column="2" Width="250" HorizontalAlignment="Left" >
+                                <TextBox.Text>
+                                    <Binding Path="LocalityTown" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validate:EmptyValidation/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBlock Text="Pincode" Style="{StaticResource Regular}" Grid.Row="4" Grid.Column="1"/>
+                            <TextBox x:Name="EditGuarantorPincodeBox" Style="{StaticResource Textbox}" Grid.Row="4" Grid.Column="2" Width="250" HorizontalAlignment="Left" >
+                                <TextBox.Text>
+                                    <Binding Path="Pincode" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validate:EmptyValidation/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBlock Text="City" Style="{StaticResource Regular}" Grid.Row="5" Grid.Column="1"/>
+                            <TextBox x:Name="EditGuarantorCityBox" Style="{StaticResource Textbox}" Grid.Row="5" Grid.Column="2" Width="250" HorizontalAlignment="Left" >
+                                <TextBox.Text>
+                                    <Binding Path="City" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validate:EmptyValidation/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBlock Text="State" Style="{StaticResource Regular}" Grid.Row="6" Grid.Column="1"/>
+                            <TextBox x:Name="EditGuarantorStateBox" Style="{StaticResource Textbox}" Grid.Row="6" Grid.Column="2" Width="250" HorizontalAlignment="Left">
+                                <TextBox.Text>
+                                    <Binding Path="State" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validate:EmptyValidation/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+                            <Grid x:Name="EditGuarantorAddressProofGrid" Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="160"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Address Proof" Style="{StaticResource Regular}" Grid.Column="1"  />
+                                <TextBox x:Name="EditGuarantorAddressProofBox" Style="{StaticResource Textbox}" Grid.Column="2" Width="140" HorizontalAlignment="Left"/>
+                                <Button x:Name="EditGuarantorAddAddressProof" Style="{StaticResource Add}" HorizontalAlignment="Left" Grid.Column="3"/>
+                            </Grid>
+                            <Grid x:Name="EditGuarantorPhotoProofGrid" Grid.Row="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="160"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Photo Proof" Style="{StaticResource Regular}" Grid.Column="1"  />
+                                <TextBox x:Name="EditGuarantorPhotoProofBox" Style="{StaticResource Textbox}" Grid.Column="2" Width="140" HorizontalAlignment="Left"/>
+                                <Button x:Name="EditGuarantorAddPhotoProof" Style="{StaticResource Add}" HorizontalAlignment="Left" Grid.Column="3"/>
+                            </Grid>
+                            <Grid x:Name="EditGuarantorPhotoProfileGrid" Grid.Row="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="160"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Profile Photo" Style="{StaticResource Regular}" Grid.Column="1" />
+                                <Button x:Name="EditGuarantorAddProfilePhoto" Style="{StaticResource Add}" HorizontalAlignment="Left" Grid.Column="2"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="EditGuarantorCancel" Style="{StaticResource Gray}" Margin="0,0,20,0"/>
+                            <Button x:Name="UpdateGuarantor" Click="UpdateGuarantor_Click" Style="{StaticResource OrangeButton}" Content="Update" FontSize="16"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Popup>
+
 
         <!-- Nominee Popup-->
         <Popup PopupAnimation="Fade" PlacementTarget="{Binding ElementName=MainGrid}" x:Name="AddNomineepopup" Placement="Center" >
@@ -669,7 +1091,7 @@
                             <RowDefinition Height="40"/>
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Text="Nominee Name" Style="{StaticResource Regular}" />
-                        <TextBox x:Name="NomineeNameBox" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Width="290" Style="{StaticResource Textbox}" Text="{Binding GuarantorName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+                        <TextBox x:Name="NomineeNameBox" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Width="290" Style="{StaticResource Textbox}" Text="{Binding NomineeName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
                         <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
                             <TextBlock Text="DOB" Style="{StaticResource Regular}" />
                             <DatePicker x:Name="NomineeSelectDOB" Width="250" Height="30" VerticalContentAlignment="Center" Margin="25,0,20,0" SelectedDate="{Binding DateofBirth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
@@ -777,6 +1199,368 @@
                 </Grid>
             </Border>
         </Popup>
+
+
+        <!-- Nominee Popup for View-->
+        <Popup PopupAnimation="Fade" PlacementTarget="{Binding ElementName=MainGrid}" x:Name="ViewNomineePopopup" Placement="Center" >
+            <Border Width="980" Height="520" BorderThickness="2" BorderBrush="Black">
+                <Grid Background="#e8fff2" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="480"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="400"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1">
+                        <TextBlock Text="Add Guarantor" Style="{StaticResource SubTitle}" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="1" BorderThickness="0,0,1,0" BorderBrush="Black" />
+                    <Grid Grid.Row="1" Grid.Column="1" x:Name="ViewNomineeDetails">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="180"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Text="Customer Name" Style="{StaticResource Regular}" />
+                        <TextBlock x:Name="ViewNomineeName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Width="290" Style="{StaticResource  Regular}" Text="{Binding NomineeName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+                        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                            <TextBlock Text="DOB" Style="{StaticResource Regular}" />
+                            <TextBlock x:Name="ViewNomineeDOB" Style="{StaticResource NumberRegular}" Text="{Binding DateofBirth,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Text="Age" Style="{StaticResource Regular}"/>
+                            <TextBlock x:Name="ViewNomineeAge" Text="{Binding Age,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumberRegular}" Margin="20,5,0,0"/>
+                        </StackPanel>
+                        <TextBlock Text="Contact Number" Grid.Column="0" Grid.Row="5" Style="{StaticResource Regular}"/>
+                        <TextBlock x:Name="ViewNomineeContact" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Width="250" Style="{StaticResource  NumberRegular}" HorizontalAlignment="Left" Text="{Binding ContactNumber,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}">
+                        </TextBlock>
+                        <TextBlock Text="Occupation" Grid.Column="0" Grid.Row="7" Style="{StaticResource Regular}"/>
+                        <TextBlock x:Name="ViewNomineeOccupation" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" Width="250" Style="{StaticResource Regular}" HorizontalAlignment="Left" Text="{Binding Occupation,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Text="Relationship" Grid.Column="0" Grid.Row="9" Style="{StaticResource Regular}"/>
+                        <TextBlock x:Name="ViewNomineeRelationship" Grid.Row="9" Grid.Column="1" VerticalAlignment="Center" Width="250" Style="{StaticResource  Regular}" HorizontalAlignment="Left" Text="{Binding RelationShip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="2" x:Name="ViewNomineeAddressDetails">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="270"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border BorderBrush="Black" BorderThickness="0,0,0,1" Grid.Row="0"/>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Door Number" Style="{StaticResource Regular}" Grid.Row="1" Grid.Column="1"/>
+                            <TextBlock x:Name="ViewNomineeHouseNO" Style="{StaticResource NumberRegular}" Grid.Row="1" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding DoorNumber,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Text="Street Name" Style="{StaticResource Regular}" Grid.Row="2" Grid.Column="1"/>
+                            <TextBlock x:Name="ViewNomineeStreetName" Style="{StaticResource Regular}" Grid.Row="2" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding StreetName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Text="Locality/Town" Style="{StaticResource Regular}" Grid.Row="3" Grid.Column="1"/>
+                            <TextBlock x:Name="ViewNomineeLocality" Style="{StaticResource  Regular}" Grid.Row="3" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding LocalityTown,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Text="Pincode" Style="{StaticResource Regular}" Grid.Row="4" Grid.Column="1"/>
+                            <TextBlock x:Name="ViewNomineePincode" Style="{StaticResource NumberRegular}" Grid.Row="4" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding Pincode,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Text="City" Style="{StaticResource Regular}" Grid.Row="5" Grid.Column="1"/>
+                            <TextBlock x:Name="ViewNomineeCity" Style="{StaticResource Regular}" Grid.Row="5" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding City,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Text="State" Style="{StaticResource Regular}" Grid.Row="6" Grid.Column="1"/>
+                            <TextBlock x:Name="ViewNomineeState" Style="{StaticResource Regular}" Grid.Row="6" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding State,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+                            <Grid x:Name="ViewNomineeAddressProofGrid" Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="160"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Address Proof" Style="{StaticResource Regular}" Grid.Column="1"  />
+                                <TextBlock x:Name="ViewNomineeAddressProof" Style="{StaticResource  Regular}" Grid.Column="2" Width="140" HorizontalAlignment="Left"/>
+                                <Button x:Name="ViewNomineeAddressProofDocument" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0"/>
+                            </Grid>
+                            <Grid x:Name="ViewNomineePhotoProofGrid" Grid.Row="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="160"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Photo Proof" Style="{StaticResource Regular}" Grid.Column="1"  />
+                                <TextBlock x:Name="ViewNomineePhotoProofBox" Style="{StaticResource  Regular}" Grid.Column="2" Width="140" HorizontalAlignment="Left"/>
+                                <Button x:Name="ViewNomineeAddPhotoProof" Style="{StaticResource Show}" HorizontalAlignment="Left" Grid.Column="3"/>
+                            </Grid>
+                            <Grid x:Name="ViewNomineePhotoProfileGrid" Grid.Row="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="160"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Profile Photo" Style="{StaticResource Regular}" Grid.Column="1" />
+                                <Button x:Name="ViewNomineeAddProfilePhoto" Style="{StaticResource Show}" HorizontalAlignment="Left" Grid.Column="2"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="ViewNomineeCancel" Style="{StaticResource  BlueButton}" Content="OK" Margin="0,0,20,0"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Popup>
+
+
+        <!--Edit Guarantor Popup-->
+        <Popup PopupAnimation="Fade" PlacementTarget="{Binding ElementName=MainGrid}" x:Name="EditNomineePopopup" Placement="Center" >
+            <Border Width="980" Height="520" BorderThickness="2" BorderBrush="Black">
+                <Grid Background="#e8fff2" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="480"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="400"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1">
+                        <TextBlock Text="Add Guarantor" Style="{StaticResource SubTitle}" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="1" BorderThickness="0,0,1,0" BorderBrush="Black" />
+                    <Grid Grid.Row="1" Grid.Column="1" x:Name="EditNomineeDetails">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="180"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Text="Nominee Name" Style="{StaticResource Regular}" />
+                        <TextBox x:Name="EditNomineeNameBox" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Width="290" Style="{StaticResource Textbox}" HorizontalAlignment="Left">
+                            <TextBox.Text>
+                                <Binding Path="NomineeName" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validate:EmptyValidation/>
+                                        <validate:NameValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                            <TextBlock Text="DOB" Style="{StaticResource Regular}" />
+                            <DatePicker x:Name="EditNomineeSelectDOB" Width="250" Height="30" VerticalContentAlignment="Center" Margin="25,0,20,0" SelectedDate="{Binding DateofBirth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedDateFormat="Short"/>
+                            <TextBlock Text="Age" Style="{StaticResource Regular}"/>
+                            <TextBlock x:Name="EditNomineeAge" Text="{Binding Age,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumberRegular}" Margin="20,5,0,0"/>
+                        </StackPanel>
+                        <TextBlock Text="Contact Number" Grid.Column="0" Grid.Row="5" Style="{StaticResource Regular}"/>
+                        <TextBox x:Name="EditNomineeContactBox" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Width="250" Style="{StaticResource Textbox}" HorizontalAlignment="Left" >
+                            <TextBox.Text>
+                                <Binding Path="ContactNumber" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validate:PhoneNumberValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBlock Text="Occupation" Grid.Column="0" Grid.Row="7" Style="{StaticResource Regular}"/>
+                        <TextBox x:Name="EditNomineeOccupationBox" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" Width="250" Style="{StaticResource Textbox}" HorizontalAlignment="Left">
+                            <TextBox.Text>
+                                <Binding Path="Occupation" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validate:EmptyValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBlock Text="Relationship" Grid.Column="0" Grid.Row="9" Style="{StaticResource Regular}"/>
+                        <TextBox x:Name="EditNomineeRelationshipBox" Grid.Row="9" Grid.Column="1" VerticalAlignment="Center" Width="250" Style="{StaticResource Textbox}" HorizontalAlignment="Left" >
+                            <TextBox.Text>
+                                <Binding Path="Relationship" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validate:EmptyValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="2" x:Name="EditNomineeAddressDetails">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="270"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border BorderBrush="Black" BorderThickness="0,0,0,1" Grid.Row="0"/>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Door Number" Style="{StaticResource Regular}" Grid.Row="1" Grid.Column="1"/>
+                            <TextBox x:Name="EditNomineeHouseNOBox" Style="{StaticResource Textbox}" Grid.Row="1" Grid.Column="2" Width="250" HorizontalAlignment="Left">
+                                <TextBox.Text>
+                                    <Binding Path="DoorNumber" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validate:EmptyValidation/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBlock Text="Street Name" Style="{StaticResource Regular}" Grid.Row="2" Grid.Column="1"/>
+                            <TextBox x:Name="EditNomineeStreetNameBox" Style="{StaticResource Textbox}" Grid.Row="2" Grid.Column="2" Width="250" HorizontalAlignment="Left" >
+                                <TextBox.Text>
+                                    <Binding Path="StreetName" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validate:EmptyValidation/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBlock Text="Locality/Town" Style="{StaticResource Regular}" Grid.Row="3" Grid.Column="1"/>
+                            <TextBox x:Name="EditNomineeocalityBox" Style="{StaticResource Textbox}" Grid.Row="3" Grid.Column="2" Width="250" HorizontalAlignment="Left" >
+                                <TextBox.Text>
+                                    <Binding Path="LocalityTown" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validate:EmptyValidation/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBlock Text="Pincode" Style="{StaticResource Regular}" Grid.Row="4" Grid.Column="1"/>
+                            <TextBox x:Name="EditNomineePincodeBox" Style="{StaticResource Textbox}" Grid.Row="4" Grid.Column="2" Width="250" HorizontalAlignment="Left" >
+                                <TextBox.Text>
+                                    <Binding Path="Pincode" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validate:EmptyValidation/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBlock Text="City" Style="{StaticResource Regular}" Grid.Row="5" Grid.Column="1"/>
+                            <TextBox x:Name="EditNomineeCityBox" Style="{StaticResource Textbox}" Grid.Row="5" Grid.Column="2" Width="250" HorizontalAlignment="Left" >
+                                <TextBox.Text>
+                                    <Binding Path="City" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validate:EmptyValidation/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBlock Text="State" Style="{StaticResource Regular}" Grid.Row="6" Grid.Column="1"/>
+                            <TextBox x:Name="EditNomineeStateBox" Style="{StaticResource Textbox}" Grid.Row="6" Grid.Column="2" Width="250" HorizontalAlignment="Left">
+                                <TextBox.Text>
+                                    <Binding Path="State" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validate:EmptyValidation/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+                            <Grid x:Name="EditNomineeAddressProofGrid" Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="160"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Address Proof" Style="{StaticResource Regular}" Grid.Column="1"  />
+                                <TextBox x:Name="EditNomineeAddressProofBox" Style="{StaticResource Textbox}" Grid.Column="2" Width="140" HorizontalAlignment="Left"/>
+                                <Button x:Name="EditNomineeAddAddressProof" Style="{StaticResource Add}" HorizontalAlignment="Left" Grid.Column="3"/>
+                            </Grid>
+                            <Grid x:Name="EditNomineePhotoProofGrid" Grid.Row="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="160"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Photo Proof" Style="{StaticResource Regular}" Grid.Column="1"  />
+                                <TextBox x:Name="EditNomineePhotoProofBox" Style="{StaticResource Textbox}" Grid.Column="2" Width="140" HorizontalAlignment="Left"/>
+                                <Button x:Name="EditNomineeAddPhotoProof" Style="{StaticResource Add}" HorizontalAlignment="Left" Grid.Column="3"/>
+                            </Grid>
+                            <Grid x:Name="EditNomineePhotoProfileGrid" Grid.Row="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="160"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Profile Photo" Style="{StaticResource Regular}" Grid.Column="1" />
+                                <Button x:Name="EditNomineeAddProfilePhoto" Style="{StaticResource Add}" HorizontalAlignment="Left" Grid.Column="2"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="EditNomineeCancel" Style="{StaticResource Gray}" Margin="0,0,20,0"/>
+                            <Button x:Name="UpdateNominee" Click="UpdateNominee_Click" Style="{StaticResource OrangeButton}" Content="Update" FontSize="16"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Popup>
+
     </Grid>
 
 

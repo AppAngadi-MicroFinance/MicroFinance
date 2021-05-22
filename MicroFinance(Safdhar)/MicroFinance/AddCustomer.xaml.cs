@@ -71,11 +71,12 @@ namespace MicroFinance
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
         {
+
         }
 
         private void SaveCustomer_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("SUccess");
+            MessageBox.Show(customer.MonthlyIncome.ToString());
         }
 
         private void SelectReligion_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -128,6 +129,21 @@ namespace MicroFinance
             ViewGuarnatorDetails.DataContext = guarantor;
             ViewGuarantorAddressDetails.DataContext = guarantor;
             
+        }
+
+        private void UpdateGuarantor_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EditGaurantor_Click(object sender, RoutedEventArgs e)
+        {
+            EditGuarantorPopopup.IsOpen = true;
+        }
+
+        private void UpdateNominee_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
