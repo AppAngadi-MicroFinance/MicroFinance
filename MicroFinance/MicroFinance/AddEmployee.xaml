@@ -54,7 +54,7 @@
                             <TextBlock Text="Name" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                             <TextBox Style="{StaticResource InputBox}" Width="415" Margin="10,0,0,0">
                                 <TextBox.Text>
-                                    <Binding Path="EmployeeName" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding Path="EmployeeName" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
                                         <Binding.ValidationRules>
                                             <validation:NameValidation/>
                                         </Binding.ValidationRules>
@@ -64,7 +64,7 @@
                         </StackPanel>
                         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
                             <TextBlock Text="DOB" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                            <DatePicker Style="{StaticResource DateSelecter}" Width="250" Margin="19,0,0,0" SelectedDateFormat="Long" Text="{Binding DOB,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                            <DatePicker Style="{StaticResource DateSelecter}" Width="250" Margin="19,0,0,0" SelectedDateFormat="Long" Text="{Binding DOB,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
                             <TextBlock Text="Age" VerticalAlignment="Center" Style="{StaticResource Regular}" Margin="50,0,0,0"></TextBlock>
                             <TextBox Style="{StaticResource InputBox}" Width="80" Margin="10,0,0,0" Text="{Binding Age,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         </StackPanel>
@@ -167,16 +167,16 @@
                     <TextBlock Text="Other Details*" Style="{StaticResource SubTitle}" Grid.Row="5" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Text="Address Proof" Grid.Row="6" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="6" Grid.Column="1">
-                        <ComboBox Style="{StaticResource combo}"></ComboBox>
+                        <ComboBox Style="{StaticResource combo}" x:Name="AddressProofcombo" SelectedIndex="0"></ComboBox>
                         <Button Style="{StaticResource Add}" x:Name="AddressproofBtn" Click="AddressproofBtn_Click"></Button>
                     </StackPanel>
                     <TextBlock Text="Photo Proof" Grid.Row="7" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="7" Grid.Column="1">
-                        <ComboBox Style="{StaticResource combo}"></ComboBox>
-                        <Button Style="{StaticResource Add}"></Button>
+                        <ComboBox Style="{StaticResource combo}" x:Name="PhotoproofCombo" SelectedIndex="0"></ComboBox>
+                        <Button Style="{StaticResource Add}" x:Name="PhotoProofBtn" Click="PhotoProofBtn_Click"></Button>
                     </StackPanel>
                     <TextBlock Text="Profile Photo" Grid.Row="8" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                    <Button Grid.Row="8" Grid.Column="1" Style="{StaticResource Add}" HorizontalAlignment="Left" Margin="10,0,0,0"></Button>
+                    <Button Grid.Row="8" Grid.Column="1" Style="{StaticResource Add}" HorizontalAlignment="Left" Margin="10,0,0,0" x:Name="ProfilePictureBtn" Click="ProfilePictureBtn_Click"></Button>
                     
                 </Grid>
             </Border>
@@ -188,7 +188,7 @@
             </Border>
             <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Style="{StaticResource Gray}"></Button>
-                <Button Style="{StaticResource orange}" Margin="20,0,0,0"></Button>
+                <Button Style="{StaticResource orange}" Margin="20,0,0,0" x:Name="EmployeeSaveBtn" Click="EmployeeSaveBtn_Click"></Button>
             </StackPanel>
         </Grid>
         <Popup  Height="400" Width="500" x:Name="EmployeeAccountdetailsPanel" IsOpen="False" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center">
@@ -272,23 +272,77 @@
                             </TextBox.Text>
                         </TextBox>
                     </Grid>
-                    <Button Grid.Row="2" Height="40" Width="150" Content="Add"></Button>
+                    <Button Grid.Row="2" Height="40" Width="150" Content="Add" x:Name="SampleCheck" Click="SampleCheck_Click"></Button>
                 </Grid>
             </Border>
 
         </Popup>
-        <Popup Height="450" Width="800" x:Name="capturepanel" Placement="Center" PlacementTarget="{Binding ElementName=EmployeeMainGrid}">
-            <Grid Height="450" Width="800" Background="White" >
+        <Grid Height="450" Width="800" x:Name="capturepanel">
+            <Grid Height="450" Width="800" Background="White">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="8*"/>
-                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="40*"/>
+                    <RowDefinition Height="370*"/>
+                    <RowDefinition Height="40*"/>
                 </Grid.RowDefinitions>
-                <Button Grid.Row="3" Style="{StaticResource Gray}" Name="closesample"></Button>
+                <TextBlock Grid.Row="0" x:Name="PhotoProofNametxt" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource Title}"></TextBlock>
+                <Button Style="{StaticResource ModalClose}" HorizontalAlignment="Right" Margin="0,0,20,0" x:Name="CaptureModelCloseButton" Click="CaptureModelCloseButton_Click"></Button>
+                <Button Grid.Row="3" Style="{StaticResource orange}" Name="ImageSavebtn" Click="ImageSavebtn_Click"></Button>
                 
                 <Frame x:Name="Captureframe" Grid.Row="1">
                     
                 </Frame>
+            </Grid>
+        </Grid>
+        <Popup x:Name="ConfirmationPanel" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center" Height="400" Width="800">
+            <Grid Background="#E8FFF2" Height="380" Width="780" Margin="10,11,10,9">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition  Height="1*"/>
+                    <RowDefinition  Height="1*"/>
+                    <RowDefinition  Height="1*"/>
+                    <RowDefinition  Height="1*"/>
+                    <RowDefinition  Height="1*"/>
+                    <RowDefinition  Height="1*"/>
+                    <RowDefinition  Height="1*"/>
+                    <RowDefinition  Height="1*"/>
+                    <RowDefinition  Height="1*"/>
+                    <RowDefinition  Height="1*"/>
+                    <RowDefinition  Height="2*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"/>
+                    <ColumnDefinition Width="25*"/>
+                    <ColumnDefinition Width="45*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Confirmation" Grid.ColumnSpan="3" Style="{StaticResource Title}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <Image Source="{Binding ProfileImage,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.RowSpan="5" Height="100" Width="100"></Image>
+                <TextBlock Grid.Row="6" Grid.RowSpan="2" Text="Mohammed Rasik Fareeth" Style="{StaticResource SubTitle}" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                <TextBlock Text="More Details" Grid.Row="8" VerticalAlignment="Center" Style="{StaticResource Regular}" FontWeight="SemiBold"></TextBlock>
+                <TextBlock Grid.Row="9" Style="{StaticResource Regular}" Text="Bank Details" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Grid.Row="10" Style="{StaticResource Regular}" Text="Address Proof" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Grid.Row="11" Style="{StaticResource Regular}" Text="Photo Proof" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="Address" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+                <TextBlock Grid.Row="5" Grid.Column="1" Text="Mobile Number" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+                <TextBlock Grid.Row="6" Grid.Column="1" Text="Email" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+                <TextBlock Grid.Row="7" Grid.Column="1" Text="Education" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+                <TextBlock Grid.Row="8" Grid.Column="1" Text="Branch" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+                <TextBlock Grid.Row="9" Grid.Column="1" Text="Designation" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+                <TextBlock Grid.Row="10" Grid.Column="1" Text="Date Of Joining" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding HouseNo,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
+                <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding TownName,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
+                <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding District,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
+                <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding Pincode,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
+                <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding ContactNumber,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
+                <TextBlock Grid.Row="6" Grid.Column="2" Text="{Binding Email,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
+                <TextBlock Grid.Row="7" Grid.Column="2" Text="{Binding Education,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
+                <TextBlock Grid.Row="8" Grid.Column="2" Text="{Binding BranchName,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
+                <TextBlock Grid.Row="9" Grid.Column="2" Text="{Binding Designation,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
+                <TextBlock Grid.Row="10" Grid.Column="2" Text="{Binding DateOfJoining,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="2">
+                    <Button Style="{StaticResource Gray}"></Button>
+                    <Button Style="{StaticResource orange}" Margin="20,0,0,0"></Button>
+                </StackPanel>
             </Grid>
         </Popup>
     </Grid>

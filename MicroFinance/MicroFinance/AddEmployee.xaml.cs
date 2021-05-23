@@ -22,12 +22,16 @@ namespace MicroFinance
     /// </summary>
     public partial class AddEmployee : Page
     {
+        public List<string> ProofTypes = new List<string> { "Aadhar Proof", "Family Card", "Licence", "VoterID" };
         Addemployee addemployee = new Addemployee();
         public AddEmployee()
         {
             InitializeComponent();
             EmployeeMainGrid.DataContext = addemployee;
+            capturepanel.Visibility = Visibility.Collapsed;
             Captureframe.NavigationService.Navigate(new Capture());
+            AddressProofcombo.ItemsSource = ProofTypes;
+            PhotoproofCombo.ItemsSource = ProofTypes;
         }
 
         private void BankDetails_Click(object sender, RoutedEventArgs e)
@@ -45,10 +49,90 @@ namespace MicroFinance
 
         private void AddressproofBtn_Click(object sender, RoutedEventArgs e)
         {
-            capturepanel.IsOpen = true;
-            EmployeeMainGrid.IsEnabled = false;
-           
+            //Captureframe.NavigationService.Navigate(new Capture());
+            
+            PhotoProofNametxt.Text = "Address Proof";
+            capturepanel.Visibility = Visibility.Visible;
+            EmployeeDetailsGrid.IsEnabled = false;
+            capturepanel.IsEnabled = true;
+
         }
 
+        private void SampleCheck_Click(object sender, RoutedEventArgs e)
+        {
+           
+            OpenFileDialog openFileDlg = new OpenFileDialog();
+            openFileDlg.Filter = "Image Files (*.png *.jpg *.bmp) |*.png; *.jpg; *.bmp|All Files(*.*) |*.*";
+            openFileDlg.Title = "Choose Image";
+            openFileDlg.InitialDirectory = @"C:\";
+            Panel.SetZIndex(EmployeeAccountdetailsPanel, -5);
+            Nullable<bool> result = openFileDlg.ShowDialog();
+           
+            if (result == true)
+            {
+
+            }
+        }
+
+        private void ImageSavebtn_Click(object sender, RoutedEventArgs e)
+        {
+            
+            BitmapImage image = Capture.SavedImage;
+            string txt = PhotoProofNametxt.Text;
+            SetImage(image, txt);
+            capturepanel.Visibility = Visibility.Collapsed;
+            EmployeeDetailsGrid.IsEnabled = true;
+           MessageBox.Show("Photo Added Successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void CaptureModelCloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            capturepanel.IsEnabled = false;
+            capturepanel.Visibility = Visibility.Collapsed;
+            EmployeeDetailsGrid.IsEnabled = true;
+        }
+
+        public void SetImage(BitmapImage image,string imagename)
+        {
+            switch(imagename)
+            {
+                case "Address Proof":
+                    addemployee.AddressProofImage = image;
+                    break;
+                case "Photo Proof":
+                    addemployee.PhotoProofImage = image;
+                    break;
+                case "Profile Picture":
+                    addemployee.ProfileImage = image;
+                    break;
+            }
+        }
+
+        private void PhotoProofBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Captureframe.NavigationService.Navigate(new Capture());
+            PhotoProofNametxt.Text = "Photo Proof";
+            capturepanel.Visibility = Visibility.Visible;
+            EmployeeDetailsGrid.IsEnabled = false;
+            capturepanel.IsEnabled = true;
+
+        }
+
+        private void ProfilePictureBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Captureframe.NavigationService.Navigate(new Capture());
+            PhotoProofNametxt.Text = "Profile Picture";
+            capturepanel.Visibility = Visibility.Visible;
+            EmployeeDetailsGrid.IsEnabled = false;
+            capturepanel.IsEnabled = true;
+
+        }
+
+        private void EmployeeSaveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ConfirmationPanel.IsOpen = true;
+
+
+        }
     }
 }

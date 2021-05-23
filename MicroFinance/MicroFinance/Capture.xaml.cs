@@ -34,7 +34,6 @@ namespace MicroFinance
         {
             InitializeComponent();
         }
-
         private void closebtn_Click(object sender, RoutedEventArgs e)
         {
 
@@ -154,6 +153,7 @@ namespace MicroFinance
 
         private void CapturePhoto_Click(object sender, RoutedEventArgs e)
         {
+            CapturedImage.Source = default;
             tempimg = new BitmapImage();
             tempimg = LiveImage.Source as BitmapImage;
             CapturedImage.Source = tempimg;
@@ -161,12 +161,21 @@ namespace MicroFinance
 
         private void Savebtn_Click(object sender, RoutedEventArgs e)
         {
-            if (DeviceList.Items.Count > 0)
+            if(tempimg!=null)
             {
-                captureDevice.SignalToStop();
+                if (DeviceList.Items.Count > 0)
+                {
+                    captureDevice.SignalToStop();
+                }
+                CapImg.Source = tempimg;
+                SavedImage = tempimg;
+                CapturePanel.IsOpen = false;
             }
-            CapImg.Source = tempimg;
-            CapturePanel.IsOpen = false;
+            else
+            {
+                MessageBox.Show("Capture Image First", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+           
 
         }
 
@@ -180,16 +189,14 @@ namespace MicroFinance
             Nullable<bool> result = openFileDlg.ShowDialog();
             if (result == true)
             {
-                
                 string FileFrom = openFileDlg.FileName;
                 var FilePath = FileFrom.Split('\\');
-               // CapturedImage.Text = FileFrom;
                 string FileName = FilePath[FilePath.Length - 1];
-
                 tempimg.BeginInit();
                 tempimg.UriSource = new Uri(FileFrom);
                 tempimg.EndInit();
                 CapImg.Source = tempimg;
+                SavedImage = tempimg;
             }
             
         }
