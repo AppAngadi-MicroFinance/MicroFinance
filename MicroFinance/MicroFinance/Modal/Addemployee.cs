@@ -22,18 +22,9 @@ namespace MicroFinance.Modal
             {
                 if(value!=_branchname)
                 {
-                    try
-                    {
-                        if (validation.IsString(value))
-                        {
-                            _branchname = value;
-                            RaisedPropertyChanged("BranchName");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new ArgumentException(ex.Message);
-                    }
+                   
+                    _branchname = value;
+                     RaisedPropertyChanged("BranchName");
                     
                 }
             }
@@ -49,18 +40,10 @@ namespace MicroFinance.Modal
             {
                 if(value!=_designation)
                 {
-                    try
-                    {
-                        if(validation.IsString(value))
-                        {
-                            _designation = value;
-                            RaisedPropertyChanged("Designation");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new ArgumentException(ex.Message);
-                    }
+                   
+                   _designation = value;
+                   RaisedPropertyChanged("Designation");
+                  
                 }
             }
         }
@@ -163,10 +146,58 @@ namespace MicroFinance.Modal
 
 
         //
-        public string HouseNo { get; set; }
-        public string TownName { get; set; }
-        public string District { get; set; }
-        public string Pincode { get; set; }
+        private string _houseno;
+        public string HouseNo
+        {
+            get
+            {
+                return _houseno;
+            }
+            set
+            {
+                _houseno = value;
+                RaisedPropertyChanged("HouseNo");
+            }
+        }
+        private string _townname;
+        public string TownName
+        {
+            get
+            {
+                return _townname;
+            }
+            set
+            {
+                _townname = value;
+                RaisedPropertyChanged("TownName");
+            }
+        }
+        private string _district;
+        public string District
+        {
+            get
+            {
+                return _district;
+            }
+            set
+            {
+                _district = value;
+                RaisedPropertyChanged("District");
+            }
+        }
+        private string _pincode;
+        public string Pincode
+        {
+            get
+            {
+                return _pincode;
+            }
+            set
+            {
+                _pincode = value;
+                RaisedPropertyChanged("Pincode");
+            }
+        }
         //
 
         private string _aadharnumber;
@@ -209,6 +240,19 @@ namespace MicroFinance.Modal
             {
                 _education = value;
                 RaisedPropertyChanged("Education");
+            }
+        }
+        private DateTime _dateofjoining;
+        public DateTime DateOfJoining
+        {
+            get
+            {
+                return _dateofjoining.Date;
+            }
+            set
+            {
+                _dateofjoining = value;
+                RaisedPropertyChanged("DateOfJoining");
             }
         }
         private string _addressproofName;

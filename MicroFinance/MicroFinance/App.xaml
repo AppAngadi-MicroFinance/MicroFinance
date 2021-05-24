@@ -113,6 +113,21 @@
             </Setter>
         </Style>
 
+        <!--For Show Symbol-->
+        <Style TargetType="Button" x:Key="Show">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40"  Background="Transparent">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Show-01-WF.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <!--for combo box-->
         <Style x:Key="combo" TargetType="ComboBox" >
             <Setter Property="Height" Value="30"/>

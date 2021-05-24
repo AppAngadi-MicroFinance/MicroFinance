@@ -23,7 +23,12 @@ namespace MicroFinance
     public partial class AddEmployee : Page
     {
         public List<string> ProofTypes = new List<string> { "Aadhar Proof", "Family Card", "Licence", "VoterID" };
+        public List<string> DesignationList = new List<string> { "Manager", "Region Manager","Accountant","Field Officer"};
+        public List<string> BranchList = new List<string> { "KK Nagar", "Anna Nagar", "Subramaniyapuram", "Karumandabam" };
+        public List<string> Religionlist = new List<string> { "Muslim", "Hindu", "Christianity" };
+
         Addemployee addemployee = new Addemployee();
+        Address address = new Address();
         public AddEmployee()
         {
             InitializeComponent();
@@ -32,6 +37,9 @@ namespace MicroFinance
             Captureframe.NavigationService.Navigate(new Capture());
             AddressProofcombo.ItemsSource = ProofTypes;
             PhotoproofCombo.ItemsSource = ProofTypes;
+            BranchCombo.ItemsSource = BranchList;
+            DesignationCombo.ItemsSource = DesignationList;
+            Religioncombo.ItemsSource = Religionlist;
         }
 
         private void BankDetails_Click(object sender, RoutedEventArgs e)
@@ -133,6 +141,31 @@ namespace MicroFinance
             ConfirmationPanel.IsOpen = true;
 
 
+        }
+
+        private void BankDetailsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            BankDetailsPanel.IsOpen = true;
+        }
+
+        private void proofDetailsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ProofDetailsPanel.IsOpen = true;
+        }
+
+        private void bankdetailspanelclosebtn_Click(object sender, RoutedEventArgs e)
+        {
+            BankDetailsPanel.IsOpen = false;
+        }
+
+        private void ProofDetailscloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ProofDetailsPanel.IsOpen = false;
+        }
+
+        private void ConfirmationPanelCloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ConfirmationPanel.IsOpen = false;
         }
     }
 }

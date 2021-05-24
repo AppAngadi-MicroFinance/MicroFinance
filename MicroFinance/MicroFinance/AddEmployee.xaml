@@ -27,9 +27,9 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Style="{StaticResource Regular}" Text="Branch" VerticalAlignment="Center"></TextBlock>
-                <ComboBox Style="{StaticResource combo}" Margin="10,0,0,0" x:Name="BranchCombo"></ComboBox>
+                <ComboBox Style="{StaticResource combo}" Margin="10,0,0,0" x:Name="BranchCombo" Text="{Binding BranchName,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
                 <TextBlock Style="{StaticResource Regular}" Text="Designation" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
-                <ComboBox Style="{StaticResource combo}" x:Name="DesignationCombo" Margin="10,0,0,0"></ComboBox>
+                <ComboBox Style="{StaticResource combo}" x:Name="DesignationCombo" Margin="10,0,0,0" Text="{Binding Designation,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
             </StackPanel>
             <Grid Grid.Row="1" Grid.RowSpan="2">
                 <TextBlock Text="Basic Details*" Style="{StaticResource SubTitle}" Margin="90,15,0,0"></TextBlock>
@@ -99,16 +99,16 @@
                             </TextBox.Text>
                         </TextBox>
                         <TextBlock Text="Religion" Grid.Row="5" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                        <ComboBox Grid.Row="5" Grid.Column="1" Style="{StaticResource combo}" Width="250"></ComboBox>
+                        <ComboBox Grid.Row="5" Grid.Column="1" Style="{StaticResource combo}" Width="250" x:Name="Religioncombo" Text="{Binding Religion,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
                         <TextBlock Grid.Row="6" Text="Education" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                        <TextBox Grid.Row="6" Grid.Column="1" Style="{StaticResource InputBox}" Width="250"></TextBox>
+                        <TextBox Grid.Row="6" Grid.Column="1" Style="{StaticResource InputBox}" Width="250" Text="{Binding Education,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         <TextBlock Grid.Row="7" Text="Date of Joining" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                        <DatePicker Grid.Row="7" Grid.Column="1" Style="{StaticResource DateSelecter}" SelectedDateFormat="Long"  Width="250"></DatePicker>
+                        <DatePicker Grid.Row="7" Grid.Column="1" Style="{StaticResource DateSelecter}" SelectedDateFormat="Long"  Width="250" Text="{Binding DateOfJoining,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
                     </Grid>
                 </Grid>
             </Grid>
             <Border Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
-                <Grid Width="500">
+                <Grid Width="500" Name="EmployeeAddressDetails">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="40*"/>
                         <ColumnDefinition Width="60*"/>
@@ -129,7 +129,7 @@
                     <TextBlock Text="House No,Street" Style="{StaticResource Regular}" Grid.Row="1" VerticalAlignment="Center"></TextBlock>
                     <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource InputBox}" Width="250">
                         <TextBox.Text>
-                            <Binding Path="HouseNo" Mode="OneWayToSource">
+                            <Binding Path="HouseNo" Mode="TwoWay">
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
@@ -167,12 +167,12 @@
                     <TextBlock Text="Other Details*" Style="{StaticResource SubTitle}" Grid.Row="5" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Text="Address Proof" Grid.Row="6" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="6" Grid.Column="1">
-                        <ComboBox Style="{StaticResource combo}" x:Name="AddressProofcombo" SelectedIndex="0"></ComboBox>
+                        <ComboBox Style="{StaticResource combo}" x:Name="AddressProofcombo" SelectedIndex="0" Text="{Binding AddressProofName,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
                         <Button Style="{StaticResource Add}" x:Name="AddressproofBtn" Click="AddressproofBtn_Click"></Button>
                     </StackPanel>
                     <TextBlock Text="Photo Proof" Grid.Row="7" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="7" Grid.Column="1">
-                        <ComboBox Style="{StaticResource combo}" x:Name="PhotoproofCombo" SelectedIndex="0"></ComboBox>
+                        <ComboBox Style="{StaticResource combo}" x:Name="PhotoproofCombo" SelectedIndex="0" Text="{Binding PhotoProofName,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
                         <Button Style="{StaticResource Add}" x:Name="PhotoProofBtn" Click="PhotoProofBtn_Click"></Button>
                     </StackPanel>
                     <TextBlock Text="Profile Photo" Grid.Row="8" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
@@ -293,57 +293,133 @@
                 </Frame>
             </Grid>
         </Grid>
-        <Popup x:Name="ConfirmationPanel" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center" Height="400" Width="800">
-            <Grid Background="#E8FFF2" Height="380" Width="780" Margin="10,11,10,9">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition  Height="1*"/>
-                    <RowDefinition  Height="1*"/>
-                    <RowDefinition  Height="1*"/>
-                    <RowDefinition  Height="1*"/>
-                    <RowDefinition  Height="1*"/>
-                    <RowDefinition  Height="1*"/>
-                    <RowDefinition  Height="1*"/>
-                    <RowDefinition  Height="1*"/>
-                    <RowDefinition  Height="1*"/>
-                    <RowDefinition  Height="1*"/>
-                    <RowDefinition  Height="2*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30*"/>
-                    <ColumnDefinition Width="25*"/>
-                    <ColumnDefinition Width="45*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="Confirmation" Grid.ColumnSpan="3" Style="{StaticResource Title}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <Image Source="{Binding ProfileImage,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.RowSpan="5" Height="100" Width="100"></Image>
-                <TextBlock Grid.Row="6" Grid.RowSpan="2" Text="Mohammed Rasik Fareeth" Style="{StaticResource SubTitle}" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                <TextBlock Text="More Details" Grid.Row="8" VerticalAlignment="Center" Style="{StaticResource Regular}" FontWeight="SemiBold"></TextBlock>
-                <TextBlock Grid.Row="9" Style="{StaticResource Regular}" Text="Bank Details" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Grid.Row="10" Style="{StaticResource Regular}" Text="Address Proof" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Grid.Row="11" Style="{StaticResource Regular}" Text="Photo Proof" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Grid.Row="1" Grid.Column="1" Text="Address" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
-                <TextBlock Grid.Row="5" Grid.Column="1" Text="Mobile Number" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
-                <TextBlock Grid.Row="6" Grid.Column="1" Text="Email" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
-                <TextBlock Grid.Row="7" Grid.Column="1" Text="Education" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
-                <TextBlock Grid.Row="8" Grid.Column="1" Text="Branch" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
-                <TextBlock Grid.Row="9" Grid.Column="1" Text="Designation" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
-                <TextBlock Grid.Row="10" Grid.Column="1" Text="Date Of Joining" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
-                <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding HouseNo,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
-                <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding TownName,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
-                <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding District,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
-                <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding Pincode,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
-                <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding ContactNumber,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
-                <TextBlock Grid.Row="6" Grid.Column="2" Text="{Binding Email,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
-                <TextBlock Grid.Row="7" Grid.Column="2" Text="{Binding Education,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
-                <TextBlock Grid.Row="8" Grid.Column="2" Text="{Binding BranchName,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
-                <TextBlock Grid.Row="9" Grid.Column="2" Text="{Binding Designation,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
-                <TextBlock Grid.Row="10" Grid.Column="2" Text="{Binding DateOfJoining,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="2">
-                    <Button Style="{StaticResource Gray}"></Button>
-                    <Button Style="{StaticResource orange}" Margin="20,0,0,0"></Button>
-                </StackPanel>
-            </Grid>
+        <Popup x:Name="ConfirmationPanel" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center" Height="600" Width="1000" Style="{x:Null}">
+            <Border  BorderBrush="Blue" BorderThickness="2">
+                <Grid Background="#E8FFF2" Height="600" Width="1000">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition  Height="1*"/>
+                        <RowDefinition  Height="1*"/>
+                        <RowDefinition  Height="1*"/>
+                        <RowDefinition  Height="1*"/>
+                        <RowDefinition  Height="1*"/>
+                        <RowDefinition  Height="1*"/>
+                        <RowDefinition  Height="1*"/>
+                        <RowDefinition  Height="1*"/>
+                        <RowDefinition  Height="1*"/>
+                        <RowDefinition  Height="1*"/>
+                        <RowDefinition  Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30*"/>
+                        <ColumnDefinition Width="25*"/>
+                        <ColumnDefinition Width="45*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Confirmation" Grid.ColumnSpan="3" Style="{StaticResource Title}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                    <Separator BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="3" VerticalAlignment="Bottom"></Separator>
+
+                    <Image Source="{Binding ProfileImage,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,0" Grid.Row="1" Grid.RowSpan="4" Height="200" Width="200">
+                       
+                    </Image>
+                       
+                    
+                    <TextBlock Grid.Row="6" Grid.RowSpan="2" Text="{Binding EmployeeName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource SubTitle}" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                    <TextBlock Text="More Details" Grid.Row="8" VerticalAlignment="Center" Style="{StaticResource Regular}" Margin="10,0,0,0" FontWeight="SemiBold"></TextBlock>
+                    <TextBlock Grid.Row="9" Style="{StaticResource Regular}" Margin="10,0,0,0" Text="Bank Details" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Row="10" Style="{StaticResource Regular}" Text="Proof Details" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
+                    <Button Grid.Row="9" Style="{StaticResource Show}" x:Name="BankDetailsBtn" Click="BankDetailsBtn_Click"></Button>
+                    <Button Grid.Row="10" Style="{StaticResource Show}" x:Name="proofDetailsBtn" Click="proofDetailsBtn_Click"></Button>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Address" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+                    <TextBlock Grid.Row="5" Grid.Column="1" Text="Mobile Number" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+                    <TextBlock Grid.Row="6" Grid.Column="1" Text="Email" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+                    <TextBlock Grid.Row="7" Grid.Column="1" Text="Education" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+                    <TextBlock Grid.Row="8" Grid.Column="1" Text="Branch" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+                    <TextBlock Grid.Row="9" Grid.Column="1" Text="Designation" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+                    <TextBlock Grid.Row="10" Grid.Column="1" Text="Date Of Joining" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Text="{Binding HouseNo,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Text="{Binding TownName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
+                    <TextBlock Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" Text="{Binding District,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
+                    <TextBlock Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Pincode,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
+                    <TextBlock Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Text="{Binding ContactNumber,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
+                    <TextBlock Grid.Row="6" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Email,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
+                    <TextBlock Grid.Row="7" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Education,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
+                    <TextBlock Grid.Row="8" Grid.Column="2" VerticalAlignment="Center" Text="{Binding BranchName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
+                    <TextBlock Grid.Row="9" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Designation,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
+                    <TextBlock Grid.Row="10" Grid.Column="2" VerticalAlignment="Center" Text="{Binding DateOfJoining,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="2">
+                        <Button Style="{StaticResource Gray}" x:Name="ConfirmationPanelCloseBtn" Click="ConfirmationPanelCloseBtn_Click"></Button>
+                        <Button Style="{StaticResource orange}" Margin="20,0,0,0"></Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            
+        </Popup>
+        <Popup x:Name="BankDetailsPanel" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center">
+            <Border BorderBrush="Blue" BorderThickness="2">
+                <Grid Background="White" Height="300" Width="400">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40*"/>
+                        <ColumnDefinition Width="60*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Account Details" Grid.ColumnSpan="2" Style="{StaticResource Title}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                    <Separator BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="2" VerticalAlignment="Bottom"></Separator>
+                    <Button Style="{StaticResource ModalClose}" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,15,0" x:Name="bankdetailspanelclosebtn" Click="bankdetailspanelclosebtn_Click"></Button>
+                    <TextBlock Text="Account Holder Name" Grid.Row="1" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                    <TextBlock Text="{Binding AccountHolderName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                    <TextBlock Text="Account Number" Grid.Row="2" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                    <TextBlock Text="{Binding AccountNumber,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                    <TextBlock Text="IFSC Code" Grid.Row="3" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                    <TextBlock Text="{Binding IFSCCode,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Grid.Column="1" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                    <TextBlock Text="MICR Code" Grid.Row="4" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                    <TextBlock Text="{Binding MICRCode,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" Grid.Column="1" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                    <TextBlock Text="Bank Name" Grid.Row="5" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                    <TextBlock Text="{Binding BankName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="5" Grid.Column="1" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                    <TextBlock Text="Branch Name" Grid.Row="6" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                    <TextBlock Text="{Binding BankBranchName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="6" Grid.Column="1" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+
+                </Grid>
+            </Border>
+            
+        </Popup>
+        <Popup Height="250" Width="500"  x:Name="ProofDetailsPanel" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center">
+            <Border BorderBrush="Blue" BorderThickness="2">
+                <Grid Background="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50px"/>
+                        <RowDefinition Height="20px"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Proof Details" Style="{StaticResource Title}" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    </TextBlock>
+                    <Button Style="{StaticResource ModalClose}" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,15,0" x:Name="ProofDetailscloseBtn" Click="ProofDetailscloseBtn_Click"></Button>
+                    <Separator BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="2" VerticalAlignment="Bottom" ></Separator>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Center" Margin="10,0,0,0">
+                        <TextBlock Text="Address Proof : "  Style="{StaticResource Regular}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                        <TextBlock Text="Photo Proof : " Style="{StaticResource Regular}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="{Binding PhotoProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
+
+                    <Image Grid.Row="2" Height="150" Width="200" Source="{Binding AddressProofImage,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"></Image>
+                    <Image Grid.Row="2" Grid.Column="1" Height="150" Width="200" Source="{Binding PhotoProofImage,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"></Image>
+                </Grid>
+            </Border>
         </Popup>
     </Grid>
 </Page>
