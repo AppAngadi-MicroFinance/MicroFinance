@@ -74,6 +74,12 @@
     <Compile Include="Capture.xaml.cs">
       <DependentUpon>Capture.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ModifyEmployee.xaml.cs">
+      <DependentUpon>ModifyEmployee.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Test.xaml.cs">
+      <DependentUpon>Test.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Validations\AadharValidation.cs" />
     <Compile Include="Validations\AccountNumberValidation.cs" />
     <Compile Include="Validations\EbNumberValidation.cs" />
@@ -112,11 +118,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ModifyEmployee.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Test.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Modal\Addemployee.cs" />
+    <Compile Include="Modal\Employee.cs" />
     <Compile Include="Modal\BindableBase.cs" />
-    <Compile Include="Modal\Createbranch.cs" />
+    <Compile Include="Modal\Branch.cs" />
     <Compile Include="Modal\Validation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

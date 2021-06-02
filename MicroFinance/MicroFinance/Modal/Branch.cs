@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace MicroFinance.Modal
 {
-    class Createbranch:BindableBase
+    class Branch:BindableBase
     {
-        public Createbranch()
+        public List<string> RegionList = new List<string>();
+        
+        private string ConnectionString = Properties.Settings.Default.DBConnection;
+        public Branch()
         {
-           
+            GetRegionList();
         }
         private string _regionName;
         public string RegionName
@@ -30,6 +35,8 @@ namespace MicroFinance.Modal
                   
             }
         }
+        
+
         private string _branchname;
         public string BranchName
         {
@@ -73,17 +80,17 @@ namespace MicroFinance.Modal
 
             
         }
-        int _costpermonth;
+        int _landlinecostpermonth;
         public int CostPerMonth
         {
             get
             {
-                return _costpermonth;
+                return _landlinecostpermonth;
             }
             set
             {
               
-                        _costpermonth = value;
+                        _landlinecostpermonth = value;
                         RaisedPropertyChanged("CostPerMonth");
               
             } 
@@ -117,7 +124,19 @@ namespace MicroFinance.Modal
                 RaisedPropertyChanged("AccountantName");
             }
         }
-        public DateTime OpeningDate { get; set; }
+        private DateTime _openingdate = DateTime.Today;
+        public DateTime OpeningDate
+        {
+            get
+            {
+                return _openingdate;
+            }
+            set
+            {
+                _openingdate = value;
+                RaisedPropertyChanged("OpeningDate");
+            }
+        }
         private string _ebconnectionname;
         public string EBConnectionName
         {
@@ -167,7 +186,19 @@ namespace MicroFinance.Modal
                
             }
         }
-        public string OwnerName { get; set; }
+        private string _ownername;
+        public string OwnerName
+        {
+            get
+            {
+                return _ownername;
+            }
+            set
+            {
+                _ownername = value;
+                RaisedPropertyChanged("OwnerName");
+            }
+        }
         private string _ownercontactnumber;
         public string OwnerContactNumber
         {
@@ -188,7 +219,11 @@ namespace MicroFinance.Modal
 
             }
         }
-        public string OwnerAddress { get; set; }
+        public string OwnerAddress
+        {
+            get;
+            set;
+        }
         private int _advancepaid;
         public int AdvancePaid
         {
@@ -314,6 +349,98 @@ namespace MicroFinance.Modal
                 }
             }
         }
+
+        public void GetRegionList()
+        {
+            using (SqlConnection sqlconn=new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if(sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "Select RegionName from Region";
+                    SqlDataReader sqlDataReader = sqlcomm.ExecuteReader();
+                    while(sqlDataReader.Read())
+                    {
+                        RegionList.Add(sqlDataReader.GetString(0));
+                    }
+                    sqlDataReader.Close();
+                }
+                sqlconn.Close();
+            }
+        }
+        public string GetBranchID()
+        {
+            int number = 1;
+            using(SqlConnection sqlconn=new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if(sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlComm = new SqlCommand();
+                    sqlComm.Connection = sqlconn;
+                    sqlComm.CommandText = "select count(BranchName) from BranchDetails";
+                    int n = (int)sqlComm.ExecuteScalar();
+                    number += n;
+                }
+                sqlconn.Close();
+            }
+            string ID = (_regionName[0].ToString() + BranchName[0].ToString() + number.ToString());
+            return ID;
+        }
+        public void AddBranch()
+        {
+            if(!IsExists())
+            {
+                using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+                {
+                    sqlconn.Open();
+                    if (sqlconn.State == ConnectionState.Open)
+                    {
+                        SqlCommand sqlcomm = new SqlCommand();
+                        sqlcomm.Connection = sqlconn;
+                        sqlcomm.CommandText = "insert into BranchDetails(Bid,RegionName,BranchName,Address,LandLineNumber,LandLineCost,DateofCreation,EBNumber,EBConnectionName,InternetConnectionName,InternetCost,BuildingOwnerName,OwnerContact,OwnerAddress,AdvancePaid,MonthlyRent,OwnerACBankName,OwnerACBranchName,AccountHolderName,AccountNumber,IFSCCode,MICRCode)values('" + GetBranchID() + "','" + _regionName + "','" + _branchname + "','" + _branchaddress + "','" + _landlinenumber + "'," + _landlinecostpermonth + ",'" + _openingdate.ToString("dd/MM/yyyy") + "','" + _ebconnectionnubmer + "','" + _ebconnectionname.ToUpper() + "','" + InternetConnectionName + "'," + _internetconnectioncost + ",'" + OwnerName + "','" + _ownercontactnumber + "','" + OwnerAddress + "'," + _advancepaid + "," + _rentpermonth + ",'" + _bankname + "','" + _bankbranchname + "','" + _accountholdername + "','" + _accountnumber + "','" + _ifsccode + "','" + MICRCode + "')";
+                        sqlcomm.ExecuteNonQuery();
+                    }
+                    sqlconn.Close();
+                }
+            }
+            else
+            {
+                throw new ArgumentException("The Branch Already in this Region!...");
+            }
+            
+        }
+
+        public bool IsExists()
+        {
+            using(SqlConnection sqlconn=new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if(sqlconn.State==ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select RegionName,BranchName from BranchDetails where RegionName = '"+_regionName+"' and BranchName = '"+_branchname+"'";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    if(reader.HasRows)
+                    {
+                        while(reader.Read())
+                        {
+                            if(reader.GetString(0)==_regionName&&reader.GetString(1)==_branchname)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                    reader.Close();
+                }
+                sqlconn.Close();
+            }
+            return false;
+        }
+
         public int IsAmount(string value)
         {
             int a;
@@ -323,8 +450,8 @@ namespace MicroFinance.Modal
                 throw new ArgumentException("Invalid Amount");
             }
             return a;
-            
         }
+       
        
     }
 }

@@ -5,12 +5,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using System.Data.SqlClient;
+using System.Data;
+using System.IO;
 
 namespace MicroFinance.Modal
 {
-    class Addemployee:BindableBase
+    public class Employee:BindableBase
     {
-        Validation validation = new Validation();
+        public List<String> BranchList = new List<string>();
+        string Connectionstring = MicroFinance.Properties.Settings.Default.DBConnection;
+        public Employee()
+        {
+            GetBranchList();
+        }
         private string _branchname;
         public string BranchName
         {
@@ -27,6 +35,20 @@ namespace MicroFinance.Modal
                      RaisedPropertyChanged("BranchName");
                     
                 }
+            }
+        }
+        private string _employeeID
+        {
+            get
+            {
+                return GetEmployeeID();
+            }
+        }
+        private string _branchID
+        {
+            get
+            {
+                return GetBranchID();
             }
         }
         private string _designation;
@@ -63,7 +85,7 @@ namespace MicroFinance.Modal
             }
            
         }
-        private DateTime _dob;
+        private DateTime _dob=DateTime.Now;
         public DateTime DOB
         {
             get
@@ -125,27 +147,6 @@ namespace MicroFinance.Modal
                 }
             }
         }
-
-        //private Address _employeeAddress;
-        //public Address EmployeeAddress
-        //{
-        //    get
-        //    {
-        //        return _employeeAddress;
-        //    }
-        //    set
-        //    {
-        //        _employeeAddress = value;
-        //        RaisedPropertyChanged("EmployeeAddress");
-        //    }
-        //}
-
-
-
-
-
-
-        //
         private string _houseno;
         public string HouseNo
         {
@@ -242,7 +243,7 @@ namespace MicroFinance.Modal
                 RaisedPropertyChanged("Education");
             }
         }
-        private DateTime _dateofjoining;
+        private DateTime _dateofjoining=DateTime.Now;
         public DateTime DateOfJoining
         {
             get
@@ -408,10 +409,120 @@ namespace MicroFinance.Modal
                 }
             }
         }
+        public void EmployeeAdd()
+        {
+            if(!IsExists())
+            {
+                using (SqlConnection sqlConn = new SqlConnection(Connectionstring))
+                {
+                    sqlConn.Open();
+                    SqlCommand Sqlcomm = new SqlCommand();
+                    Sqlcomm.Connection = sqlConn;
+                    Sqlcomm.CommandText = "insert into Employee(EmpId,Name,DOB,age,MobileNo,Region,EmailId,Education,AadhaarNo,DateOfJoin,BankName,BranchName,AccountNumber,IFSCCode,MICRCode,Address,PinCode,District,IsAddressProof,AddressProofName,AddressProof,IsPhotoProof,PhotoProofName,PhotoProof,IsProfilePhoto,ProfilePhoto,IsActive,Designation,Bid)values('" + _employeeID + "','" + EmployeeName + "','" + _dob.ToString("MM/dd/yyyy") + "','" + Age + "','" + _contactnumber + "','" + _religion + "','" + _email + "','" + _education + "','" + _aadharnumber + "','" + DateOfJoining.ToString("MM/dd/yyyy") + "','" + _bankname + "','" + BankBranchName + "','" + _accountnumber + "','" + _ifsccode + "','" + _micrcode + "','" + (_houseno + _townname) + "','" + _pincode + "','" + _district + "'," + 1 + ",'" + _addressproofName + "',@addressproof,1,'" + _photoproofname + "',@photoproof,1,@profilepicture,1,'" + _designation + "','" + _branchID + "')";
+                    Sqlcomm.Parameters.AddWithValue("@addressproof", Convertion(_addressproofimage));
+                    Sqlcomm.Parameters.AddWithValue("@photoproof", Convertion(_photoproofimage));
+                    Sqlcomm.Parameters.AddWithValue("@profilepicture", Convertion(_profileimage));
+                    Sqlcomm.ExecuteNonQuery();
+                    sqlConn.Close();
+                }
+            }
+           
+        }
+        public string GetBranchID()
+        {
+            string ID = "";
+            using(SqlConnection sqlconn=new SqlConnection(Connectionstring))
+            {
+                sqlconn.Open();
+                if(sqlconn.State==ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "(select Bid from BranchDetails where BranchName='"+_branchname+"')";
+                    ID = (string)sqlcomm.ExecuteScalar();
+                }
+                sqlconn.Close();
+            }
+            return ID;
+        }
 
-        
-        
-        
+        public string GetEmployeeID()
+        {
+            int number = 1;
+            using (SqlConnection sqlconn = new SqlConnection(Connectionstring))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlComm = new SqlCommand();
+                    sqlComm.Connection = sqlconn;
+                    sqlComm.CommandText = "select count(Name) from Employee";
+                    int n = (int)sqlComm.ExecuteScalar();
+                    number += n;
+                }
+                sqlconn.Close();
+            }
+            string ID = (_branchname[0].ToString() + _designation[0].ToString() + number.ToString());
+            return ID;
+        }
+
+        public bool IsExists()
+        {
+           using(SqlConnection sqlconn=new SqlConnection(Connectionstring))
+            {
+                sqlconn.Open();
+                if(sqlconn.State==ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select * from Employee where Name='"+_employeename+"' and AadhaarNo='"+_aadharnumber+"'";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    if(reader.HasRows)
+                    {
+                        while(reader.Read())
+                        {
+                            if(reader.GetString(1)==_employeename&&reader.GetString(8)==_aadharnumber)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+                sqlconn.Close();
+            }
+            return false;
+        }
+        public byte[] Convertion(BitmapImage image)
+        {
+            byte[] Data;
+            PngBitmapEncoder encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(image));
+            using (MemoryStream ms = new MemoryStream())
+            {
+                encoder.Save(ms);
+                Data = ms.ToArray();
+            }
+            return Data;
+        }
+        public void GetBranchList()
+        {
+            BranchList = new List<string>();
+            using(SqlConnection sqlconn=new SqlConnection(Connectionstring))
+            {
+                sqlconn.Open();
+                SqlCommand sqlcomm = new SqlCommand();
+                sqlcomm.Connection = sqlconn;
+                sqlcomm.CommandText = "select BranchName from BranchDetails";
+                SqlDataReader reader = sqlcomm.ExecuteReader();
+                while(reader.Read())
+                {
+                    BranchList.Add(reader.GetString(0));
+                }
+                reader.Close();
+                sqlconn.Close();
+            }
+
+        }
         public int CalculateAge(DateTime date)
         {
             int age = 0;
@@ -423,18 +534,6 @@ namespace MicroFinance.Modal
                 age -= 1;
             }
             return age;
-        }
-    }
-    public class Address
-    {
-        public string HouseNo { get; set; }
-        public string TownName { get; set; }
-        public string District { get; set; }
-        public string Pincode { get; set; }
-
-        public override string ToString()
-        {
-            return string.Format("{0},\n{1},\n{2},\n{3}." + HouseNo, TownName, District, Pincode);
         }
     }
 }

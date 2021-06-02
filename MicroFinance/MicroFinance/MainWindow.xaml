@@ -19,6 +19,7 @@
                 <MenuItem  Header="Create Branch" FontSize="20" Name="CrBranch" Click="CrBranch_Click">
                 </MenuItem>
                 <MenuItem Header="Add Employee" FontSize="20" x:Name="CreEmployee" Click="CreEmployee_Click"></MenuItem>
+                <MenuItem Header="Modify Employee" FontSize="20" x:Name="modifyemployee" Click="modifyemployee_Click"></MenuItem>
             </Menu>
             
         </Border>

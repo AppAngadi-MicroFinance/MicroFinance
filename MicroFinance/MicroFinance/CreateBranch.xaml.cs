@@ -22,14 +22,17 @@ namespace MicroFinance
     /// </summary>
     public partial class CreateBranch : Page
     {
-        public List<string> Regionlist =new List<string>() {"Chennai", "Trichy", "Coimbatore", "Salem" };
+        Branch CB = new Branch();
+        public List<string> Regionlist;
         public List<string> Managerlist = new List<string>() { "Ashraf", "SAfdhar", "Thalif", "Santhosh" };
         public List<string> Accountantlist = new List<string>() { "Ashraf", "SAfdhar", "Thalif", "Santhosh" };
-        Createbranch CB = new Createbranch();
+        StringBuilder Emptyfields = new StringBuilder();
+        StringBuilder Requiredfields = new StringBuilder();
         public CreateBranch()
         {
             InitializeComponent();
             MainGrid.DataContext = CB;
+            Regionlist = CB.RegionList;
             RegionBox.ItemsSource = Regionlist;
             Managerbox.ItemsSource = Managerlist;
             Accountantbox.ItemsSource = Accountantlist;
@@ -51,15 +54,28 @@ namespace MicroFinance
 
         private void Savebtn_Click(object sender, RoutedEventArgs e)
         {
-            if(IsemptyCheck()==true)
+            IsemptyCheck();
+            if(Requiredfields.Length==0)
             {
-                ConfirmPanel.IsOpen = true;
-                MainGrid.Opacity = 0.4;
-                MainGrid.IsEnabled = false;
+                if(Emptyfields.Length==0)
+                {
+                    ConfirmPanel.IsOpen = true;
+                    MainGrid.Opacity = 0.4;
+                    MainGrid.IsEnabled = false;
+                }
+                else
+                {
+                   if(MessageBox.Show("Check These fields are Empty\n"+Emptyfields.ToString()+"Are you sure You want to create Branch Without These Information","Warning",MessageBoxButton.YesNo,MessageBoxImage.Exclamation)==MessageBoxResult.Yes)
+                   {
+                        ConfirmPanel.IsOpen = true;
+                        MainGrid.Opacity = 0.4;
+                        MainGrid.IsEnabled = false;
+                   }
+                }
             }
             else
             {
-                MessageBox.Show("Please Enter All the Required Fields", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("These Fields are Mandatory Please Fill All these Fields\n" + Requiredfields.ToString(),"Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             
         }
@@ -80,15 +96,115 @@ namespace MicroFinance
 
         private void CreateBr_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(CB.ToString());
-        }
-        public bool IsemptyCheck()
-        {
-            if(string.IsNullOrEmpty(RegionBox.Text)&& string.IsNullOrEmpty(BranchnameBox.Text)&& string.IsNullOrEmpty(AddressBox.Text)&& string.IsNullOrEmpty(LandlineBox.Text)&&double.Parse(LandlineBox.Text)==0&& string.IsNullOrEmpty(Managerbox.Text)&& string.IsNullOrEmpty(Accountantbox.Text))
+            try
             {
-                return false;
+                CB.AddBranch();
+                ConfirmPanel.IsOpen = false;
+                MainGrid.IsEnabled = true;
+                MainGrid.Opacity = 1.0;
+                MessageBox.Show("Branch Created Successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.NavigationService.Navigate(new CreateBranch());
             }
-            return true;
+            catch(Exception ex)
+            {
+                ConfirmPanel.IsOpen = false;
+                MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+        public void IsemptyCheck()
+        {
+            Requiredfields = new StringBuilder();
+            Emptyfields = new StringBuilder();
+            if(RegionBox.Text=="")
+            {
+                Requiredfields.Append("Region Name*\n");
+            }
+            if (BranchnameBox.Text == "")
+            {
+                Requiredfields.Append("Branch Name*\n");
+            }
+            if (AddressBox.Text == "")
+            {
+                Requiredfields.Append("Branch Address*\n");
+            }
+            if (LandlineBox.Text == "")
+            {
+                Emptyfields.Append("Landline\n");
+            }
+            if (CostpermonthBox.Text == "")
+            {
+                Emptyfields.Append("Landline Cost\n");
+            }
+            if (openingdate.Text == "")
+            {
+                Requiredfields.Append("Opening Date*\n");
+            }
+            if (Ebnumberbox.Text == "")
+            {
+                Requiredfields.Append("EB Number*\n");
+            }
+            if (ebconnectionnamebox.Text == "")
+            {
+                Requiredfields.Append("EB Connection Name*\n");
+            }
+            if (internetnamebox.Text == "")
+            {
+                Emptyfields.Append("Internet Name\n");
+            }
+            if (internetcostbox.Text == "")
+            {
+                Emptyfields.Append("Internet Cost\n");
+            }
+            if (ownernamebox.Text == "")
+            {
+                Requiredfields.Append("Owner Name*\n");
+            }
+            if (ownercontactnumberbox.Text == "")
+            {
+                Requiredfields.Append("Owner Contact Number*\n");
+            }
+            if (owneraddressbox.Text == "")
+            {
+                Requiredfields.Append("Owner Address*\n");
+            }
+            if (Advancepaidbox.Text == ""||Advancepaidbox.Text=="0")
+            {
+                Requiredfields.Append("Advance*\n");
+            }
+            if (monthrentbox.Text == "")
+            {
+                Requiredfields.Append("Rent Per Month*\n");
+            }
+            if (accountholdernamebox.Text == "")
+            {
+                Emptyfields.Append("Account Holder Name\n");
+            }
+            if (acccountnumberbox.Text == "")
+            {
+                Emptyfields.Append("Account Number\n");
+            }
+            if (banknamebox.Text == "")
+            {
+                Emptyfields.Append("Bank Name\n");
+            }
+            if (bankbranchnamebox.Text == "")
+            {
+                Emptyfields.Append("Bank Branch Name\n");
+            }
+            if (ifscbox.Text == "")
+            {
+                Emptyfields.Append("IFSC Code\n");
+            }
+            if (micrbox.Text == "")
+            {
+                Emptyfields.Append("MICR Code\n");
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            BranchAccountdetailsPanel.IsOpen = false;
+            MainGrid.IsEnabled = true;
         }
     }
 }

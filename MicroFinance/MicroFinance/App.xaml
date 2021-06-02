@@ -17,7 +17,8 @@
             <Setter Property="Height" Value="660"></Setter>
             <Setter Property="Width" Value="1366"></Setter>
         </Style>
-
+<!--Employee item panel Template-->
+        
         <!--<Regular Font>-->
             <Style x:Key="Regular" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Roboto"/>
@@ -50,8 +51,7 @@
                         <StackPanel>
                             <Border>
                                 <AdornedElementPlaceholder 
-                            ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" >
-
+                            ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}">
                                 </AdornedElementPlaceholder>
                             </Border>
                         </StackPanel>

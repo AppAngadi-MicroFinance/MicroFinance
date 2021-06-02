@@ -11,7 +11,7 @@ namespace MicroFinance.Validations
     public class NameValidation : ValidationRule
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
-        {
+            {
             string Word =(string)value;
             if(string.IsNullOrEmpty(Word)==false)
             {

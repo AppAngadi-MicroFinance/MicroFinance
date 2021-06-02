@@ -22,13 +22,30 @@ namespace MicroFinance
     /// </summary>
     public partial class AddEmployee : Page
     {
+        private static List<Employee> employees = new List<Employee>();
         public List<string> ProofTypes = new List<string> { "Aadhar Proof", "Family Card", "Licence", "VoterID" };
         public List<string> DesignationList = new List<string> { "Manager", "Region Manager","Accountant","Field Officer"};
-        public List<string> BranchList = new List<string> { "KK Nagar", "Anna Nagar", "Subramaniyapuram", "Karumandabam" };
+        public List<string> BranchList;
         public List<string> Religionlist = new List<string> { "Muslim", "Hindu", "Christianity" };
+        //public List<string> controls = new List<string>();
 
-        Addemployee addemployee = new Addemployee();
-        Address address = new Address();
+        
+        Employee addemployee = new Employee();
+        StringBuilder RequiredFields = new StringBuilder();
+        StringBuilder Emptyfields = new StringBuilder();
+        internal static List<Employee> EmployeesList { get => employees; set => employees = value; }
+        public AddEmployee(Employee emp)
+        {
+            InitializeComponent();
+            EmployeeMainGrid.DataContext = emp;
+            AddressProofcombo.ItemsSource = ProofTypes;
+            PhotoproofCombo.ItemsSource = ProofTypes;
+            BranchCombo.ItemsSource = addemployee.BranchList;
+            DesignationCombo.ItemsSource = DesignationList;
+            Religioncombo.ItemsSource = Religionlist;
+            capturepanel.Visibility = Visibility.Collapsed;
+            Captureframe.NavigationService.Navigate(new Capture());
+        }
         public AddEmployee()
         {
             InitializeComponent();
@@ -37,7 +54,7 @@ namespace MicroFinance
             Captureframe.NavigationService.Navigate(new Capture());
             AddressProofcombo.ItemsSource = ProofTypes;
             PhotoproofCombo.ItemsSource = ProofTypes;
-            BranchCombo.ItemsSource = BranchList;
+            BranchCombo.ItemsSource = addemployee.BranchList;
             DesignationCombo.ItemsSource = DesignationList;
             Religioncombo.ItemsSource = Religionlist;
         }
@@ -56,7 +73,7 @@ namespace MicroFinance
         }
 
         private void AddressproofBtn_Click(object sender, RoutedEventArgs e)
-        {
+        { 
             //Captureframe.NavigationService.Navigate(new Capture());
             
             PhotoProofNametxt.Text = "Address Proof";
@@ -68,18 +85,10 @@ namespace MicroFinance
 
         private void SampleCheck_Click(object sender, RoutedEventArgs e)
         {
+            StringBuilder sb = new StringBuilder();
+            MessageBox.Show(sb.ToString());
            
-            OpenFileDialog openFileDlg = new OpenFileDialog();
-            openFileDlg.Filter = "Image Files (*.png *.jpg *.bmp) |*.png; *.jpg; *.bmp|All Files(*.*) |*.*";
-            openFileDlg.Title = "Choose Image";
-            openFileDlg.InitialDirectory = @"C:\";
-            Panel.SetZIndex(EmployeeAccountdetailsPanel, -5);
-            Nullable<bool> result = openFileDlg.ShowDialog();
            
-            if (result == true)
-            {
-
-            }
         }
 
         private void ImageSavebtn_Click(object sender, RoutedEventArgs e)
@@ -138,34 +147,170 @@ namespace MicroFinance
 
         private void EmployeeSaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            ConfirmationPanel.IsOpen = true;
+            IsemptyCheck();
+            if (RequiredFields.Length == 0)
+            {
+                if (Emptyfields.Length == 0)
+                {
+                    ConfirmationPanel.IsOpen = true;
+                    EmployeeMainGrid.IsEnabled = false;
+                }
+                else
+                {
+                    if (MessageBox.Show("Check These fields are Empty\n" + Emptyfields.ToString() + "Are you sure You want to create Branch Without These Information", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.Yes)
+                    {
+                        ConfirmationPanel.IsOpen = true;
+                        EmployeeMainGrid.IsEnabled = false;
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("These Fields are Mandatory Please Fill All these Fields\n" + RequiredFields.ToString(), "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
 
 
         }
 
         private void BankDetailsBtn_Click(object sender, RoutedEventArgs e)
         {
+            proofDetailsBtn.IsEnabled = false;
             BankDetailsPanel.IsOpen = true;
         }
 
         private void proofDetailsBtn_Click(object sender, RoutedEventArgs e)
         {
+            ConfirmationPanel.IsEnabled = false;
             ProofDetailsPanel.IsOpen = true;
         }
 
         private void bankdetailspanelclosebtn_Click(object sender, RoutedEventArgs e)
         {
             BankDetailsPanel.IsOpen = false;
+            ConfirmationPanel.IsEnabled = true;
         }
 
         private void ProofDetailscloseBtn_Click(object sender, RoutedEventArgs e)
         {
             ProofDetailsPanel.IsOpen = false;
+            ConfirmationPanel.IsEnabled = true;
         }
-
         private void ConfirmationPanelCloseBtn_Click(object sender, RoutedEventArgs e)
         {
             ConfirmationPanel.IsOpen = false;
+        }
+
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            EmployeeMainGrid.DataContext = new Employee();
+        }
+
+        private void EmpAdd_Click(object sender, RoutedEventArgs e)
+        {
+            ConfirmationPanel.IsOpen = false;
+            EmployeeMainGrid.IsEnabled = true;
+            addemployee.EmployeeAdd();
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        public void IsemptyCheck()
+        {
+            RequiredFields = new StringBuilder();
+            Emptyfields = new StringBuilder();
+            if (BranchCombo.Text == "")
+            {
+                RequiredFields.Append("Branch Name*\n");
+            }
+            if (DesignationCombo.Text == "")
+            {
+                RequiredFields.Append("Designation*\n");
+            }
+            if (Employeenamebox.Text == "")
+            {
+                RequiredFields.Append("Employee Name*\n");
+            }
+            if (Employeedob.Text == ""||Employeedob.Text==DateTime.Now.ToString("dd/MM/yyyy"))
+            {
+                RequiredFields.Append("Employee DOB*\n");
+            }
+            if (Employeeage.Text == ""|| Employeeage.Text=="0")
+            {
+                RequiredFields.Append("Employee Age*\n");
+            }
+            if (EmployeeContactnumber.Text == "")
+            {
+                RequiredFields.Append("Employee Number*\n");
+            }
+            if (EmployeeEmail.Text == "")
+            {
+                RequiredFields.Append("Employee Email*\n");
+            }
+            if (EmployeeAadhar.Text == "")
+            {
+                RequiredFields.Append("Employee Aadhar*\n");
+            }
+            if (EmployeeEducation.Text == "")
+            {
+                RequiredFields.Append("Employee Education*\n");
+            }
+            if (Employeejoiningdate.Text == "")
+            {
+                RequiredFields.Append("Date of Joining*\n");
+            }
+            if (houseno.Text == "")
+            {
+                Emptyfields.Append("HouseNo\n");
+            }
+            if (townname.Text == "")
+            {
+                Emptyfields.Append("Town Name\n");
+            }
+            if (district.Text == "")
+            {
+                Emptyfields.Append("District\n");
+            }
+            if (pincode.Text == "")
+            {
+                Emptyfields.Append("Pincode\n");
+            }
+            if (AddressProofcombo.Text == "")
+            {
+                RequiredFields.Append("Address Proof*\n");
+            }
+            if (PhotoproofCombo.Text == "")
+            {
+                RequiredFields.Append("Photo Proof*\n");
+            }
+            if (accountholdername.Text == "")
+            {
+                Emptyfields.Append("Accout Holder Name\n");
+            }
+            if (accountnumber.Text == "")
+            {
+                Emptyfields.Append("Account Number\n");
+            }
+            if (bankname.Text == "")
+            {
+                Emptyfields.Append("Bank Name\n");
+            }
+            if (bankbranchname.Text == "")
+            {
+                Emptyfields.Append("Bank Branch Name\n");
+            }
+            if (ifsccode.Text == "")
+            {
+                Emptyfields.Append("IFSC Code\n");
+            }
+            if (micrcode.Text == "")
+            {
+                Emptyfields.Append("MICR Code\n");
+            }
         }
     }
 }

@@ -23,8 +23,7 @@ namespace MicroFinance
         public MainWindow()
         {
             InitializeComponent();
-            
-           
+        
         }
 
         private void CreEmployee_Click(object sender, RoutedEventArgs e)
@@ -35,6 +34,11 @@ namespace MicroFinance
         private void CrBranch_Click(object sender, RoutedEventArgs e)
         {
             mainframe.NavigationService.Navigate(new CreateBranch());
+        }
+
+        private void modifyemployee_Click(object sender, RoutedEventArgs e)
+        {
+            mainframe.NavigationService.Navigate(new ModifyEmployee());
         }
     }
 }
