@@ -6,14 +6,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MicroFinance" xmlns:validation="clr-namespace:MicroFinance.Validations"
       mc:Ignorable="d" 
-      d:DesignHeight="660" d:DesignWidth="1366"
+      d:DesignHeight="630" d:DesignWidth="1366"
       Title="CreateBranch" Background="White">
     
 
     <Grid Style="{StaticResource PrimaryGrid}" x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="630"/>
-            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Image x:Name="NotifyImage" Height="30" Width="30" Margin="10,0,0,0"></Image>
@@ -27,18 +26,19 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="50px"/>
                 <RowDefinition Height="50px"/>
-                <RowDefinition Height="150"/>
                 <RowDefinition Height="50px"/>
+                <RowDefinition Height="150px"/>
                 <RowDefinition Height="50px"/>
                 <RowDefinition Height="50px"/>
                 <RowDefinition Height="50px"/>
                 <RowDefinition Height="50px"/>
    
             </Grid.RowDefinitions>
-            <TextBlock Style="{StaticResource Regular}" Text="Branch Region" VerticalAlignment="Center"></TextBlock>
-            <ComboBox x:Name="RegionBox" Style="{StaticResource combo}" Grid.Row="0"  Grid.Column="1" Text="{Binding RegionName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-            <TextBlock Style="{StaticResource Regular}" Text="Name" Grid.Row="1" VerticalAlignment="Center"></TextBlock>
-            <TextBox x:Name="BranchnameBox" Style="{StaticResource InputBox}" Width="250" Grid.Row="1" Grid.Column="1">
+            <TextBlock Text="Branch Details*" Style="{StaticResource SubTitle}" VerticalAlignment="Center"></TextBlock>
+            <TextBlock Style="{StaticResource Regular}" Text="Branch Region" VerticalAlignment="Center"  Grid.Row="1"></TextBlock>
+            <ComboBox x:Name="RegionBox" Style="{StaticResource combo}" Grid.Row="1"  Grid.Column="1" Text="{Binding RegionName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+            <TextBlock Style="{StaticResource Regular}" Text="Name" Grid.Row="2" VerticalAlignment="Center"></TextBlock>
+            <TextBox x:Name="BranchnameBox" Style="{StaticResource InputBox}" Width="250" Grid.Row="2" Grid.Column="1">
                 <TextBox.Text>
                     <Binding Path="BranchName" Mode="TwoWay">
                         <Binding.ValidationRules>
@@ -47,10 +47,10 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBlock  Style="{StaticResource Regular}" Text="Address" Grid.Row="2" VerticalAlignment="top" Margin="0,10,0,0"></TextBlock>
-            <TextBox x:Name="AddressBox" Style="{StaticResource InputBox}" Width="250" Height="130" TextWrapping="Wrap" VerticalContentAlignment="Top" AcceptsReturn="True"  Grid.Row="2" Grid.Column="2" Text="{Binding BranchAddress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <TextBlock Style="{StaticResource Regular}" Text="Landline Number" Grid.Row="3" VerticalAlignment="Center"></TextBlock>
-            <TextBox x:Name="LandlineBox" Style="{StaticResource InputBox}" Width="250" Grid.Row="3" Grid.Column="3">
+            <TextBlock  Style="{StaticResource Regular}" Text="Address" Grid.Row="3" VerticalAlignment="top" Margin="0,10,0,0"></TextBlock>
+            <TextBox x:Name="AddressBox" Style="{StaticResource InputBox}" Width="250" Height="130" TextWrapping="Wrap" VerticalContentAlignment="Top" AcceptsReturn="True"  Grid.Row="3" Grid.Column="1" Text="{Binding BranchAddress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBlock Style="{StaticResource Regular}" Text="Landline Number" Grid.Row="4" VerticalAlignment="Center"></TextBlock>
+            <TextBox x:Name="LandlineBox" Style="{StaticResource InputBox}" Width="250" Grid.Row="4" Grid.Column="1">
                 <TextBox.Text>
                     <Binding Path="LandlineNumber" Mode="TwoWay">
                         <Binding.ValidationRules>
@@ -59,11 +59,11 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBlock Style="{StaticResource Regular}" Text="LandLine Cost per Month" Grid.Row="4" VerticalAlignment="Center"></TextBlock>
+            <TextBlock Style="{StaticResource Regular}" Text="LandLine Cost per Month" Grid.Row="5" VerticalAlignment="Center"></TextBlock>
             <!--<TextBox x:Name="CostpermonthBox" Style="{StaticResource InputBox}" Width="250" Height="40" Grid.Row="4" Grid.Column="4" Text="{Binding CostPerMonth,Mode=TwoWay,ValidatesOnDataErrors=True,NotifyOnValidationError=True,UpdateSourceTrigger=PropertyChanged}">
                
             </TextBox>-->
-            <TextBox x:Name="CostpermonthBox" Style="{StaticResource InputBox}" Width="250" Grid.Row="4" Grid.Column="4">
+            <TextBox x:Name="CostpermonthBox" Style="{StaticResource InputBox}" Width="250" Grid.Row="5" Grid.Column="1">
                 <TextBox.Text>
                     <Binding Path="CostPerMonth">
                         <Binding.ValidationRules>
@@ -72,12 +72,29 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBlock Style="{StaticResource Regular}" Text="Manager" Grid.Row="5" VerticalAlignment="Center"></TextBlock>
-            <ComboBox x:Name="Managerbox" Style="{StaticResource combo}" Grid.Row="5" Grid.Column="5" Text="{Binding ManagerName,Mode=OneWayToSource}"></ComboBox>
-            <TextBlock Style="{StaticResource Regular}" Text="Accountant" Grid.Row="6" VerticalAlignment="Center"></TextBlock>
-            <ComboBox x:Name="Accountantbox" Style="{StaticResource combo}" Grid.Row="6" Grid.Column="6" Text="{Binding AccountantName,Mode=OneWayToSource}"></ComboBox>
-            <TextBlock Style="{StaticResource Regular}" Text="Date" Grid.Row="7" VerticalAlignment="Center"></TextBlock>
-            <DatePicker x:Name="openingdate" Style="{StaticResource DateSelecter}" SelectedDateFormat="Short"  SelectedDate="{x:Static sys:DateTime.Now}"  Width="250" Grid.Row="7" Grid.Column="1" Text="{Binding OpeningDate,Mode=TwoWay}"></DatePicker>
+            <TextBlock Text="EB Connection Number" VerticalAlignment="Center" Style="{StaticResource Regular}" Grid.Row="6"></TextBlock>
+            <TextBox x:Name="Ebnumberbox" Style="{StaticResource InputBox}" Grid.Column="1" Grid.Row="6" Width="250">
+                <TextBox.Text>
+                    <Binding Path="EBConnectionNumber" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <validation:EbNumberValidation/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBlock Text="EB Connection Name" Grid.Row="7" VerticalAlignment="Center" Style="{StaticResource Regular}">
+
+            </TextBlock>
+            <TextBox x:Name="ebconnectionnamebox" Style="{StaticResource InputBox}" Width="250"  Grid.Column="1" Grid.Row="7" >
+                <TextBox.Text>
+                    <Binding Path="EBConnectionName" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <validation:NameValidation/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            
         </Grid>
         <Grid Height="500" Width="600" HorizontalAlignment="Right" Margin="0,50,30,0" ShowGridLines="False" VerticalAlignment="Top" Name="Subgrid">
             <Grid.ColumnDefinitions>
@@ -96,30 +113,10 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Text="EB Connection Number" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
-            <TextBox x:Name="Ebnumberbox" Style="{StaticResource InputBox}" Grid.Column="1" Width="250">
-                <TextBox.Text>
-                    <Binding Path="EBConnectionNumber" Mode="TwoWay">
-                        <Binding.ValidationRules>
-                            <validation:EbNumberValidation/>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
-            <TextBlock Text="EB Connection Name" Grid.Row="1" VerticalAlignment="Center" Style="{StaticResource Regular}">
-                
-            </TextBlock>
-            <TextBox x:Name="ebconnectionnamebox" Style="{StaticResource InputBox}" Width="250"  Grid.Column="1" Grid.Row="1" >
-                <TextBox.Text>
-                    <Binding Path="EBConnectionName" Mode="TwoWay">
-                        <Binding.ValidationRules>
-                            <validation:NameValidation/>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
-            <TextBlock Text="Internet Connection (if required)" Grid.Row="2" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
-            <TextBox x:Name="internetnamebox" Style="{StaticResource InputBox}" Width="250"  Grid.Column="1" Grid.Row="2">
+            <TextBlock Style="{StaticResource Regular}" Text="Opening Date" Grid.Row="0" VerticalAlignment="Center"></TextBlock>
+            <DatePicker x:Name="openingdate" Style="{StaticResource DateSelecter}" SelectedDateFormat="Short"  SelectedDate="{x:Static sys:DateTime.Now}"  Width="250" Grid.Row="0" Grid.Column="1" Text="{Binding OpeningDate,Mode=TwoWay}"></DatePicker>
+            <TextBlock Text="Internet Connection (if required)" Grid.Row="1" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+            <TextBox x:Name="internetnamebox" Style="{StaticResource InputBox}" Width="250"  Grid.Column="1" Grid.Row="1">
                 <TextBox.Text>
                     <Binding Path="InternetConnectionName" Mode="TwoWay">
                         <Binding.ValidationRules>
@@ -128,8 +125,8 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBlock TextWrapping="Wrap" Text="Internet Connection cost per Month (if required)" Grid.Row="3" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
-            <TextBox x:Name="internetcostbox" Style="{StaticResource InputBox}" Width="250" Grid.Column="1" Grid.Row="3">
+            <TextBlock TextWrapping="Wrap" Text="Internet Connection cost per Month (if required)" Grid.Row="2" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+            <TextBox x:Name="internetcostbox" Style="{StaticResource InputBox}" Width="250" Grid.Column="1" Grid.Row="2">
                 <TextBox.Text>
                     <Binding Path="InternetConnectionCost" Mode="TwoWay">
                         <Binding.ValidationRules>
@@ -138,6 +135,7 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
+            <TextBlock Text="Branch Owner Details*" Grid.Row="3" VerticalAlignment="Center" Style="{StaticResource SubTitle}"></TextBlock>
             <TextBlock Text="Building Owner Name" Grid.Row="4" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
             <TextBox x:Name="ownernamebox" Style="{StaticResource InputBox}" Width="250"  Grid.Column="1" Grid.Row="4">
                 <TextBox.Text>
@@ -183,7 +181,7 @@
             <TextBlock Text="Owner Account Details" Grid.Row="9" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
             <Button Style="{StaticResource Add}" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Left" Margin="20,1.6,0,-2" Click="Button_Click"></Button>
         </Grid>
-        <Button  VerticalAlignment="Bottom" Margin="0,0,0,20" Style="{StaticResource orange}"  Click="Savebtn_Click" x:Name="Savebtn"></Button>
+        <Button  VerticalAlignment="Bottom" Margin="0,0,0,20" Style="{StaticResource orange}"  Content="Save" Click="Savebtn_Click" x:Name="Savebtn"></Button>
         <Popup  Height="400" Width="500" x:Name="BranchAccountdetailsPanel" IsOpen="False" PlacementTarget="{Binding ElementName=MainGrid}" Placement="Center">
             <Border BorderBrush="Blue" BorderThickness="2">
                 
@@ -254,7 +252,7 @@
                         <TextBlock Text="MICR Code" Style="{StaticResource Regular}" Grid.Row="5" VerticalAlignment="Center"></TextBlock>
                         <TextBox x:Name="micrbox" Grid.Column="1" Grid.Row="5" Style="{StaticResource InputBox}" Text="{Binding MICRCode,Mode=TwoWay,ValidatesOnExceptions=True,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" Width="250"></TextBox>
                     </Grid>
-                    <Button Grid.Row="2" Height="40" Width="150" Content="OK" Click="Button_Click_1"></Button>
+                    <Button Grid.Row="2" Height="40" Width="150" Content="OK" Click="PanelCloseBtn_Click" x:Name="AccountDetialsOkBtn" Style="{StaticResource orange}"></Button>
                 </Grid>
             </Border>
             
@@ -276,12 +274,11 @@
                         <ColumnDefinition Width="60*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition Height="50px"/>
+                        <RowDefinition Height="50px"/>
                         <RowDefinition Height="auto"/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition Height="50px"/>
+                        
                     </Grid.RowDefinitions>
                     <TextBlock Style="{StaticResource Regular}" Text="Region Name" VerticalAlignment="Center"></TextBlock>
                         <TextBlock Style="{StaticResource Regular}" Text="{Binding RegionName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"  Grid.Column="1" VerticalAlignment="Center"></TextBlock>
@@ -291,14 +288,10 @@
                     <TextBlock Style="{StaticResource Regular}" Grid.Row="2" Grid.Column="1" Text="{Binding BranchAddress,Mode=OneWay}" TextWrapping="Wrap" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Style="{StaticResource Regular}" Grid.Row="3" Text="Landline Number" VerticalAlignment="Center"></TextBlock>
                         <TextBlock Style="{StaticResource Regular}" Grid.Row="3" Grid.Column="1" Text="{Binding LandlineNumber,Mode=OneWay}" VerticalAlignment="Center"></TextBlock>
-                    <TextBlock Style="{StaticResource Regular}" Grid.Row="4" Text="Manager Name" VerticalAlignment="Center"></TextBlock>
-                    <TextBlock Style="{StaticResource Regular}" Grid.Row="4" Grid.Column="1" Text="{Binding ManagerName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"></TextBlock>
-                    <TextBlock Style="{StaticResource Regular}" Grid.Row="5" Text="Accountant Name" VerticalAlignment="Center"></TextBlock>
-                    <TextBlock Style="{StaticResource Regular}" Grid.Row="5" Grid.Column="1" Text="{Binding AccountantName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"></TextBlock>
-                </Grid>
+                    </Grid>
                 <StackPanel Orientation="Horizontal" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Button Content="Create Branch" Height="40" Width="250" x:Name="CreateBr" Click="CreateBr_Click"></Button>
-                    <Button Style="{StaticResource Gray}" Margin="10,0,0,0" x:Name="Cancelbtn" Click="Cancelbtn_Click"></Button>
+                    <Button Content="Create Branch" x:Name="CreateBr" Click="CreateBr_Click" Style="{StaticResource orange}"></Button>
+                    <Button Style="{StaticResource Gray}" Margin="10,0,0,0" x:Name="Cancelbtn" Click="Cancelbtn_Click" Content="Cancel"></Button>
                 </StackPanel>
             </Grid>
             </Border>

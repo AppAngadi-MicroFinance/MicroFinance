@@ -23,15 +23,20 @@ namespace MicroFinance
     /// </summary>
     public partial class ModifyEmployee : Page
     {
+        Employee employee1 = new Employee();
         public string ConnectionString = MicroFinance.Properties.Settings.Default.DBConnection;
-        List<dummyemployee> employeelist = new List<dummyemployee> ();
+        public List<Employee> emplist;
         public ModifyEmployee()
         {
             InitializeComponent();
-           // Employeelist.ItemsSource = AddEmployee.EmployeesList;
-            employeelist.Add(new dummyemployee { employeeid = "101", employeename = "Ashraf" });
-            employeelist.Add(new dummyemployee { employeeid = "102", employeename = "Safdhar" });
-            employeelist.Add(new dummyemployee { employeeid = "103", employeename = "Ashraf" });
+            AddEmployees();
+        }
+
+        public void AddEmployees()
+        {
+            emplist = new List<Employee>();
+            employee1.GetEmployeeList();
+            emplist = employee1.EmployeeList;
         }
 
         private void searchbntn_Click(object sender, RoutedEventArgs e)
@@ -51,7 +56,7 @@ namespace MicroFinance
 
         public void ResultedEmployee(string name)
         {
-            foreach(var v in AddEmployee.EmployeesList)
+            foreach(var v in emplist)
             {
                 if(v.EmployeeName!="")
                 {
@@ -87,40 +92,11 @@ namespace MicroFinance
             this.NavigationService.Navigate(new AddEmployee(employee));
         }
 
-        private void regionsavebtn_Click(object sender, RoutedEventArgs e)
-        {
-            using(SqlConnection sqlconn=new SqlConnection(ConnectionString))
-            {
-                sqlconn.Open();
-                SqlCommand sqlcomm = new SqlCommand();
-                sqlcomm.Connection = sqlconn;
-                sqlcomm.CommandText = "insert into Region (RegionName)values('"+Regionnamebox.Text+"')";
-                sqlcomm.ExecuteNonQuery();
-                sqlconn.Close();
-            }
-            AddregionPanel.IsOpen = false;
-            MessageBox.Show("Success");
-        }
+        
 
-        public void getregionlist()
-        {
-
-        }
-        private void Addregionbtn_Click(object sender, RoutedEventArgs e)
-        {
-            AddregionPanel.IsOpen = true;
-            Regionnamebox.Text = "";
-        }
+       
+       
     }
 
-    public class dummyemployee
-    {
-        public string employeeid { get; set; }
-        public string employeename { get; set; }
-        public override string ToString()
-        {
-            return string.Format("ID: {0}  |  Name : {1}", employeeid, employeename);
-      
-        }
-    }
+   
 }

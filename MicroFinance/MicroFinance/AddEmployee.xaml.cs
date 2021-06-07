@@ -22,22 +22,19 @@ namespace MicroFinance
     /// </summary>
     public partial class AddEmployee : Page
     {
-        private static List<Employee> employees = new List<Employee>();
         public List<string> ProofTypes = new List<string> { "Aadhar Proof", "Family Card", "Licence", "VoterID" };
         public List<string> DesignationList = new List<string> { "Manager", "Region Manager","Accountant","Field Officer"};
         public List<string> BranchList;
         public List<string> Religionlist = new List<string> { "Muslim", "Hindu", "Christianity" };
-        //public List<string> controls = new List<string>();
-
-        
         Employee addemployee = new Employee();
         StringBuilder RequiredFields = new StringBuilder();
         StringBuilder Emptyfields = new StringBuilder();
-        internal static List<Employee> EmployeesList { get => employees; set => employees = value; }
         public AddEmployee(Employee emp)
         {
             InitializeComponent();
             EmployeeMainGrid.DataContext = emp;
+            addemployee = emp;
+            EmployeeSaveBtn.Content = "Update";
             AddressProofcombo.ItemsSource = ProofTypes;
             PhotoproofCombo.ItemsSource = ProofTypes;
             BranchCombo.ItemsSource = addemployee.BranchList;
@@ -49,6 +46,7 @@ namespace MicroFinance
         public AddEmployee()
         {
             InitializeComponent();
+            addemployee = new Employee();
             EmployeeMainGrid.DataContext = addemployee;
             capturepanel.Visibility = Visibility.Collapsed;
             Captureframe.NavigationService.Navigate(new Capture());
@@ -80,7 +78,6 @@ namespace MicroFinance
             capturepanel.Visibility = Visibility.Visible;
             EmployeeDetailsGrid.IsEnabled = false;
             capturepanel.IsEnabled = true;
-
         }
 
         private void SampleCheck_Click(object sender, RoutedEventArgs e)
@@ -88,18 +85,15 @@ namespace MicroFinance
             StringBuilder sb = new StringBuilder();
             MessageBox.Show(sb.ToString());
            
-           
         }
 
         private void ImageSavebtn_Click(object sender, RoutedEventArgs e)
         {
-            
             BitmapImage image = Capture.SavedImage;
             string txt = PhotoProofNametxt.Text;
             SetImage(image, txt);
             capturepanel.Visibility = Visibility.Collapsed;
             EmployeeDetailsGrid.IsEnabled = true;
-           MessageBox.Show("Photo Added Successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void CaptureModelCloseButton_Click(object sender, RoutedEventArgs e)
@@ -115,12 +109,18 @@ namespace MicroFinance
             {
                 case "Address Proof":
                     addemployee.AddressProofImage = image;
+                    addemployee.IsAddressProof = true;
+                    MainWindow.StatusMessageofPage(0, "Address Proof Added");
                     break;
                 case "Photo Proof":
                     addemployee.PhotoProofImage = image;
+                    addemployee.IsPhotoProof = true;
+                    MainWindow.StatusMessageofPage(0, "Photo Proof Added");
                     break;
                 case "Profile Picture":
                     addemployee.ProfileImage = image;
+                    addemployee.IsProfilePicture = true;
+                    MainWindow.StatusMessageofPage(0, "Profile Picture Added");
                     break;
             }
         }
@@ -169,7 +169,6 @@ namespace MicroFinance
                 MessageBox.Show("These Fields are Mandatory Please Fill All these Fields\n" + RequiredFields.ToString(), "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
 
-
         }
 
         private void BankDetailsBtn_Click(object sender, RoutedEventArgs e)
@@ -207,16 +206,24 @@ namespace MicroFinance
 
         private void EmpAdd_Click(object sender, RoutedEventArgs e)
         {
-            ConfirmationPanel.IsOpen = false;
-            EmployeeMainGrid.IsEnabled = true;
-            addemployee.EmployeeAdd();
             try
             {
-
+                ConfirmationPanel.IsOpen = false;
+                EmployeeMainGrid.IsEnabled = true;
+                addemployee.EmployeeAdd();
+                if(EmployeeSaveBtn.Content.ToString()=="Save")
+                {
+                    MainWindow.StatusMessageofPage(0, "Employee Added Successfully");
+                }
+                else if(EmployeeSaveBtn.Content.ToString()=="Update")
+                {
+                    MainWindow.StatusMessageofPage(0, "Employee Updated Successfully");
+                }
+                this.NavigationService.Navigate(new AddEmployee());
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
+                MainWindow.StatusMessageofPage(1, ex.Message);
             }
         }
         public void IsemptyCheck()
@@ -312,5 +319,7 @@ namespace MicroFinance
                 Emptyfields.Append("MICR Code\n");
             }
         }
+
+        
     }
 }

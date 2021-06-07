@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MicroFinance.Modal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,12 +21,18 @@ namespace MicroFinance
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static StaticProperty StatusMsg = new StaticProperty();
         public MainWindow()
         {
             InitializeComponent();
-        
-        }
+            MessageStatus.DataContext = StatusMsg;
 
+        }
+        public static void StatusMessageofPage(int Type, string Message)
+        {
+            StatusMsg.MessageType = Type;
+            StatusMsg.StatusMessage = Message;
+        }
         private void CreEmployee_Click(object sender, RoutedEventArgs e)
         {
             mainframe.NavigationService.Navigate(new AddEmployee());
@@ -39,6 +46,12 @@ namespace MicroFinance
         private void modifyemployee_Click(object sender, RoutedEventArgs e)
         {
             mainframe.NavigationService.Navigate(new ModifyEmployee());
+        }
+        private void Addregion_Click(object sender, RoutedEventArgs e)
+        {
+            AddRegion ad = new AddRegion();
+            ad.ShowDialog();
+
         }
     }
 }

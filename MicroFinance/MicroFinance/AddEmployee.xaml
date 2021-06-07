@@ -6,13 +6,12 @@
       xmlns:local="clr-namespace:MicroFinance"
       xmlns:validation="clr-namespace:MicroFinance.Validations"
       mc:Ignorable="d" 
-      d:DesignHeight="660" d:DesignWidth="1366"
+      d:DesignHeight="630" d:DesignWidth="1366"
       Title="AddEmployee">
 
     <Grid Style="{StaticResource PrimaryGrid}" x:Name="EmployeeMainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="630"/>
-            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid x:Name="EmployeeDetailsGrid" ShowGridLines="False">
             <Grid.RowDefinitions>
@@ -25,7 +24,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="85,0,0,0">
                 <TextBlock Style="{StaticResource Regular}" Text="Branch" VerticalAlignment="Center"></TextBlock>
                 <ComboBox Style="{StaticResource combo}" Margin="10,0,0,0" x:Name="BranchCombo" Text="{Binding BranchName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
                 <TextBlock Style="{StaticResource Regular}" Text="Designation" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
@@ -64,9 +63,9 @@
                         </StackPanel>
                         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
                             <TextBlock Text="DOB" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                            <DatePicker x:Name="Employeedob" Style="{StaticResource DateSelecter}" Width="250" Margin="19,0,0,0" SelectedDateFormat="Short" Text="{Binding DOB,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" DisplayDateStart="1/03/1998"></DatePicker>
+                            <DatePicker x:Name="Employeedob" Style="{StaticResource DateSelecter}" Width="250" Margin="19,0,0,0" SelectedDateFormat="Short" Text="{Binding DOB,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
                             <TextBlock Text="Age" VerticalAlignment="Center" Style="{StaticResource Regular}" Margin="50,0,0,0"></TextBlock>
-                            <TextBox x:Name="Employeeage" Style="{StaticResource InputBox}" Width="80" Margin="10,0,0,0" Text="{Binding Age,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBox x:Name="Employeeage" Style="{StaticResource InputBox}" Width="80" Margin="10,0,0,0" Text="{Binding Age,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"></TextBox>
                         </StackPanel>
                         <TextBlock Grid.Row="2" Text="Contact Number" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                         <TextBox x:Name="EmployeeContactnumber" Grid.Row="2" Grid.Column="1" Style="{StaticResource InputBox}" Width="250">
@@ -187,8 +186,8 @@
                 </StackPanel>
             </Border>
             <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Style="{StaticResource Gray}" x:Name="CancelBtn" Click="CancelBtn_Click"></Button>
-                <Button Style="{StaticResource orange}" Margin="20,0,0,0" x:Name="EmployeeSaveBtn" Click="EmployeeSaveBtn_Click"></Button>
+                <Button Style="{StaticResource Gray}" x:Name="CancelBtn" Click="CancelBtn_Click" Content="Cancel"></Button>
+                <Button Style="{StaticResource orange}" Margin="20,0,0,0" x:Name="EmployeeSaveBtn" Click="EmployeeSaveBtn_Click" Content="Save"></Button>
             </StackPanel>
         </Grid>
         <Popup  Height="400" Width="500" x:Name="EmployeeAccountdetailsPanel" IsOpen="False" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center">
@@ -278,7 +277,7 @@
 
         </Popup>
         
-            <Grid Height="460" Width="802" x:Name="capturepanel" Visibility="Collapsed">
+            <Grid Height="460" Width="802" x:Name="capturepanel" Visibility="Visible">
             <Border Height="460" Width="802" BorderBrush="Blue" BorderThickness="2">
                 <Border.Effect>
                     <DropShadowEffect/>
@@ -292,7 +291,7 @@
                     <TextBlock Grid.Row="0" x:Name="PhotoProofNametxt" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource Title}"></TextBlock>
                     <Separator BorderBrush="Black" BorderThickness="3" VerticalAlignment="Bottom"></Separator>
                     <Button Style="{StaticResource ModalClose}" HorizontalAlignment="Right" Margin="0,0,20,0" x:Name="CaptureModelCloseButton" Click="CaptureModelCloseButton_Click"></Button>
-                    <Button Grid.Row="3" Style="{StaticResource orange}" Name="ImageSavebtn" Click="ImageSavebtn_Click"></Button>
+                    <Button Grid.Row="3" Style="{StaticResource orange}" Name="ImageSavebtn" Click="ImageSavebtn_Click" Content="Save"></Button>
 
                     <Frame x:Name="Captureframe" Grid.Row="1">
 
@@ -357,8 +356,8 @@
                     <TextBlock Grid.Row="9" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Designation,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
                     <TextBlock Grid.Row="10" Grid.Column="2" VerticalAlignment="Center" Text="{Binding DateOfJoining,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="2">
-                        <Button Style="{StaticResource Gray}" x:Name="ConfirmationPanelCloseBtn" Click="ConfirmationPanelCloseBtn_Click"></Button>
-                        <Button Style="{StaticResource orange}" Margin="20,0,0,0"  x:Name="EmpAdd" Click="EmpAdd_Click"></Button>
+                        <Button Style="{StaticResource Gray}" x:Name="ConfirmationPanelCloseBtn" Click="ConfirmationPanelCloseBtn_Click" Content="Cancel"></Button>
+                        <Button Style="{StaticResource orange}" Margin="20,0,0,0"  x:Name="EmpAdd" Click="EmpAdd_Click" Content="Save"></Button>
                     </StackPanel>
                 </Grid>
             </Border>

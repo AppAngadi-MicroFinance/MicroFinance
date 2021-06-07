@@ -3,15 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MicroFinance"
+        xmlns:Convert="clr-namespace:MicroFinance.Converters"
+        xmlns:local="clr-namespace:MicroFinance" xmlns:modal="clr-namespace:MicroFinance.Modal" d:DataContext="{d:DesignInstance Type=modal:StaticProperty}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="1366" Background="Brown">
-    <Grid Height="768" Width="1366">
+        Title="MainWindow" Height="768" Width="1366" Background="white">
+    <Window.Resources>
+        <Convert:StatusForegroundColor x:Key="StatusColor"></Convert:StatusForegroundColor>
+        <Convert:StatusImage x:Key="ImageConvert"></Convert:StatusImage>
+    </Window.Resources>
+    <Grid Height="768" Width="1366" ShowGridLines="False">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="20"/>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="38"/>
+            <RowDefinition Height="660"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Background="Black"></Border>
         <Border Grid.Row="1" Background="AliceBlue">
@@ -20,11 +25,15 @@
                 </MenuItem>
                 <MenuItem Header="Add Employee" FontSize="20" x:Name="CreEmployee" Click="CreEmployee_Click"></MenuItem>
                 <MenuItem Header="Modify Employee" FontSize="20" x:Name="modifyemployee" Click="modifyemployee_Click"></MenuItem>
+                <MenuItem Header="Add Region" FontSize="20" x:Name="Addregion" Click="Addregion_Click"></MenuItem>
             </Menu>
             
         </Border>
         <Frame Grid.Row="2" x:Name="mainframe" NavigationUIVisibility="Hidden"></Frame>
-        <Border Grid.Row="3" Background="AliceBlue"></Border>
-        
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Background="#e8fff2" x:Name="MessageStatus">
+            <Image Width="25" Height="25" Source="{Binding MessageType,Converter={StaticResource ImageConvert},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0"/>
+            <TextBlock  Text="{Binding StatusMessage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" FontWeight="Medium" Foreground="{Binding MessageType,Converter={StaticResource StatusColor},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+        </StackPanel>
+
     </Grid>
 </Window>

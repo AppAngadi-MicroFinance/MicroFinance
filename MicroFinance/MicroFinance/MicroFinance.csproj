@@ -71,9 +71,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddRegion.xaml.cs">
+      <DependentUpon>AddRegion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Capture.xaml.cs">
       <DependentUpon>Capture.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\StatusForegroundColor.cs" />
+    <Compile Include="Converters\StatusImage.cs" />
+    <Compile Include="Modal\Region.cs" />
+    <Compile Include="Modal\StaticProperty.cs" />
     <Compile Include="ModifyEmployee.xaml.cs">
       <DependentUpon>ModifyEmployee.xaml</DependentUpon>
     </Compile>
@@ -89,6 +96,10 @@
     <Compile Include="Validations\PhoneNumberValidation.cs" />
     <Compile Include="Validations\PriceValidation.cs" />
     <Page Include="AddEmployee.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddRegion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -184,5 +195,6 @@
     <Resource Include="Asserts\Icons\Warning Shield-WF.png" />
     <Resource Include="Asserts\Icons\Warning-WF.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

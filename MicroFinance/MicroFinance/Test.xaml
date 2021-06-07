@@ -9,6 +9,10 @@
       Title="Test" Background="Green">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Border Height="100" Width="500" BorderThickness="2" BorderBrush="Gray" CornerRadius="5" Background="White">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -41,5 +45,34 @@
                 <TextBlock Text="Trichy" Grid.Row="3" Grid.Column="6" Style="{StaticResource Regular}" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
             </Grid>
         </Border>
+        <Border Grid.Row="1" Height="50" Width="300" Background="White" CornerRadius="5" BorderThickness="1" BorderBrush="Blue">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60*"/>
+                    <RowDefinition Height="40*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60px"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="90px"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.RowSpan="2" CornerRadius="50" Height="45" Width="45" BorderBrush="Blue" BorderThickness="0.5">
+                    <Border.Background>
+                        <ImageBrush Stretch="Fill" ImageSource="Asserts\Icons\User-Male.png"></ImageBrush>
+                    </Border.Background>
+                </Border>
+                <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Text="Ashraf Ali" Style="{StaticResource SubTitle}"></TextBlock>
+                <StackPanel Orientation="Horizontal" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <TextBlock Text="22" Style="{StaticResource Regular}"></TextBlock>
+                    <TextBlock Text="/" Style="{StaticResource Regular}"></TextBlock>
+                    <TextBlock Text="Yr" Style="{StaticResource Regular}"></TextBlock>
+                </StackPanel>
+                <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="Field Officer" Style="{StaticResource Regular}" ></TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="3"  Text="Trichy" Style="{StaticResource Regular}" ></TextBlock>
+                
+            </Grid>
+        </Border>
+        <Button Style="{StaticResource BigButton}" Content="Save"></Button>
     </Grid>
 </Page>

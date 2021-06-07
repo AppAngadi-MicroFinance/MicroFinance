@@ -97,10 +97,35 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
+        <!--SAmple Button-->
+        <Style TargetType="Button" x:Key="BigButton">
+           
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Width" Value="120" />
+            <Setter Property="Background" Value="#F77604"/>
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="25"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter x:Name="ButtonContentPresenter"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center">
+                        </ContentPresenter>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            
+        </Style>
         <!--For Primary Action Buttons-->
         <ControlTemplate x:Key="orangebutton" TargetType="{x:Type Button}">
             <Grid x:Name="mygrid" Width="120" Height="40" Background="#F77604">
-                <TextBlock Text="Save" Foreground="White" FontFamily="Roboto" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <!--<TextBlock Text="{Binding ButtonContentPresenter}" Foreground="White" FontFamily="Roboto" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>-->
+                <ContentPresenter x:Name="ButtonContentPresenter"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center">
+                </ContentPresenter>
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
@@ -109,10 +134,13 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
         <Style TargetType="{x:Type Button}" x:Key="orange">
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontFamily" Value="Roboto"></Setter>
+            <Setter Property="FontWeight" Value="Medium"></Setter>
             <Setter Property="Template" Value="{StaticResource orangebutton}">
             </Setter>
         </Style>
-
         <!--For Show Symbol-->
         <Style TargetType="Button" x:Key="Show">
             <Setter Property="Template" >
@@ -221,7 +249,11 @@
         <!--For Cancel -->
         <ControlTemplate x:Key="Graybutton" TargetType="{x:Type Button}">
             <Grid x:Name="mygrid" Width="120" Height="40" Background="#7F7F7F">
-                <TextBlock Text="Cancel" Foreground="White" FontFamily="Roboto" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <!--<TextBlock Text="Cancel" Foreground="White" FontFamily="Roboto" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>-->
+                <ContentPresenter x:Name="ButtonContentPresenter"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center">
+                </ContentPresenter>
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
@@ -230,6 +262,10 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
         <Style TargetType="{x:Type Button}" x:Key="Gray">
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontFamily" Value="Roboto"></Setter>
+            <Setter Property="FontWeight" Value="Medium"></Setter>
             <Setter Property="Template" Value="{StaticResource Graybutton}">
             </Setter>
         </Style>

@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 
 namespace MicroFinance.Modal
 {
-    class Branch:BindableBase
+    public class Branch:BindableBase
     {
         public List<string> RegionList = new List<string>();
         

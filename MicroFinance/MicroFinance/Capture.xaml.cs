@@ -108,6 +108,7 @@ namespace MicroFinance
 
         private void CaptureBtn_Click(object sender, RoutedEventArgs e)
         {
+
             CapturePanel.IsOpen = true;
             OpenCamera();
             captureDevice.Start();
@@ -157,6 +158,7 @@ namespace MicroFinance
             tempimg = new BitmapImage();
             tempimg = LiveImage.Source as BitmapImage;
             CapturedImage.Source = tempimg;
+            
         }
 
         private void Savebtn_Click(object sender, RoutedEventArgs e)
@@ -183,7 +185,7 @@ namespace MicroFinance
         {
             tempimg = new BitmapImage();
             OpenFileDialog openFileDlg = new OpenFileDialog();
-            openFileDlg.Filter = "Image Files (*.png *.jpg *.bmp) |*.png; *.jpg; *.bmp|All Files(*.*) |*.*";
+            openFileDlg.Filter = "Image Files (*.png *.jpg *.bmp) |*.png; *.jpg;; *jpeg; *.bmp|All Files(*.*) |*.*";
             openFileDlg.Title = "Choose Image";
             openFileDlg.InitialDirectory = @"C:\";
             Nullable<bool> result = openFileDlg.ShowDialog();

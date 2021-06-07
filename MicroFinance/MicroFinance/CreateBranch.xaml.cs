@@ -24,19 +24,15 @@ namespace MicroFinance
     {
         Branch CB = new Branch();
         public List<string> Regionlist;
-        public List<string> Managerlist = new List<string>() { "Ashraf", "SAfdhar", "Thalif", "Santhosh" };
-        public List<string> Accountantlist = new List<string>() { "Ashraf", "SAfdhar", "Thalif", "Santhosh" };
         StringBuilder Emptyfields = new StringBuilder();
         StringBuilder Requiredfields = new StringBuilder();
         public CreateBranch()
         {
             InitializeComponent();
+            CB = new Branch();
             MainGrid.DataContext = CB;
             Regionlist = CB.RegionList;
-            RegionBox.ItemsSource = Regionlist;
-            Managerbox.ItemsSource = Managerlist;
-            Accountantbox.ItemsSource = Accountantlist;
-            
+            RegionBox.ItemsSource = Regionlist; 
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -102,13 +98,15 @@ namespace MicroFinance
                 ConfirmPanel.IsOpen = false;
                 MainGrid.IsEnabled = true;
                 MainGrid.Opacity = 1.0;
-                MessageBox.Show("Branch Created Successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MainWindow.StatusMessageofPage(0, "Branch Created Successfully");
+                //MessageBox.Show("Branch Created Successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.NavigationService.Navigate(new CreateBranch());
             }
             catch(Exception ex)
             {
                 ConfirmPanel.IsOpen = false;
-                MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MainWindow.StatusMessageofPage(1,ex.Message);
+               // MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
         public void IsemptyCheck()
