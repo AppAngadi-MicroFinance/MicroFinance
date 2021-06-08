@@ -43,10 +43,12 @@ namespace MicroFinance
 
             GurantorGrid.DataContext = guarantor;
             GuarantorAddressDetails.DataContext = guarantor;
+            GuarantorOtherDetailsGrid.DataContext = guarantor;
             GuarnatorDetails.DataContext = guarantor;
 
             NomineeGrid.DataContext = nominee;
             NomineeAddressDetails.DataContext = nominee;
+            NomineeOtherDetails.DataContext = nominee;
             NomineeDetails.DataContext = nominee;
         }
 
@@ -673,6 +675,11 @@ namespace MicroFinance
             NomineePincodeBox.Text = "";
             NomineeCityBox.Text = "";
             NomineeStateBox.Text = "";
+        }
+
+        private void GuarantorCancel_Click(object sender, RoutedEventArgs e)
+        {
+            GuarantorWindow.Visibility = Visibility.Collapsed;
         }
     }
 }

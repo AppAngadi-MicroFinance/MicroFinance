@@ -559,7 +559,6 @@
                         </TextBox>
                         <TextBlock Text="Relationship" Grid.Column="0" Grid.Row="9" Style="{StaticResource Regular}"/>
                         <ComboBox x:Name="GuarantorRelationshipBox" Grid.Row="9" Grid.Column="1" VerticalAlignment="Center" Width="250" Style="{StaticResource combo}" HorizontalAlignment="Left" Text="{Binding RelationShip,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedIndex="0">
-                            <ComboBoxItem Content="--Select--"/>
                             <ComboBoxItem Content="Husband"/>
                             <ComboBoxItem Content="Father"/>
                             <ComboBoxItem Content="Mother"/>
@@ -577,13 +576,13 @@
                             </CheckBox.LayoutTransform>
                         </CheckBox>
                     </Grid>
-                    <Grid Grid.Row="1" Grid.Column="2" x:Name="GuarantorAddressDetails">
+                    <Grid Grid.Row="1" Grid.Column="2" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="270"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Border BorderBrush="Black" BorderThickness="0,0,0,1" Grid.Row="0"/>
-                        <Grid Grid.Row="0">
+                        <Grid Grid.Row="0" x:Name="GuarantorAddressDetails">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="10"/>
                                 <ColumnDefinition Width="160"/>
@@ -716,7 +715,7 @@
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button x:Name="GuarantorCancel" Style="{StaticResource Gray}" Margin="0,0,20,0"/>
+                            <Button x:Name="GuarantorCancel" Style="{StaticResource Gray}" Margin="0,0,20,0" Click="GuarantorCancel_Click"/>
                             <Button x:Name="SaveGuarantor" Click="SaveGuarantor_Click" Style="{StaticResource OrangeButton}" Content="Add" FontSize="16"/>
                         </StackPanel>
                     </Grid>
@@ -874,7 +873,7 @@
       
 
         <!-- Nominee Popup-->
-        <Grid x:Name="AddNomineepopup" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="6"  Visibility="Collapsed">
+        <Grid x:Name="AddNomineepopup" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="6"  Visibility="Visible">
             <Border Width="980" Height="520" BorderThickness="2" BorderBrush="Black">
                 <Grid Background="#e8fff2" >
                     <Grid.ColumnDefinitions>
@@ -940,13 +939,13 @@
                         </CheckBox>
 
                     </Grid>
-                    <Grid Grid.Row="1" Grid.Column="2" x:Name="NomineeAddressDetails">
+                    <Grid Grid.Row="1" Grid.Column="2" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="270"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Border BorderBrush="Black" BorderThickness="0,0,0,1" Grid.Row="0"/>
-                        <Grid Grid.Row="0">
+                        <Grid Grid.Row="0" x:Name="NomineeAddressDetails">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="10"/>
                                 <ColumnDefinition Width="160"/>
@@ -974,7 +973,7 @@
                             <TextBlock Text="State" Style="{StaticResource Regular}" Grid.Row="6" Grid.Column="1"/>
                             <TextBox x:Name="NomineeStateBox" Style="{StaticResource Textbox}" Grid.Row="6" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding State,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                         </Grid>
-                        <Grid Grid.Row="1">
+                        <Grid Grid.Row="1" x:Name="NomineeOtherDetails">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="10"/>
                                 <RowDefinition Height="30"/>
