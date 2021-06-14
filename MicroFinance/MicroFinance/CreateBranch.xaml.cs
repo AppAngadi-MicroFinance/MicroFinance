@@ -22,7 +22,7 @@ namespace MicroFinance
     /// </summary>
     public partial class CreateBranch : Page
     {
-        Branch CB = new Branch();
+        Branch CB;
         public List<string> Regionlist;
         StringBuilder Emptyfields = new StringBuilder();
         StringBuilder Requiredfields = new StringBuilder();
@@ -30,6 +30,7 @@ namespace MicroFinance
         {
             InitializeComponent();
             CB = new Branch();
+            CB.GetRegionList();
             MainGrid.DataContext = CB;
             Regionlist = CB.RegionList;
             RegionBox.ItemsSource = Regionlist; 
@@ -94,12 +95,19 @@ namespace MicroFinance
         {
             try
             {
-                CB.AddBranch();
-                ConfirmPanel.IsOpen = false;
-                MainGrid.IsEnabled = true;
-                MainGrid.Opacity = 1.0;
-                MainWindow.StatusMessageofPage(0, "Branch Created Successfully");
-                //MessageBox.Show("Branch Created Successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                if(!CB.IsExists())
+                {
+                    CB.AddBranch();
+                    ConfirmPanel.IsOpen = false;
+                    MainGrid.IsEnabled = true;
+                    MainGrid.Opacity = 1.0;
+                    MainWindow.StatusMessageofPage(0, "Branch Created Successfully");
+                }
+                else
+                {
+                    MessageBox.Show("Branch Already Exists...", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+
                 this.NavigationService.Navigate(new CreateBranch());
             }
             catch(Exception ex)
@@ -203,6 +211,16 @@ namespace MicroFinance
         {
             BranchAccountdetailsPanel.IsOpen = false;
             MainGrid.IsEnabled = true;
+        }
+
+        private void BranchnameBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            bool result= CB.IsExists();
+            if(result==true)
+            {
+                MessageBox.Show("Branch Already Exists in this Region...", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                this.NavigationService.Navigate(new CreateBranch());
+            }
         }
     }
 }

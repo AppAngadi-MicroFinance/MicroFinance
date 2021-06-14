@@ -48,7 +48,7 @@
                 </TextBox.Text>
             </TextBox>
             <TextBlock  Style="{StaticResource Regular}" Text="Address" Grid.Row="3" VerticalAlignment="top" Margin="0,10,0,0"></TextBlock>
-            <TextBox x:Name="AddressBox" Style="{StaticResource InputBox}" Width="250" Height="130" TextWrapping="Wrap" VerticalContentAlignment="Top" AcceptsReturn="True"  Grid.Row="3" Grid.Column="1" Text="{Binding BranchAddress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox x:Name="AddressBox" Style="{StaticResource InputBox}" Width="250" Height="130" TextWrapping="Wrap" VerticalContentAlignment="Top" AcceptsReturn="True"  Grid.Row="3" Grid.Column="1" Text="{Binding BranchAddress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextChanged="BranchnameBox_LostFocus"></TextBox>
             <TextBlock Style="{StaticResource Regular}" Text="Landline Number" Grid.Row="4" VerticalAlignment="Center"></TextBlock>
             <TextBox x:Name="LandlineBox" Style="{StaticResource InputBox}" Width="250" Grid.Row="4" Grid.Column="1">
                 <TextBox.Text>
@@ -217,7 +217,7 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <TextBlock Text="Account number" Style="{StaticResource Regular}" Grid.Row="1" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="Account Number" Style="{StaticResource Regular}" Grid.Row="1" VerticalAlignment="Center"></TextBlock>
                         <TextBox x:Name="acccountnumberbox" Grid.Column="1" Grid.Row="1" Style="{StaticResource InputBox}"   Width="250">
                             <TextBox.Text>
                                 <Binding Path="AccountNumber" Mode="TwoWay">

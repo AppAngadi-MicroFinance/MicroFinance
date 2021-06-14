@@ -5,6 +5,332 @@
              xmlns:validation="clr-namespace:MicroFinance.Validations"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+
+        <Style TargetType="Button" x:Key="Add">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border x:Name="addborder" Width="30" Height="30"  Background="Transparent">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Add.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Arrow Circle Left-->
+        <Style TargetType="Button" x:Key="LeftArrow">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40"  Background="White">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Arrow circle Left.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Arrow Circle Right-->
+        <Style TargetType="Button" x:Key="RightArrow">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40"  Background="White">
+                            <Grid>
+                                <Image Source="Asserts\Icons\CircledArrow Right.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--For command Refresh-->
+        <Style TargetType="Button" x:Key="Refresh">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40"  Background="White">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Command-Refresh.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Edit Button-->
+        <Style TargetType="Button" x:Key="Edit">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30"  Background="Transparent">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Data-Edit.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Import-->
+        <Style TargetType="Button" x:Key="DataImport">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40"  Background="White">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Data-Import.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Delete button-->
+        <Style TargetType="Button" x:Key="Delete">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40"  Background="White">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Delete.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Done Shield-->
+        <Style TargetType="Button" x:Key="DoneShield">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40"  Background="White">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Done-Shield-WF.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Download-->
+        <Style TargetType="Button" x:Key="Download">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40"  Background="White">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Download.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Excel Export-->
+        <Style TargetType="Button" x:Key="ExportExcel">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40"  Background="White">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Excel Export.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Home button-->
+        <Style TargetType="Button" x:Key="Home">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40"  Background="White">
+                            <Grid>
+                                <Image Source="Asserts\Icons\House-04.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Internet-->
+        <Style TargetType="Button" x:Key="Internet">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40"  Background="White">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Internet.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Print-->
+        <Style TargetType="Button" x:Key="Print">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40"  Background="White">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Print.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Save-->
+        <Style TargetType="Button" x:Key="Save">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40"  Background="White">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Save.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Send-->
+        <Style TargetType="Button" x:Key="Send">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40"  Background="White">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Send.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Setting-->
+        <Style TargetType="Button" x:Key="Settings">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40"  Background="White">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Settings.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Show Symbol-->
+        <Style TargetType="Button" x:Key="Show">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30"  Background="Transparent">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Show-01-WF.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Tick-->
+        <Style TargetType="Button" x:Key="Tick">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40"  Background="White">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Tick.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Female User-->
+        <Style TargetType="Button" x:Key="FemaleUser">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40"  Background="White">
+                            <Grid>
+                                <Image Source="Asserts\Icons\User-Female.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Male User-->
+        <Style TargetType="Button" x:Key="MaleUser">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40"  Background="White">
+                            <Grid>
+                                <Image Source="Asserts\Icons\User-Male.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Search-->
+        <Style TargetType="Button" x:Key="Search">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40"  Background="White">
+                            <Grid>
+                                <Image Source="Asserts\Icons\User Search-01-WF.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Warning-->
+        <Style TargetType="Button" x:Key="Warnings">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40"  Background="White">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Warning-WF.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Warning Shield-->
+        <Style TargetType="Button" x:Key="WarningShield">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40"  Background="White">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Warning Shield-WF.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+
         <!--<Primary BackGround>-->
         <Style x:Key="PrimaryBackground" TargetType="Page">
             <Setter Property="Background" Value="#FEF2E4"></Setter>
@@ -17,15 +343,14 @@
             <Setter Property="Height" Value="660"></Setter>
             <Setter Property="Width" Value="1366"></Setter>
         </Style>
-<!--Employee item panel Template-->
-        
+        <!--Employee item panel Template-->
+
         <!--<Regular Font>-->
-            <Style x:Key="Regular" TargetType="TextBlock">
+        <Style x:Key="Regular" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Roboto"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Foreground" Value="#2D1414"/>
         </Style>
-
         
         <!--Defalult textBoxSize-->
         <Style x:Key="TextBoxSizeDefault" TargetType="TextBox">
@@ -81,26 +406,12 @@
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
             <Setter Property="Height" Value="30"></Setter>
         </Style>
-        
+
         <!--<Buttons>-->
-            <!--<Add Button>-->
-        <Style TargetType="Button" x:Key="Add">
-            <Setter Property="Template" >
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Border x:Name="addborder" Width="30" Height="30"  Background="Transparent">
-                            <Grid>
-                                <Image Source="Asserts\Icons\Add.png"></Image>
-                            </Grid>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        
+
         <!--SAmple Button-->
         <Style TargetType="Button" x:Key="BigButton">
-           
+
             <Setter Property="Height" Value="40" />
             <Setter Property="Width" Value="120" />
             <Setter Property="Background" Value="#F77604"/>
@@ -116,7 +427,7 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            
+
         </Style>
         <!--For Primary Action Buttons-->
         <ControlTemplate x:Key="orangebutton" TargetType="{x:Type Button}">
@@ -141,20 +452,6 @@
             <Setter Property="Template" Value="{StaticResource orangebutton}">
             </Setter>
         </Style>
-        <!--For Show Symbol-->
-        <Style TargetType="Button" x:Key="Show">
-            <Setter Property="Template" >
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Border Width="40" Height="40"  Background="Transparent">
-                            <Grid>
-                                <Image Source="Asserts\Icons\Show-01-WF.png"></Image>
-                            </Grid>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
 
         <!--for combo box-->
         <Style x:Key="combo" TargetType="ComboBox" >
@@ -168,7 +465,7 @@
         </Style>
         <!--Date Picker-->
         <Style x:Key="datepicker" TargetType="DatePicker">
-            
+
         </Style>
         <!--For Close-->
         <Style TargetType="Button" x:Key="Close">
@@ -189,7 +486,7 @@
             <Setter Property="Template" >
                 <Setter.Value>
                     <ControlTemplate>
-                        <Border Width="30" Height="30"  Background="White">
+                        <Border Width="25" Height="25"  Background="White">
                             <Grid>
                                 <Image Source="Asserts\Icons\Close.png"></Image>
                             </Grid>
@@ -214,7 +511,7 @@
             <Setter Property="Template" Value="{StaticResource Bluebutton}">
             </Setter>
         </Style>
-        
+
         <!--Browse Button-->
         <ControlTemplate x:Key="BrowseBtnTemp" TargetType="{x:Type Button}">
             <Grid x:Name="mygrid" Width="120" Height="40" Background="#0EABF2">
@@ -269,5 +566,9 @@
             <Setter Property="Template" Value="{StaticResource Graybutton}">
             </Setter>
         </Style>
+
+
+
     </Application.Resources>
 </Application>
+

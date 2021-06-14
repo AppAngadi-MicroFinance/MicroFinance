@@ -10,12 +10,13 @@ namespace MicroFinance.Modal
 {
     public class Branch:BindableBase
     {
+        public List<Branch> BranchList = new List<Branch>();
         public List<string> RegionList = new List<string>();
         
         private string ConnectionString = Properties.Settings.Default.DBConnection;
         public Branch()
         {
-            GetRegionList();
+          
         }
         private string _regionName;
         public string RegionName
@@ -281,10 +282,8 @@ namespace MicroFinance.Modal
             {
                 if(value!=_accountnumber)
                 {
-                   
                    _accountnumber = value;
                    RaisedPropertyChanged("Account Number");
-                      
                 }
             }
         }
@@ -297,10 +296,8 @@ namespace MicroFinance.Modal
             }
             set
             {
-              
                _bankname = value;
-                RaisedPropertyChanged("BankName");
-                    
+                RaisedPropertyChanged("BankName");    
             }
         }
         private string _bankbranchname;
@@ -352,16 +349,16 @@ namespace MicroFinance.Modal
 
         public void GetRegionList()
         {
-            using (SqlConnection sqlconn=new SqlConnection(ConnectionString))
+            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
             {
                 sqlconn.Open();
-                if(sqlconn.State == ConnectionState.Open)
+                if (sqlconn.State == ConnectionState.Open)
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
                     sqlcomm.CommandText = "Select RegionName from Region";
                     SqlDataReader sqlDataReader = sqlcomm.ExecuteReader();
-                    while(sqlDataReader.Read())
+                    while (sqlDataReader.Read())
                     {
                         RegionList.Add(sqlDataReader.GetString(0));
                     }
@@ -370,6 +367,31 @@ namespace MicroFinance.Modal
                 sqlconn.Close();
             }
         }
+        public void GetBranchList()
+        {
+            BranchList = new List<Branch>();
+            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                SqlCommand sqlcomm = new SqlCommand();
+                sqlcomm.Connection = sqlconn;
+                sqlcomm.CommandText = "select BranchName,RegionName from BranchDetails";
+                SqlDataReader reader = sqlcomm.ExecuteReader();
+                while (reader.Read())
+                {
+                    BranchList.Add(new Branch
+                    {
+                        _branchname=reader.GetString(0),
+                        _regionName = reader.GetString(1)
+                    }) ;
+                }
+                reader.Close();
+                sqlconn.Close();
+            }
+
+        }
+
+        
         public string GetBranchID()
         {
             int number = 1;
@@ -389,11 +411,45 @@ namespace MicroFinance.Modal
             string ID = (_regionName[0].ToString() + BranchName[0].ToString() + number.ToString());
             return ID;
         }
+
+        public string GetBranchName(string ID)
+        {
+            string Result="";
+            using(SqlConnection sqlconn=new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if(sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "Select BranchName From BranchDetails where Bid='" + ID + "'";
+                    Result =(string) sqlcomm.ExecuteScalar();
+                }
+                sqlconn.Close();
+            }
+            return Result;
+        }
+        public string GetRegionName(string ID)
+        {
+            string Result = "";
+            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "Select RegionName From BranchDetails where Bid='" + ID + "'";
+                    Result = (string)sqlcomm.ExecuteScalar();
+                }
+                sqlconn.Close();
+            }
+            return Result;
+        }
+
         public void AddBranch()
         {
-            if(!IsExists())
-            {
-                using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+           using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
                 {
                     sqlconn.Open();
                     if (sqlconn.State == ConnectionState.Open)
@@ -405,11 +461,6 @@ namespace MicroFinance.Modal
                     }
                     sqlconn.Close();
                 }
-            }
-            else
-            {
-                throw new ArgumentException("The Branch Already in this Region!...");
-            }
             
         }
 
@@ -428,7 +479,9 @@ namespace MicroFinance.Modal
                     {
                         while(reader.Read())
                         {
-                            if(reader.GetString(0)==_regionName&&reader.GetString(1)==_branchname)
+                            string regionresult = reader.GetString(0);
+                            string branchresult = reader.GetString(1);
+                            if (regionresult.Equals(_regionName,StringComparison.CurrentCultureIgnoreCase)&&branchresult.Equals(BranchName,StringComparison.CurrentCultureIgnoreCase))
                             {
                                 return true;
                             }

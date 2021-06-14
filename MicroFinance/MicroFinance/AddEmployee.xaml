@@ -24,12 +24,19 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="85,0,0,0">
-                <TextBlock Style="{StaticResource Regular}" Text="Branch" VerticalAlignment="Center"></TextBlock>
-                <ComboBox Style="{StaticResource combo}" Margin="10,0,0,0" x:Name="BranchCombo" Text="{Binding BranchName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-                <TextBlock Style="{StaticResource Regular}" Text="Designation" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
-                <ComboBox Style="{StaticResource combo}" x:Name="DesignationCombo" Margin="10,0,0,0" Text="{Binding Designation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-            </StackPanel>
+            <Grid Grid.ColumnSpan="2" Margin="85,0,0,0" x:Name="DesignationGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Region" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
+                <ComboBox Style="{StaticResource combo}" Margin="0,0,0,0" x:Name="RegionCombo" SelectionChanged="RegionCombo_SelectionChanged" Text="{Binding Region,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+                <TextBlock Style="{StaticResource Regular}" Grid.Column="1" Text="Branch" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                <ComboBox Style="{StaticResource combo}" Margin="0,0,0,0" Grid.Column="1" x:Name="BranchCombo" Text="{Binding BranchName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+                <TextBlock Style="{StaticResource Regular}" Text="Designation" Grid.Column="2" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
+                <ComboBox Style="{StaticResource combo}" x:Name="DesignationCombo" Grid.Column="2" Margin="40,0,0,0" Text="{Binding Designation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+            </Grid>
             <Grid Grid.Row="1" Grid.RowSpan="2">
                 <TextBlock Text="Basic Details*" Style="{StaticResource SubTitle}" Margin="90,15,0,0"></TextBlock>
                 <Grid Height="450" Width="500" Panel.ZIndex="2">
@@ -98,7 +105,7 @@
                             </TextBox.Text>
                         </TextBox>
                         <TextBlock Text="Religion" Grid.Row="5" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                        <ComboBox Grid.Row="5" Grid.Column="1" Style="{StaticResource combo}" Width="250" x:Name="Religioncombo" Text="{Binding Religion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+                        <ComboBox Grid.Row="5" Grid.Column="1" Style="{StaticResource combo}" Width="250" x:Name="Religioncombo" Text="{Binding Religion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectionChanged="Religioncombo_SelectionChanged"></ComboBox>
                         <TextBlock Grid.Row="6" Text="Education" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                         <TextBox x:Name="EmployeeEducation" Grid.Row="6" Grid.Column="1" Style="{StaticResource InputBox}" Width="250" Text="{Binding Education,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         <TextBlock Grid.Row="7" Text="Date of Joining" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
@@ -225,7 +232,7 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <TextBlock Text="Account number" Style="{StaticResource Regular}" Grid.Row="1" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="Account Number" Style="{StaticResource Regular}" Grid.Row="1" VerticalAlignment="Center"></TextBlock>
                         <TextBox x:Name="accountnumber" Grid.Column="1" Grid.Row="1" Style="{StaticResource InputBox}"  Width="250">
                             <TextBox.Text>
                                 <Binding Path="AccountNumber" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
@@ -277,7 +284,7 @@
 
         </Popup>
         
-            <Grid Height="460" Width="802" x:Name="capturepanel" Visibility="Visible">
+            <Grid Height="460" Width="802" x:Name="capturepanel" Visibility="Collapsed">
             <Border Height="460" Width="802" BorderBrush="Blue" BorderThickness="2">
                 <Border.Effect>
                     <DropShadowEffect/>

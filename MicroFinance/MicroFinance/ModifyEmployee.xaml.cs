@@ -52,8 +52,6 @@ namespace MicroFinance
             }
 
         }
-
-
         public void ResultedEmployee(string name)
         {
             foreach(var v in emplist)
@@ -74,10 +72,6 @@ namespace MicroFinance
         {
             Employee employee = Employeelist.SelectedItem as Employee;
             this.NavigationService.Navigate(new AddEmployee(employee));
-            //dummyemployee dummyemp =Employeelist.SelectedItem as dummyemployee;
-            //editpanel.IsOpen = true;
-            //Editemp.DataContext = dummyemp;
-            //MessageBox.Show(dummyemployee.ToString());
         }
 
         private void serachtxt_TextChanged(object sender, TextChangedEventArgs e)

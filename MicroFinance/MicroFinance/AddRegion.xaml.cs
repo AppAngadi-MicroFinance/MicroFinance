@@ -22,18 +22,27 @@ namespace MicroFinance
     /// </summary>
     public partial class AddRegion : Window
     {
-        Region region = new Region();
+        Region region;
         public AddRegion()
         {
             InitializeComponent();
+            region = new Region();
             RegionMainGrid.DataContext = region;
         }
 
         private void RegionSaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            region.AddRegion();
-            this.Close();
-            MainWindow.StatusMessageofPage(0, "Region Addeed Successfully");
+            if(!region.Isexist())
+            {
+                region.AddRegion();
+                this.Close();
+                MainWindow.StatusMessageofPage(0, "Region Addeed Successfully");
+            }
+            else
+            {
+                MessageBox.Show("The "+region.RegionName+ " Region Is Already Exist... Please Check" ,"Information",MessageBoxButton.OK,MessageBoxImage.Information);
+            }
+            
         }
     }
 }

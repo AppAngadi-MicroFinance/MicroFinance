@@ -22,37 +22,53 @@ namespace MicroFinance
     /// </summary>
     public partial class AddEmployee : Page
     {
+        public bool Isnew;
         public List<string> ProofTypes = new List<string> { "Aadhar Proof", "Family Card", "Licence", "VoterID" };
         public List<string> DesignationList = new List<string> { "Manager", "Region Manager","Accountant","Field Officer"};
-        public List<string> BranchList;
+        public List<Branch> Branchlist;
         public List<string> Religionlist = new List<string> { "Muslim", "Hindu", "Christianity" };
+        Branch branch = new Branch();
         Employee addemployee = new Employee();
         StringBuilder RequiredFields = new StringBuilder();
         StringBuilder Emptyfields = new StringBuilder();
+        Employee tempemployee;
         public AddEmployee(Employee emp)
         {
             InitializeComponent();
-            EmployeeMainGrid.DataContext = emp;
-            addemployee = emp;
-            EmployeeSaveBtn.Content = "Update";
+            branch.GetBranchList();
+            branch.GetRegionList();
+            Branchlist = branch.BranchList;
             AddressProofcombo.ItemsSource = ProofTypes;
             PhotoproofCombo.ItemsSource = ProofTypes;
-            BranchCombo.ItemsSource = addemployee.BranchList;
+            RegionCombo.ItemsSource = branch.RegionList;
             DesignationCombo.ItemsSource = DesignationList;
             Religioncombo.ItemsSource = Religionlist;
+            BranchCombo.Text = emp.BranchName;
+            EmployeeMainGrid.DataContext = emp;
+            emp.Region = branch.GetRegionName(emp.BranchID);
+            emp.BranchName = branch.GetBranchName(emp.BranchID);
+            DesignationGrid.DataContext = emp;
+            addemployee = emp;
+            tempemployee = emp;
+            EmployeeSaveBtn.Content = "Update";
             capturepanel.Visibility = Visibility.Collapsed;
             Captureframe.NavigationService.Navigate(new Capture());
+            Isnew = false;
         }
         public AddEmployee()
         {
             InitializeComponent();
             addemployee = new Employee();
+            Isnew = true;
+            branch.GetBranchList();
+            branch.GetRegionList();
             EmployeeMainGrid.DataContext = addemployee;
             capturepanel.Visibility = Visibility.Collapsed;
+            Branchlist = branch.BranchList;
+            RegionCombo.ItemsSource = branch.RegionList;
             Captureframe.NavigationService.Navigate(new Capture());
             AddressProofcombo.ItemsSource = ProofTypes;
             PhotoproofCombo.ItemsSource = ProofTypes;
-            BranchCombo.ItemsSource = addemployee.BranchList;
             DesignationCombo.ItemsSource = DesignationList;
             Religioncombo.ItemsSource = Religionlist;
         }
@@ -73,7 +89,6 @@ namespace MicroFinance
         private void AddressproofBtn_Click(object sender, RoutedEventArgs e)
         { 
             //Captureframe.NavigationService.Navigate(new Capture());
-            
             PhotoProofNametxt.Text = "Address Proof";
             capturepanel.Visibility = Visibility.Visible;
             EmployeeDetailsGrid.IsEnabled = false;
@@ -208,18 +223,25 @@ namespace MicroFinance
         {
             try
             {
-                ConfirmationPanel.IsOpen = false;
-                EmployeeMainGrid.IsEnabled = true;
-                addemployee.EmployeeAdd();
+                
                 if(EmployeeSaveBtn.Content.ToString()=="Save")
                 {
+                    ConfirmationPanel.IsOpen = false;
+                    EmployeeMainGrid.IsEnabled = true;
+                    addemployee.EmployeeAdd();
                     MainWindow.StatusMessageofPage(0, "Employee Added Successfully");
+                    this.NavigationService.Navigate(new AddEmployee());
                 }
                 else if(EmployeeSaveBtn.Content.ToString()=="Update")
                 {
-                    MainWindow.StatusMessageofPage(0, "Employee Updated Successfully");
+                   
+                        ConfirmationPanel.IsOpen = false;
+                        EmployeeMainGrid.IsEnabled = true;
+                        addemployee.EmployeeAdd();
+                        MainWindow.StatusMessageofPage(0, "Employee Updated Successfully");
+                        this.NavigationService.Navigate(new AddEmployee());
                 }
-                this.NavigationService.Navigate(new AddEmployee());
+                
             }
             catch (Exception ex)
             {
@@ -320,6 +342,31 @@ namespace MicroFinance
             }
         }
 
-        
+        private void Religioncombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(Isnew==true&&addemployee.IsExists()==true)
+            {
+                MessageBox.Show("The Employee Already Exists.... Please Check!.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                this.NavigationService.Navigate(new AddEmployee());
+            }
+        }
+
+        private void RegionCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BranchCombo.Items.Clear();
+            string regionname = RegionCombo.SelectedValue as string;
+            FetchBranch(regionname);
+        }
+
+        public void FetchBranch(string regionname)
+        {
+            foreach(Branch b in Branchlist)
+            {
+                if(b.RegionName==regionname)
+                {
+                    BranchCombo.Items.Add(b.BranchName);
+                }
+            }
+        }
     }
 }

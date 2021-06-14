@@ -13,12 +13,11 @@ namespace MicroFinance.Modal
 {
     public class Employee : BindableBase
     {
-        public List<String> BranchList = new List<string>();
         public List<Employee> EmployeeList = new List<Employee>();
         string Connectionstring = MicroFinance.Properties.Settings.Default.DBConnection;
         public Employee()
         {
-            GetBranchList(); 
+           
         }
         private string _branchname;
         public string BranchName
@@ -31,10 +30,8 @@ namespace MicroFinance.Modal
             {
                 if (value != _branchname)
                 {
-
                     _branchname = value;
                     RaisedPropertyChanged("BranchName");
-
                 }
             }
         }
@@ -64,6 +61,21 @@ namespace MicroFinance.Modal
                 RaisedPropertyChanged("BranchID");
             }
         }
+
+
+        private string _region;
+        public string Region
+        {
+            get
+            {
+                return _region;
+            }
+            set
+            {
+                _region = value;
+                RaisedPropertyChanged("Region");
+            }
+        }
         private string _designation;
         public string Designation
         {
@@ -73,13 +85,8 @@ namespace MicroFinance.Modal
             }
             set
             {
-                if(value!=_designation)
-                {
-                   
                    _designation = value;
                    RaisedPropertyChanged("Designation");
-                  
-                }
             }
         }
         private string _employeename;
@@ -562,7 +569,6 @@ namespace MicroFinance.Modal
             string ID = (_branchname[0].ToString() + _designation[0].ToString() + number.ToString());
             return ID;
         }
-
         public bool IsExists()
         {
            using(SqlConnection sqlconn=new SqlConnection(Connectionstring))
@@ -578,7 +584,9 @@ namespace MicroFinance.Modal
                     {
                         while(reader.Read())
                         {
-                            if(reader.GetString(0) == _employeename && reader.GetString(1) == _aadharnumber)
+                            string Nameresult = reader.GetString(0);
+                            string Aadharresult = reader.GetString(1);
+                            if (Nameresult.Equals(_employeename,StringComparison.CurrentCultureIgnoreCase) &&Aadharresult.Equals(_aadharnumber,StringComparison.CurrentCultureIgnoreCase))
                             {
                                 return true;
                             }
@@ -615,25 +623,7 @@ namespace MicroFinance.Modal
                 return image;
             }
         }
-        public void GetBranchList()
-        {
-            BranchList = new List<string>();
-            using(SqlConnection sqlconn=new SqlConnection(Connectionstring))
-            {
-                sqlconn.Open();
-                SqlCommand sqlcomm = new SqlCommand();
-                sqlcomm.Connection = sqlconn;
-                sqlcomm.CommandText = "select BranchName from BranchDetails";
-                SqlDataReader reader = sqlcomm.ExecuteReader();
-                while(reader.Read())
-                {
-                    BranchList.Add(reader.GetString(0));
-                }
-                reader.Close();
-                sqlconn.Close();
-            }
-
-        }
+       
 
         public void GetEmployeeList()
         {

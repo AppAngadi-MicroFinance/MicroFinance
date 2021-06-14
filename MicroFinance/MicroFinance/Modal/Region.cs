@@ -39,5 +39,28 @@ namespace MicroFinance.Modal
                 sqlconn.Close();
             }
         }
+        public bool Isexist()
+        {
+            using (SqlConnection sqlconn=new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if(sqlconn.State==ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText="Select RegionName from Region Where RegionName='"+_regionname+"'";
+                    string result=(string) sqlcomm.ExecuteScalar();
+                    if(result!=null)
+                    {
+                        if (result.Equals(RegionName, StringComparison.CurrentCultureIgnoreCase) == true)
+                        {
+                            return true;
+                        }
+                    }
+                    
+                }
+            }
+            return false;
+        }
     }
 }
