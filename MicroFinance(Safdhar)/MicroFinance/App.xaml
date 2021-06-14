@@ -46,20 +46,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <!--For Close-->
-        <Style TargetType="Button" x:Key="Close">
-            <Setter Property="Template" >
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Border Width="40" Height="40"  Background="White">
-                            <Grid>
-                                <Image Source="Symbols\Close.png"></Image>
-                            </Grid>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+     
         <!--For command Refresh-->
         <Style TargetType="Button" x:Key="Refresh">
             <Setter Property="Template" >
@@ -359,7 +346,7 @@
 
         <!-- For Second Action-->
         <ControlTemplate x:Key="Bluebutton" TargetType="{x:Type Button}">
-            <Grid x:Name="mygrid" Width="250" Height="40" Background="#0EABF2">
+            <Grid x:Name="mygrid" Width="120" Height="40" Background="#0EABF2">
                 <TextBlock Text="Edit" Foreground="White" FontFamily="Roboto" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
             </Grid>
             <ControlTemplate.Triggers>
@@ -466,6 +453,8 @@
         <Style x:Key="combo" TargetType="ComboBox" >
             <Setter Property="Height" Value="30"/>
             <Setter Property="Width" Value="200"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="FontFamily" Value="Roboto"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="Foreground" Value="#2D1414"/>
@@ -565,6 +554,93 @@
                     <Setter Value="#f5886c" Property="Background" />
                 </Trigger>
             </Style.Triggers>
+        </Style>
+
+        <!-- Notification Button-->
+        <Style TargetType="{x:Type ToggleButton}" x:Key="NotificationButton">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="FontFamily" Value="Robot"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border BorderBrush="Black" 
+                                Background="{TemplateBinding Background}" BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center"                  
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Background" Value="#bb40a6" />
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--Browse Button-->
+        <ControlTemplate x:Key="BrowseBtnTemp" TargetType="{x:Type Button}">
+            <Grid x:Name="mygrid" Width="120" Height="40" Background="#0EABF2">
+                <TextBlock Text="Browse" Foreground="White" FontFamily="Roboto" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="mygrid" Value="#68cbf7" Property="Background" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <Style TargetType="{x:Type Button}" x:Key="BrowseBtn">
+            <Setter Property="Template" Value="{StaticResource BrowseBtnTemp}">
+            </Setter>
+        </Style>
+
+        <!--Capture Button-->
+        <ControlTemplate x:Key="CapturebtnTemp" TargetType="{x:Type Button}">
+            <Grid x:Name="mygrid" Width="120" Height="40" Background="#0EABF2">
+                <TextBlock Text="Capture" Foreground="White" FontFamily="Roboto" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="mygrid" Value="#68cbf7" Property="Background"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <Style TargetType="{x:Type Button}" x:Key="CaptureBtn">
+            <Setter Property="Template" Value="{StaticResource CapturebtnTemp}">
+            </Setter>
+        </Style>
+        <!--For Close-->
+        <Style TargetType="Button" x:Key="Close">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40"  Background="White">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Close.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Button" x:Key="ModalClose">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30"  Background="White">
+                            <Grid>
+                                <Image Source="Symbols\Close.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Application.Resources>
 </Application>

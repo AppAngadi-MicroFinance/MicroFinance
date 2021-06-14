@@ -23,10 +23,7 @@ namespace MicroFinance.Converters
         {
             string s = (string)value;
             long x = 0;
-            if (s.Length!=3)
-            {
-                x = long.Parse(s.Substring(3));
-            }
+            x=long.Parse(s);
             return x;
         }
     }

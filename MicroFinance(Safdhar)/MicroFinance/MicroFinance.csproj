@@ -35,8 +35,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AForge, Version=2.2.5.0, Culture=neutral, PublicKeyToken=c1db6ff4eaa06aeb, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.2.2.5\lib\AForge.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Genetic, Version=2.2.4.0, Culture=neutral, PublicKeyToken=4336634eeb41b69b, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Genetic.2.2.5\lib\AForge.Genetic.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Imaging, Version=2.2.5.0, Culture=neutral, PublicKeyToken=ba8ddea9676ca48b, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Imaging.2.2.5\lib\AForge.Imaging.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Math, Version=2.2.5.0, Culture=neutral, PublicKeyToken=abba2e25397ee8c9, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Math.2.2.5\lib\AForge.Math.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video, Version=2.2.5.0, Culture=neutral, PublicKeyToken=cbfb6e07d173c401, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Video.2.2.5\lib\AForge.Video.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video.DirectShow, Version=2.2.5.0, Culture=neutral, PublicKeyToken=61ea4348d43881b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Video.DirectShow.2.2.5\lib\AForge.Video.DirectShow.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -49,17 +68,45 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="zxing, Version=0.16.6.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.6\lib\net47\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.6.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.6\lib\net47\zxing.presentation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BranchManagerNotifyPanel.xaml.cs">
+      <DependentUpon>BranchManagerNotifyPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BranchManagerWindow.xaml.cs">
+      <DependentUpon>BranchManagerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Capture.xaml.cs">
+      <DependentUpon>Capture.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\AgeConverter.cs" />
+    <Compile Include="Converters\InverseVisiblityConverterbyImage.cs" />
     <Compile Include="Converters\MoneyConverter.cs" />
+    <Compile Include="Converters\StatusForegroundColor.cs" />
+    <Compile Include="Converters\StatusImage.cs" />
+    <Compile Include="Converters\VisiblityConverterByImage.cs" />
+    <Compile Include="Models\CameraCapture.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Guarantor.cs" />
     <Compile Include="Models\Nominee.cs" />
+    <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\StaticProperty.cs" />
+    <Compile Include="RegionManagerNotifyPanel.xaml.cs">
+      <DependentUpon>RegionManagerNotifyPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RegionManagerWindow.xaml.cs">
+      <DependentUpon>RegionManagerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Validation\AadharValidation.cs" />
     <Compile Include="Validation\AccountNumberValidation.cs" />
     <Compile Include="Validation\BindableBase.cs" />
@@ -71,11 +118,26 @@
     <Compile Include="Validation\NameValidation.cs" />
     <Compile Include="Validation\NumberValidation.cs" />
     <Compile Include="Validation\PhoneNumberValidation.cs" />
+    <Compile Include="VerifyCustomer.xaml.cs">
+      <DependentUpon>VerifyCustomer.xaml</DependentUpon>
+    </Compile>
     <Page Include="AddCustomer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddPg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BranchManagerNotifyPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BranchManagerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Capture.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -100,6 +162,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="RegionManagerNotifyPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RegionManagerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VerifyCustomer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\AddPeerGroup.cs" />
@@ -121,6 +195,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -139,7 +214,7 @@
     <Resource Include="Symbols\Data-Edit.png" />
     <Resource Include="Symbols\Data-Import.png" />
     <Resource Include="Symbols\Delete.png" />
-    <Resource Include="Symbols\Done-Shield-WF.png" />
+    <Resource Include="Symbols\SuccessShield.png" />
     <Resource Include="Symbols\Download.png" />
     <Resource Include="Symbols\Excel Export.png" />
     <Resource Include="Symbols\House-04.png" />
@@ -153,8 +228,8 @@
     <Resource Include="Symbols\User Search-01-WF.png" />
     <Resource Include="Symbols\User-Female.png" />
     <Resource Include="Symbols\User-Male.png" />
-    <Resource Include="Symbols\Warning Shield-WF.png" />
-    <Resource Include="Symbols\Warning-WF.png" />
+    <Resource Include="Symbols\ErrorShield.png" />
+    <Resource Include="Symbols\Warning.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

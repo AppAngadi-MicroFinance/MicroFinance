@@ -16,7 +16,7 @@ namespace MicroFinance.Validations
             try
             {
                 string _money = (string)value;
-                int _isNumber = Convert.ToInt32(_money.Substring(3));
+                int _isNumber = Convert.ToInt32(_money);
                 return ValidationResult.ValidResult;
             }
             catch

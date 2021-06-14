@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 using MicroFinance.Validations;
 
 namespace MicroFinance.Models
 {
-    class Guarantor:BindableBase
+    public class Guarantor:BindableBase
     {
         private string _guarantorName;
         public string GuarantorName
@@ -19,9 +20,10 @@ namespace MicroFinance.Models
             set
             {
                 _guarantorName = value;
+                RaisePropertyChanged("GuarantorName");
             }
         }
-        private DateTime _dateofBirth;
+        private DateTime _dateofBirth=DateTime.Today;
         public DateTime DateofBirth
         {
             get
@@ -105,6 +107,45 @@ namespace MicroFinance.Models
             {
                 _isGuarantorNull = value;
                 RaisePropertyChanged("IsGuarantorNull");
+            }
+        }
+        private BitmapImage _addressProof;
+        public BitmapImage AddressProof
+        {
+            get
+            {
+                return _addressProof;
+            }
+            set
+            {
+                _addressProof = value;
+                RaisePropertyChanged("AddressProof");
+            }
+        }
+        private BitmapImage _photoProof;
+        public BitmapImage PhotoProof
+        {
+            get
+            {
+                return _photoProof;
+            }
+            set
+            {
+                _photoProof = value;
+                RaisePropertyChanged("PhotoProof");
+            }
+        }
+        private BitmapImage _profilePicture;
+        public BitmapImage ProfilePicture
+        {
+            get
+            {
+                return _profilePicture;
+            }
+            set
+            {
+                _profilePicture = value;
+                RaisePropertyChanged("ProfilePicture");
             }
         }
         private string _doorNumber;

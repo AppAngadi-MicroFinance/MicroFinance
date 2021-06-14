@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace MicroFinance.Models
 {
-    class Customer : BindableBase
+    public class Customer : BindableBase
     {
         private bool _check;
         public bool Check
@@ -19,6 +20,58 @@ namespace MicroFinance.Models
             set
             {
                 _check = false;
+            }
+        }
+
+        private string _branchName;
+        public string BranchName
+        {
+            get
+            {
+                return _branchName;
+            }
+            set
+            {
+                _branchName = value;
+            }
+        }
+
+        private string _fieldOfficer;
+        public string FieldOfficer
+        {
+            get
+            {
+                return _fieldOfficer;
+            }
+            set
+            {
+                _fieldOfficer = value;
+            }
+        }
+
+        private string _shg;
+        public string SHG
+        {
+            get
+            {
+                return _shg;
+            }
+            set
+            {
+                _shg = value;
+            }
+        }
+
+        private string _peerGroup;
+        public string PeerGroup
+        {
+            get
+            {
+                return _peerGroup;
+            }
+            set
+            {
+                _peerGroup = value;
             }
         }
 
@@ -34,12 +87,12 @@ namespace MicroFinance.Models
                 _customerName = value;
             }
         }
-        private DateTime _dateofBirth;
+        private DateTime _dateofBirth=DateTime.Now;
         public DateTime DateofBirth
         {
             get
             {
-                return _dateofBirth;
+                return  _dateofBirth;
             }
             set
             {
@@ -273,6 +326,45 @@ namespace MicroFinance.Models
             set
             {
                 _religion = value;
+            }
+        }
+        private BitmapImage _addressProof;
+        public BitmapImage AddressProof
+        {
+            get
+            {
+                return _addressProof;
+            }
+            set
+            {
+                _addressProof = value;
+                RaisePropertyChanged("AddressProof");
+            }
+        }
+        private BitmapImage _photoProof;
+        public BitmapImage PhotoProof
+        {
+            get
+            {
+                return _photoProof;
+            }
+            set
+            {
+                _photoProof = value;
+                RaisePropertyChanged("PhotoProof");
+            }
+        }
+        private BitmapImage _profilePicture;
+        public BitmapImage ProfilePicture
+        {
+            get
+            {
+                return _profilePicture;
+            }
+            set
+            {
+                _profilePicture = value;
+                RaisePropertyChanged("ProfilePicture");
             }
         }
         public Customer()
